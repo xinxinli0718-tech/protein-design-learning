@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>软件工具 · 蛋白质设计学习指南</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html" class="active">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">可筛选</span>
+      <span class="badge teal">标注上手难度</span>
+      <span class="badge amber">附官方/GitHub/Colab 链接</span>
+    </div>
+    <h1>软件工具全景</h1>
+    <p class="sub">
+      按「结构预测 → 序列设计 → 生成式设计 → 经典设计套件 → 可视化 → 实验验证」分类。
+      新手建议从 Colab 版工具开始，不用配 GPU 也能跑通。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="filters" data-filter-bar="#tool-grid" data-search="#tool-search">
+      <button class="chip active" data-filter="all">全部</button>
+      <button class="chip" data-filter="predict">结构预测</button>
+      <button class="chip" data-filter="design">序列设计</button>
+      <button class="chip" data-filter="gen">生成式设计</button>
+      <button class="chip" data-filter="classic">经典设计套件</button>
+      <button class="chip" data-filter="vis">可视化与建模</button>
+      <button class="chip" data-filter="exp">实验验证</button>
+    </div>
+    <input id="tool-search" class="searchbox" type="search" placeholder="搜索工具，如：AlphaFold、diffusion、PyMOL…">
+
+    <div class="table-wrap" style="margin-bottom:28px;">
+      <table>
+        <thead>
+          <tr><th>工具</th><th>分类</th><th>一句话</th><th>上手难度</th><th>要不要 GPU</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ColabFold</td><td>结构预测</td><td>AlphaFold2 的加速版，浏览器里跑</td><td>入门</td><td>Colab 免费额度够用</td></tr>
+          <tr><td>AlphaFold3</td><td>结构预测</td><td>预测蛋白—配体—核酸复合物</td><td>入门</td><td>网页版即可，本地版较重</td></tr>
+          <tr><td>ProteinMPNN</td><td>序列设计</td><td>逆折叠主力，给骨架配序列</td><td>入门</td><td>Colab 可跑</td></tr>
+          <tr><td>RFdiffusion</td><td>生成式设计</td><td>扩散模型生成全新骨架/binder</td><td>中等</td><td>建议 GPU（Colab 可跑小任务）</td></tr>
+          <tr><td>Rosetta / PyRosetta</td><td>经典套件</td><td>物理能量函数 + 采样，设计界的标准套件</td><td>中等偏难</td><td>CPU 即可</td></tr>
+          <tr><td>Foldit</td><td>经典/入门</td><td>游戏化折叠，零基础入门神器</td><td>入门</td><td>不需要</td></tr>
+          <tr><td>PyMOL / ChimeraX</td><td>可视化</td><td>看结构、做图、分析界面</td><td>入门</td><td>不需要</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tool-grid" class="cards-grid">
+
+      <article class="card tool-card" data-category="predict" data-search="AlphaFold2 AlphaFold3 结构预测 复合物 配体 DeepMind">
+        <h3>AlphaFold2 / AlphaFold3 <span class="badge">结构预测</span></h3>
+        <p class="card-meta">Google DeepMind · 2021 / 2024 · 2024 诺贝尔化学奖</p>
+        <p>正问题的王炸：给定序列预测结构。AlphaFold2 精度达到实验级；AlphaFold3 扩展到蛋白—核酸—小分子配体复合物和翻译后修饰预测。</p>
+        <ul>
+          <li>网页版：AlphaFold3 Server（免费、无需 GPU）</li>
+          <li>本地版：代码开源，但需要较强 GPU</li>
+          <li>设计流水线里主要用来做「自洽性回测」</li>
+        </ul>
+        <div class="links">
+          <a href="https://alphafoldserver.com" target="_blank" rel="noopener">AF3 Server</a>
+          <a href="https://github.com/google-deepmind/alphafold" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://alphafold.ebi.ac.uk" target="_blank" rel="noopener">AlphaFold 数据库</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="predict" data-search="ColabFold AlphaFold 加速 MSA 在线">
+        <h3>ColabFold <span class="badge">结构预测</span></h3>
+        <p class="card-meta">免费 · 浏览器即用 · 新手首选</p>
+        <p>AlphaFold2 的加速重实现（用 MMseqs2 快速搜索同源序列），不用装任何东西，在 Google Colab 里点两下就跑。单体、复合物都能预测。</p>
+        <ul>
+          <li>输出 pLDDT、pTM、ipTM、PAE 和模型 PDB</li>
+          <li>也支持 RoseTTAFold2 模式</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/sokrypton/ColabFold" target="_blank" rel="noopener">GitHub（含 Colab 链接）</a>
+          <a href="https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb" target="_blank" rel="noopener">直接打开 Colab</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="predict" data-search="ESMFold ESM 单序列 快速折叠 Meta">
+        <h3>ESMFold <span class="badge">结构预测</span></h3>
+        <p class="card-meta">Meta AI · 单序列预测 · 快</p>
+        <p>不需要 MSA，一条序列几秒出结构。精度略低于 AlphaFold，但特别适合「快速浏览大量序列」和设计流水线里的粗筛。预测可以在网页上直接用，也整合在 ESM 仓库里。</p>
+        <div class="links">
+          <a href="https://esmatlas.com/resources?action=fold" target="_blank" rel="noopener">ESM Atlas 在线预测</a>
+          <a href="https://github.com/facebookresearch/esm" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="predict" data-search="RoseTTAFold 三轨网络 复合物 Baker">
+        <h3>RoseTTAFold / RF2 <span class="badge">结构预测</span></h3>
+        <p class="card-meta">Baker lab · 2021 · 三轨注意力网络</p>
+        <p>与 AlphaFold2 同期发布的预测器，用更轻的「序列+结构+MSA」三轨网络。RF2 在线服务器可预测复合物；RoseTTAFold All-Atom 扩展到配体小分子。与 RFdiffusion 是同一家族。</p>
+        <div class="links">
+          <a href="https://github.com/RosettaCommons/RoseTTAFold" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://robetta.bakerlab.org" target="_blank" rel="noopener">ROBETTA 服务器</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="predict" data-search="OpenFold 开源 AlphaFold2 可训练">
+        <h3>OpenFold <span class="badge">结构预测</span></h3>
+        <p class="card-meta">开放复现 AF2 · 可训练 · 研究友好</p>
+        <p>独立复现并开源训练的 AlphaFold2，支持从头训练和微调，是研究「模型内部发生了什么」和定制预测的首选框架。如果你未来想改模型、做新任务，从这里开始。</p>
+        <div class="links">
+          <a href="https://github.com/aqlaboratory/openfold" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="predict" data-search="Boltz 开源 AlphaFold3 配体 共价">
+        <h3>Boltz-1 / Boltz-2 <span class="badge">结构预测</span></h3>
+        <p class="card-meta">开源 AF3 级模型 · 2024/2025</p>
+        <p>让「AlphaFold3 级别」的复合物预测完全开源：蛋白、核酸、小分子配体、金属离子都能处理。Boltz-2 进一步支持共价修饰和更广的化学空间，正在成为本地预测的标准选择。</p>
+        <div class="links">
+          <a href="https://github.com/jwohlwend/boltz" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://boltz.bio" target="_blank" rel="noopener">官网</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="predict" data-search="I-TASSER SWISS-MODEL MODELLER 同源建模 传统">
+        <h3>传统预测与同源建模 <span class="badge">结构预测</span></h3>
+        <p class="card-meta">I-TASSER / SWISS-MODEL / MODELLER</p>
+        <p>深度学习之前的主流路线，理解它们能帮你读懂老文献：I-TASSER 靠线程化组装模板片段；SWISS-MODEL 和 MODELLER 用已知同源结构搭模型。现在主要用于「没有同源序列时」的补充和教学。</p>
+        <div class="links">
+          <a href="https://zhanggroup.org/I-TASSER/" target="_blank" rel="noopener">I-TASSER</a>
+          <a href="https://swissmodel.expasy.org" target="_blank" rel="noopener">SWISS-MODEL</a>
+          <a href="https://salilab.org/modeller/" target="_blank" rel="noopener">MODELLER</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="design" data-search="ProteinMPNN 逆折叠 序列设计 图神经网络">
+        <h3>ProteinMPNN <span class="badge">序列设计</span></h3>
+        <p class="card-meta">Baker lab · 2022 · 逆折叠 SOTA</p>
+        <p>给一个骨架设计序列的默认工具。图神经网络逐位预测「这里放哪个氨基酸最合适」，可以固定某些残基（比如功能位点），可以生成多条候选。实验成功率远高于传统方法。</p>
+        <ul>
+          <li>标准用法：RFdiffusion 出的骨架 → ProteinMPNN 出序列</li>
+          <li>官方 Colab 可以直接跑，无需 GPU 也能用 CPU 完成小任务</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/dauparas/ProteinMPNN" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://colab.research.google.com/github/dauparas/ProteinMPNN/blob/main/helper_scripts/colab_notebooks/ProteinMPNN.ipynb" target="_blank" rel="noopener">Colab</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="design" data-search="LigandMPNN 小分子 核酸 序列设计">
+        <h3>LigandMPNN <span class="badge">序列设计</span></h3>
+        <p class="card-meta">ProteinMPNN 的扩展 · 2023</p>
+        <p>序列设计时把口袋里的配体、辅因子、核酸、金属离子也考虑进去——设计酶口袋或设计「围绕小分子」的蛋白时比 ProteinMPNN 更合适。</p>
+        <div class="links">
+          <a href="https://github.com/dauparas/LigandMPNN" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="design" data-search="ESM ESM2 ESM3 语言模型 生成序列">
+        <h3>ESM / ESM2 / ESM3 <span class="badge">序列设计</span></h3>
+        <p class="card-meta">Meta · 蛋白语言模型</p>
+        <p>把序列当语言学的模型。ESM2 可用于序列合理性打分和突变效应预测；ESM3 能按「序列+结构+功能」条件联合生成，比如给定一个功能位点让模型补齐其余部分，甚至设计荧光蛋白。</p>
+        <div class="links">
+          <a href="https://github.com/facebookresearch/esm" target="_blank" rel="noopener">ESM 仓库</a>
+          <a href="https://esmatlas.com" target="_blank" rel="noopener">ESM Atlas</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="gen" data-search="RFdiffusion 扩散模型 骨架生成 binder motif">
+        <h3>RFdiffusion <span class="badge">生成式设计</span></h3>
+        <p class="card-meta">Baker lab · 2023 · 结构扩散模型</p>
+        <p>当前从头设计的主角。从随机噪声扩散出全新骨架，支持多种任务：motif scaffolding（把功能基序装进新支架）、binder design（对着靶点表面长结合蛋白）、对称自组装、单体/复合物设计。生成的结构与目标功能位点高度一致。</p>
+        <ul>
+          <li>binder 模式需要提供靶点结构文件</li>
+          <li>建议在带 GPU 的 Colab 或本地跑</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/RosettaCommons/RFdiffusion" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://colab.research.google.com/github/RosettaCommons/RFdiffusion/blob/main/examples/diffuser.ipynb" target="_blank" rel="noopener">Colab 示例</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="gen" data-search="Chroma 生成式 程序化 对称 复合物">
+        <h3>Chroma <span class="badge">生成式设计</span></h3>
+        <p class="card-meta">Generate Bio · 2023 · 程序化生成</p>
+        <p>另一个扩散式生成模型，特色是「程序化约束」：可以指定对称性、尺寸、甚至掩码区域，直接采样完整复合物或功能化的蛋白。API 和本地代码都开源，值得和 RFdiffusion 对比着玩。</p>
+        <div class="links">
+          <a href="https://github.com/generatebio/chroma" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://chroma.ml" target="_blank" rel="noopener">官网</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="gen" data-search="FrameDiff Genie 研究 扩散 SE3">
+        <h3>FrameDiff / Genie（了解即可）<span class="badge">生成式设计</span></h3>
+        <p class="card-meta">研究型方法 · 理解扩散概念用</p>
+        <p>早期把扩散模型用在蛋白骨架上的学术方法（SE(3) 扩散、等变图网络）。现在主流工作流不用它们，但读 2022–2023 年的文献会频繁遇到，值得知道「RFdiffusion 站在谁的肩膀上」。</p>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2210.08302" target="_blank" rel="noopener">FrameDiff 论文</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="classic" data-search="Rosetta 能量函数 打分 设计 FixBB FastDesign Relax">
+        <h3>Rosetta <span class="badge">经典设计套件</span></h3>
+        <p class="card-meta">UW Baker lab · 20+ 年历史 · 设计界标准</p>
+        <p>物理+统计能量函数的集大成者，从结构预测到序列设计、对接、酶设计全覆盖。核心概念：能量函数打分、蒙特卡洛/模拟退火采样、relax（结构松弛）、FixBB（固定骨架设计序列）、FastDesign（骨架+序列联合优化）。</p>
+        <ul>
+          <li>命令行应用（Linux/macOS），文档非常全</li>
+          <li>理解它 = 理解设计的「物理内核」</li>
+        </ul>
+        <div class="links">
+          <a href="https://www.rosettacommons.org" target="_blank" rel="noopener">官网</a>
+          <a href="https://docs.rosettacommons.org" target="_blank" rel="noopener">文档</a>
+          <a href="https://www.rosettacommons.org/demos/latest/tutorials" target="_blank" rel="noopener">教程</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="classic" data-search="PyRosetta Python 接口 教学">
+        <h3>PyRosetta <span class="badge">经典设计套件</span></h3>
+        <p class="card-meta">Rosetta 的 Python 接口 · 学习首选</p>
+        <p>用 Python 操作 Rosetta：读结构、打分、design、relax。配套教程从安装到高级设计逐步讲解，比命令行应用更适合理解每一步在做什么。许多 Baker lab 入门课程都基于它。</p>
+        <div class="links">
+          <a href="https://www.pyrosetta.org" target="_blank" rel="noopener">官网</a>
+          <a href="https://www.pyrosetta.org/tutorials" target="_blank" rel="noopener">教程</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="classic" data-search="Foldit 游戏 零基础 折叠">
+        <h3>Foldit <span class="badge">经典 · 入门</span></h3>
+        <p class="card-meta">游戏化蛋白折叠 · 玩家参与科研</p>
+        <p>把蛋白折叠做成解谜游戏：拖拽、摇摆、打分实时反馈。零基础也能玩，玩家社区甚至帮科学家解出了晶体结构（Khatib 2011）。强烈推荐作为「第一个动手项目」。</p>
+        <div class="links">
+          <a href="https://fold.it" target="_blank" rel="noopener">官网（免费下载）</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="vis" data-search="PyMOL 可视化 作图 表面">
+        <h3>PyMOL <span class="badge">可视化</span></h3>
+        <p class="card-meta">结构生物学最常用的可视化软件</p>
+        <p>射线图、表面、静电、突变标注、交互式脚本。文献里绝大多数结构图都是它做的。开源版功能足够学习，教学版也免费。</p>
+        <div class="links">
+          <a href="https://pymol.org" target="_blank" rel="noopener">官网</a>
+          <a href="https://pymolwiki.org" target="_blank" rel="noopener">Wiki</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="vis" data-search="ChimeraX 冷冻电镜 体积图 界面分析">
+        <h3>UCSF ChimeraX <span class="badge">可视化</span></h3>
+        <p class="card-meta">现代交互可视化 · cryo-EM 友好</p>
+        <p>处理密度图、体积数据、界面分析非常顺手，交互界面现代，还有大量教学资源。做 cryo-EM 的你大概率已经很熟——设计这边它同样适合看模型与密度对比、算界面接触。</p>
+        <div class="links">
+          <a href="https://www.cgl.ucsf.edu/chimerax/" target="_blank" rel="noopener">官网</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="vis" data-search="VMD 分子动力学 轨迹">
+        <h3>VMD <span class="badge">可视化</span></h3>
+        <p class="card-meta">MD 轨迹与结构分析</p>
+        <p>做分子动力学模拟、看轨迹、算相互作用时最常用。设计候选做 MD 稳定性验证时会用到。</p>
+        <div class="links">
+          <a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank" rel="noopener">官网</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="vis" data-search="Coot Phenix 精修 晶体 电镜">
+        <h3>Coot / Phenix <span class="badge">可视化 · 实验结构</span></h3>
+        <p class="card-meta">实验结构精修（晶体 & cryo-EM）</p>
+        <p>拿到设计蛋白的实验结构后，用 Coot 手动调模型、Phenix 做精修。这是「设计闭环」的最后验证环节——你的实验结构会和设计模型对比，回填到 PDB 里。</p>
+        <div class="links">
+          <a href="https://phenix-online.org" target="_blank" rel="noopener">Phenix</a>
+          <a href="https://www2.mrc-lmb.cam.ac.uk/personal/pemsley/coot/" target="_blank" rel="noopener">Coot</a>
+        </div>
+      </article>
+
+      <article class="card tool-card" data-category="exp" data-search="表达 纯化 酵母展示 噬菌体展示 表征 SEC CD BLI">
+        <h3>实验验证工具箱 <span class="badge">实验验证</span></h3>
+        <p class="card-meta">设计只完成一半，实验决定成败</p>
+        <p>计算设计产出候选序列后，实验闭环大致是：<strong>基因合成</strong>（Twist/GenScript）→ <strong>表达纯化</strong>（大肠杆菌/酵母/哺乳动物细胞）→ <strong>基本表征</strong>（SEC 判断是否单分散、CD/Tm 看折叠和稳定性、质谱看分子量）→ <strong>功能/结合验证</strong>（BLI/SPR、酵母展示或噬菌体展示筛库）→ <strong>结构验证</strong>（晶体或 cryo-EM）。</p>
+        <ul>
+          <li>酵母展示/噬菌体展示：高通量筛亲和力</li>
+          <li>cryo-EM：你的主场，直接看设计对不对</li>
+        </ul>
+        <div class="links">
+          <a href="https://www.addgene.org" target="_blank" rel="noopener">Addgene（质粒）</a>
+          <a href="https://www.rcsb.org" target="_blank" rel="noopener">PDB（存结构）</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="note tip">
+      <strong>新手最小工具包</strong>
+      ColabFold（预测）→ ProteinMPNN Colab（序列设计）→ PyMOL/ChimeraX（看结果）→ Foldit（找感觉）。
+      这四样全部免费、不用装 GPU，两周内就能跑完第一个完整「预测-设计-回测」小循环。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 软件工具</span>
+    <span><a href="resources.html">教程与文档 →</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

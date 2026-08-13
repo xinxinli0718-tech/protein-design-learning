@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>术语表 · 蛋白质设计学习指南</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="glossary.html" class="active">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">50+ 词条</span>
+      <span class="badge teal">中英对照</span>
+      <span class="badge amber">支持搜索</span>
+    </div>
+    <h1>术语表</h1>
+    <p class="sub">读文献、跑软件时随手查。按英文关键词也能搜到（例如输入 pLDDT 或 diffusion）。</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <input id="glossary-search" class="searchbox" type="search" placeholder="搜索术语：pLDDT、扩散、hotspot、逆折叠…">
+    <div class="glossary-list">
+
+      <div class="term" data-search="氨基酸 amino acid 20种">
+        <h3>氨基酸</h3><div class="en">Amino acid</div>
+        <p>组成蛋白质的 20 种标准分子，按侧链化学性质分疏水、极性、带电和特殊四类。</p>
+      </div>
+      <div class="term" data-search="主链 侧链 backbone side chain">
+        <h3>主链 / 侧链</h3><div class="en">Backbone / Side chain</div>
+        <p>主链是所有氨基酸共有的 N-Cα-C 骨架；侧链是每个氨基酸独有的部分，决定化学性质。</p>
+      </div>
+      <div class="term" data-search="肽键 peptide bond">
+        <h3>肽键</h3><div class="en">Peptide bond</div>
+        <p>连接氨基酸的共价键（C-N），具有部分双键性质，使肽键平面刚性。</p>
+      </div>
+      <div class="term" data-search="二级结构 secondary structure 螺旋 折叠">
+        <h3>二级结构</h3><div class="en">Secondary structure</div>
+        <p>局部规律折叠：α 螺旋、β 折叠片和 loop，主要由主链氢键稳定。</p>
+      </div>
+      <div class="term" data-search="alpha helix 螺旋">
+        <h3>α 螺旋</h3><div class="en">Alpha helix</div>
+        <p>每圈约 3.6 个残基的右手螺旋，靠 i→i+4 主链氢键稳定，是设计的常用积木。</p>
+      </div>
+      <div class="term" data-search="beta sheet 折叠片">
+        <h3>β 折叠片</h3><div class="en">Beta sheet</div>
+        <p>相邻肽段靠主链氢键形成的片层结构，可平行或反平行排列。</p>
+      </div>
+      <div class="term" data-search="loop 环 无规则">
+        <h3>环</h3><div class="en">Loop</div>
+        <p>连接二级结构的柔性区域，常承担结合或功能角色，设计时往往需要固定关键残基。</p>
+      </div>
+      <div class="term" data-search="三级结构 tertiary">
+        <h3>三级结构</h3><div class="en">Tertiary structure</div>
+        <p>整条多肽链的三维空间结构，即通常说的「蛋白结构」。</p>
+      </div>
+      <div class="term" data-search="四级结构 quaternary 复合物">
+        <h3>四级结构</h3><div class="en">Quaternary structure</div>
+        <p>多条链（亚基）组装成的复合物，如血红蛋白四聚体。</p>
+      </div>
+      <div class="term" data-search="结构域 domain">
+        <h3>结构域</h3><div class="en">Domain</div>
+        <p>可独立折叠、常具有独立功能的结构单元，设计时常作为「支架」。</p>
+      </div>
+      <div class="term" data-search="基序 motif 模体">
+        <h3>基序 / 模体</h3><div class="en">Motif</div>
+        <p>具有特定功能或结构特征的小片段（如锌指、卷曲螺旋），可被「支架化」进新蛋白。</p>
+      </div>
+      <div class="term" data-search="折叠 folding">
+        <h3>折叠</h3><div class="en">Folding</div>
+        <p>氨基酸链自发形成三维结构的过程，由序列和溶剂环境决定。</p>
+      </div>
+      <div class="term" data-search="安芬森 anfinsen 原理 序列决定结构">
+        <h3>安芬森原理</h3><div class="en">Anfinsen's dogma</div>
+        <p>序列原则上决定天然结构。蛋白设计的理论根基。</p>
+      </div>
+      <div class="term" data-search="能量景观 energy landscape 漏斗">
+        <h3>能量景观</h3><div class="en">Energy landscape</div>
+        <p>把蛋白所有构象画成能量地形图，天然结构在最低谷。设计就是「挖深目标谷」。</p>
+      </div>
+      <div class="term" data-search="自由能 free energy">
+        <h3>自由能</h3><div class="en">Free energy</div>
+        <p>决定折叠平衡的热力学量。折叠态自由能越低越稳定，实验上可用 ΔG、Tm 衡量。</p>
+      </div>
+      <div class="term" data-search="疏水效应 hydrophobic">
+        <h3>疏水效应</h3><div class="en">Hydrophobic effect</div>
+        <p>非极性侧链躲进水中的驱动力，是蛋白折叠和界面结合的主要能量来源。</p>
+      </div>
+      <div class="term" data-search="熔球态 molten globule">
+        <h3>熔球态</h3><div class="en">Molten globule</div>
+        <p>折叠中间态：有二级结构但侧链堆积松散，常见于不稳定设计。</p>
+      </div>
+      <div class="term" data-search="PDB 蛋白质数据银行 文件格式">
+        <h3>PDB</h3><div class="en">Protein Data Bank / .pdb 文件</div>
+        <p>实验结构数据库，也是结构文件格式名。设计流程的输入输出基本都带 PDB 文件。</p>
+      </div>
+      <div class="term" data-search="分辨率 resolution">
+        <h3>分辨率</h3><div class="en">Resolution</div>
+        <p>实验结构的清晰程度（Å）。分辨率越高，模型可信度越高。</p>
+      </div>
+      <div class="term" data-search="RMSD 均方根偏差">
+        <h3>RMSD</h3><div class="en">Root-mean-square deviation</div>
+        <p>两个结构叠合后原子位置的平均偏差（Å）。设计回测中，预测结构 vs 设计骨架 RMSD 越小越好。</p>
+      </div>
+      <div class="term" data-search="TM-score 模板建模分数">
+        <h3>TM-score</h3><div class="en">Template modeling score</div>
+        <p>结构相似度指标，0–1。&gt;0.5 通常认为同折叠，&gt;0.9 几乎相同。</p>
+      </div>
+      <div class="term" data-search="pLDDT 置信度">
+        <h3>pLDDT</h3><div class="en">Predicted local distance difference test</div>
+        <p>AlphaFold 输出的逐残基置信度，0–100。&gt;90 高质量，&lt;50 提示无序或错误。</p>
+      </div>
+      <div class="term" data-search="pTM 整体置信度">
+        <h3>pTM</h3><div class="en">Predicted TM-score</div>
+        <p>整体结构置信度，0–1。设计自洽性验证常看 pTM &gt; 0.8 作为及格线。</p>
+      </div>
+      <div class="term" data-search="ipTM 界面 复合物">
+        <h3>ipTM</h3><div class="en">Interface pTM</div>
+        <p>复合物界面预测置信度，判断两个蛋白是否真的会按设计结合。</p>
+      </div>
+      <div class="term" data-search="PAE 预测对齐误差">
+        <h3>PAE</h3><div class="en">Predicted aligned error</div>
+        <p>预测两个残基之间相对位置的误差矩阵。看界面和结构域相对方位是否可靠。</p>
+      </div>
+      <div class="term" data-search="MSA 多序列比对">
+        <h3>MSA</h3><div class="en">Multiple sequence alignment</div>
+        <p>把同源序列对齐排列，进化保守信息是 AlphaFold 等模型的重要输入。</p>
+      </div>
+      <div class="term" data-search="同源建模 homology modeling">
+        <h3>同源建模</h3><div class="en">Homology modeling</div>
+        <p>用已知同源结构为模板搭模型，传统方法（SWISS-MODEL / MODELLER）。</p>
+      </div>
+      <div class="term" data-search="从头设计 de novo">
+        <h3>从头设计</h3><div class="en">De novo design</div>
+        <p>不模仿天然蛋白，从功能出发设计全新蛋白。</p>
+      </div>
+      <div class="term" data-search="逆折叠 inverse folding 反问题">
+        <h3>逆折叠</h3><div class="en">Inverse folding</div>
+        <p>给定骨架设计能折叠成它的序列，ProteinMPNN 解决的核心问题。</p>
+      </div>
+      <div class="term" data-search="定向进化 directed evolution">
+        <h3>定向进化</h3><div class="en">Directed evolution</div>
+        <p>突变 → 筛选 → 扩增的迭代循环，实验室里「人工演化」蛋白（Arnold 诺奖工作）。</p>
+      </div>
+      <div class="term" data-search="高通量筛选 high-throughput">
+        <h3>高通量筛选</h3><div class="en">High-throughput screening</div>
+        <p>一次实验测成千上万候选的方法，是设计后「找命中」的关键。</p>
+      </div>
+      <div class="term" data-search="噬菌体展示 phage display">
+        <h3>噬菌体展示</h3><div class="en">Phage display</div>
+        <p>把蛋白展示在噬菌体表面，通过结合筛选富集高亲和力变体。</p>
+      </div>
+      <div class="term" data-search="酵母展示 yeast display">
+        <h3>酵母展示</h3><div class="en">Yeast surface display</div>
+        <p>把蛋白展示在酵母细胞表面，用流式分选筛亲和力，binder 设计常用。</p>
+      </div>
+      <div class="term" data-search="热区 hotspot 热点">
+        <h3>热区</h3><div class="en">Hotspot</div>
+        <p>界面上对结合能贡献最大的残基，是 binder 设计的「锚点」。</p>
+      </div>
+      <div class="term" data-search="结合界面 interface 相互作用">
+        <h3>结合界面</h3><div class="en">Binding interface</div>
+        <p>两个蛋白接触的表面区域，形状互补和疏水/极性匹配决定亲和力。</p>
+      </div>
+      <div class="term" data-search="扩散模型 diffusion">
+        <h3>扩散模型</h3><div class="en">Diffusion model</div>
+        <p>通过「加噪—学去噪—从噪声采样」生成新数据的模型，RFdiffusion/Chroma 的核心。</p>
+      </div>
+      <div class="term" data-search="去噪 denoising">
+        <h3>去噪</h3><div class="en">Denoising</div>
+        <p>扩散模型的训练目标：从带噪声的结构恢复干净结构，生成时从纯噪声逐步去噪。</p>
+      </div>
+      <div class="term" data-search="潜空间 latent space">
+        <h3>潜空间</h3><div class="en">Latent space</div>
+        <p>模型内部压缩表示数据的空间，相似蛋白在潜空间里距离近。</p>
+      </div>
+      <div class="term" data-search="嵌入 embedding">
+        <h3>嵌入</h3><div class="en">Embedding</div>
+        <p>把序列/结构编码成数值向量，供模型使用或分析（如 ESM embedding）。</p>
+      </div>
+      <div class="term" data-search="蛋白质语言模型 PLM language model">
+        <h3>蛋白质语言模型</h3><div class="en">Protein language model (PLM)</div>
+        <p>在蛋白序列上训练的 Transformer，学到进化/结构/功能知识（ESM 系列）。</p>
+      </div>
+      <div class="term" data-search="注意力机制 attention">
+        <h3>注意力机制</h3><div class="en">Attention</div>
+        <p>模型让不同位置「互相看」的机制，AlphaFold 和语言模型的共同核心。</p>
+      </div>
+      <div class="term" data-search="图神经网络 GNN graph">
+        <h3>图神经网络</h3><div class="en">Graph neural network (GNN)</div>
+        <p>在「节点+边」结构上学习的网络，ProteinMPNN 把骨架残基当节点、距离当边。</p>
+      </div>
+      <div class="term" data-search="等变性 equivariance SE3">
+        <h3>等变性</h3><div class="en">Equivariance</div>
+        <p>模型输出随输入旋转平移而一致变化的性质，让结构预测/生成不依赖坐标系。</p>
+      </div>
+      <div class="term" data-search="Rosetta 能量函数 energy function">
+        <h3>Rosetta 能量函数</h3><div class="en">Rosetta energy function</div>
+        <p>物理+统计项的加权打分函数（范德华、氢键、溶剂化、二面角偏好等），设计搜索的目标。</p>
+      </div>
+      <div class="term" data-search="relax 松弛">
+        <h3>Relax</h3><div class="en">Relax</div>
+        <p>Rosetta 的结构优化流程，交替骨架和侧链微调让结构落入低能态，设计前的标准预处理。</p>
+      </div>
+      <div class="term" data-search="打分函数 scoring function">
+        <h3>打分函数</h3><div class="en">Scoring function</div>
+        <p>给一个结构/序列打「好不好」的函数，Rosetta 能量、pLDDT、语言模型概率都算。</p>
+      </div>
+      <div class="term" data-search="蒙特卡洛 monte carlo 采样">
+        <h3>蒙特卡洛采样</h3><div class="en">Monte Carlo sampling</div>
+        <p>随机扰动并按能量接受/拒绝的搜索方法，Rosetta 设计的核心采样手段。</p>
+      </div>
+      <div class="term" data-search="模拟退火 simulated annealing">
+        <h3>模拟退火</h3><div class="en">Simulated annealing</div>
+        <p>先高温随机探索、再逐步降温收敛的优化策略，避免陷入局部最优。</p>
+      </div>
+      <div class="term" data-search="二硫键 disulfide">
+        <h3>二硫键</h3><div class="en">Disulfide bond</div>
+        <p>Cys 侧链间的共价键，可显著提高设计蛋白的稳定性，也增加表达难度。</p>
+      </div>
+      <div class="term" data-search="氢键 hydrogen bond">
+        <h3>氢键</h3><div class="en">Hydrogen bond</div>
+        <p>氢原子在电负性原子间的弱相互作用，稳定二级结构和界面。</p>
+      </div>
+      <div class="term" data-search="盐桥 salt bridge">
+        <h3>盐桥</h3><div class="en">Salt bridge</div>
+        <p>正负电荷侧链间的静电相互作用，可稳定结构和界面。</p>
+      </div>
+      <div class="term" data-search="Colab GPU 谷歌 笔记本">
+        <h3>Colab / GPU</h3><div class="en">Google Colab</div>
+        <p>谷歌的免费云端笔记本，可免安装跑 AlphaFold/ProteinMPNN 等工具；GPU 加速大模型推理。</p>
+      </div>
+      <div class="term" data-search="基因合成 质粒 plasmid codon">
+        <h3>基因合成 / 质粒</h3><div class="en">Gene synthesis / Plasmid</div>
+        <p>把设计序列交给公司合成 DNA 并克隆到表达载体（如 Twist、GenScript），进入实验验证的第一步。</p>
+      </div>
+      <div class="term" data-search="B-factor 温度因子">
+        <h3>B-factor</h3><div class="en">B-factor / temperature factor</div>
+        <p>PDB 里反映原子位置不确定度的参数，数值越高越柔性/不可信。</p>
+      </div>
+      <div class="term" data-search="self-consistency 自洽性 回测">
+        <h3>自洽性验证</h3><div class="en">Self-consistency check</div>
+        <p>设计出序列后用 AlphaFold 再预测一遍结构，看是否回到设计骨架——现代设计流水线的质检环节。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 术语表</span>
+    <span><a href="index.html">回到首页</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

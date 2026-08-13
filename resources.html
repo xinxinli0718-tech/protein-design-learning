@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习资源 · 蛋白质设计学习指南</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html" class="active">学习资源</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">全部免费</span>
+      <span class="badge teal">官方文档优先</span>
+      <span class="badge amber">按用途分类</span>
+    </div>
+    <h1>学习资源</h1>
+    <p class="sub">官方文档、免费课程、数据库、社区和动手环境——把散落在互联网上的好东西集中到一页。</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="concept-group">
+      <h2>官方文档与教程</h2>
+      <p>学软件的第一原则：先读官方文档，再看二手教程。</p>
+      <div class="cards-grid">
+        <a class="card" href="https://docs.rosettacommons.org" target="_blank" rel="noopener">
+          <h3>RosettaCommons 文档</h3>
+          <p>Rosetta 全套文档 + 教程，从安装到高级应用。命令行应用和协议都在这里查。</p>
+        </a>
+        <a class="card" href="https://www.pyrosetta.org/tutorials" target="_blank" rel="noopener">
+          <h3>PyRosetta 教程</h3>
+          <p>Python 版 Rosetta 的分步教程，适合理解能量函数、design 和 relax 的每一步。</p>
+        </a>
+        <a class="card" href="https://github.com/RosettaCommons/RFdiffusion" target="_blank" rel="noopener">
+          <h3>RFdiffusion 官方仓库</h3>
+          <p>README 里有安装、示例和 Colab。binder 模式、motif scaffolding 的用法都在这。</p>
+        </a>
+        <a class="card" href="https://github.com/dauparas/ProteinMPNN" target="_blank" rel="noopener">
+          <h3>ProteinMPNN 官方仓库</h3>
+          <p>README 里的用法示例 + Colab 链接。序列设计入门从这里开始。</p>
+        </a>
+        <a class="card" href="https://github.com/sokrypton/ColabFold" target="_blank" rel="noopener">
+          <h3>ColabFold 官方仓库</h3>
+          <p>各种 Colab 入口（AlphaFold2、复合物、RoseTTAFold），浏览器里直接预测。</p>
+        </a>
+        <a class="card" href="https://github.com/facebookresearch/esm" target="_blank" rel="noopener">
+          <h3>ESM 官方仓库</h3>
+          <p>ESM 系列模型的安装与示例：ESMFold 预测、embedding、突变打分、ESM3 生成。</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="concept-group">
+      <h2>免费课程与视频</h2>
+      <p>课程视频 > 博客文章，因为设计是「看过程」的学科。</p>
+      <div class="cards-grid">
+        <a class="card" href="https://www.youtube.com/results?search_query=Macromolecular+Modeling+and+Design+Baker+UW" target="_blank" rel="noopener">
+          <h3>Macromolecular Modeling &amp; Design（UW）</h3>
+          <p>华盛顿大学 Baker lab 相关的研究生课程，YouTube 上可找到完整录像，是计算蛋白设计最好的免费课程之一。</p>
+        </a>
+        <a class="card" href="https://www.nobelprize.org/prizes/chemistry/2024/baker/lecture/" target="_blank" rel="noopener">
+          <h3>David Baker 诺贝尔演讲（2024）</h3>
+          <p>1 小时讲完从头设计 20 年，建议看两遍：第一遍听故事，第二遍记术语。</p>
+        </a>
+        <a class="card" href="https://www.ibiology.org/talks/protein-folding/" target="_blank" rel="noopener">
+          <h3>iBiology 蛋白质折叠系列</h3>
+          <p>顶级科学家讲解折叠与结构生物学的免费视频，适合补基础。</p>
+        </a>
+        <a class="card" href="https://pdb101.rcsb.org" target="_blank" rel="noopener">
+          <h3>PDB-101（RCSB 教育频道）</h3>
+          <p>以分子结构为主题的教育资源：可视化教程、主题科普、PDF 手册，非常友好。</p>
+        </a>
+        <a class="card" href="https://www.youtube.com/results?search_query=AlphaFold+explained+video" target="_blank" rel="noopener">
+          <h3>AlphaFold 讲解视频</h3>
+          <p>YouTube 上搜 AlphaFold explained，有大量 20–40 分钟的直观讲解，适合建立直觉。</p>
+        </a>
+        <a class="card" href="https://www.youtube.com/results?search_query=diffusion+models+explained" target="_blank" rel="noopener">
+          <h3>扩散模型讲解视频</h3>
+          <p>先看通用扩散模型讲解（加噪/去噪直觉），再看 RFdiffusion 论文图，理解成本大幅下降。</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="concept-group">
+      <h2>数据库</h2>
+      <p>设计要「用数据」，不只是「读数据」。</p>
+      <div class="cards-grid">
+        <a class="card" href="https://www.rcsb.org" target="_blank" rel="noopener">
+          <h3>RCSB PDB</h3>
+          <p>实验结构主库。找靶点结构、看设计对照、查 PDB 文件都在这里。</p>
+        </a>
+        <a class="card" href="https://alphafold.ebi.ac.uk" target="_blank" rel="noopener">
+          <h3>AlphaFold 蛋白质结构数据库</h3>
+          <p>覆盖数亿蛋白的预测结构库，无需自己跑预测即可浏览。</p>
+        </a>
+        <a class="card" href="https://www.uniprot.org" target="_blank" rel="noopener">
+          <h3>UniProt</h3>
+          <p>序列、功能、注释的标准库。设计前查功能位点和保守性。</p>
+        </a>
+        <a class="card" href="https://www.cathdb.info" target="_blank" rel="noopener">
+          <h3>CATH（结构分类）</h3>
+          <p>蛋白折叠分类数据库，理解「折叠空间」和设计支架选择很有用。</p>
+        </a>
+        <a class="card" href="https://esmatlas.com" target="_blank" rel="noopener">
+          <h3>ESM Atlas</h3>
+          <p>Meta 的蛋白结构/序列资源：在线预测、序列 embedding 数据库。</p>
+        </a>
+        <a class="card" href="https://www.addgene.org" target="_blank" rel="noopener">
+          <h3>Addgene</h3>
+          <p>质粒共享库。找到发表的 binder/设计蛋白的质粒，直接订购做阳性对照。</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="concept-group">
+      <h2>社区、会议与交流</h2>
+      <p>蛋白设计社区非常开放，提问和分享是学习最快的路径。</p>
+      <div class="cards-grid">
+        <a class="card" href="https://www.rosettacommons.org/forum" target="_blank" rel="noopener">
+          <h3>RosettaCommons 论坛</h3>
+          <p>Rosetta/RFdiffusion/ProteinMPNN 的官方问答社区，报错先搜这里。</p>
+        </a>
+        <a class="card" href="https://www.ipd.uw.edu" target="_blank" rel="noopener">
+          <h3>UW 蛋白设计研究所（IPD）</h3>
+          <p>Baker lab 大本营。官网有最新论文、新闻、开源工具和招聘，值得订阅。</p>
+        </a>
+        <a class="card" href="https://fold.it" target="_blank" rel="noopener">
+          <h3>Foldit 玩家社区</h3>
+          <p>游戏内置教程 + 玩家论坛，新手提问很友好。</p>
+        </a>
+        <a class="card" href="https://www.proteinsociety.org" target="_blank" rel="noopener">
+          <h3>Protein Society</h3>
+          <p>蛋白科学学会，年会（含计算设计分会场）和开放资源。</p>
+        </a>
+        <a class="card" href="https://twitter.com/search?q=protein%20design" target="_blank" rel="noopener">
+          <h3>X/Twitter 上的蛋白设计圈</h3>
+          <p>David Baker、IPD、各 lab 和工具作者都很活跃，新论文第一时间刷到。</p>
+        </a>
+        <a class="card" href="https://www.google.com/search?q=AI+protein+design+workshop+2026" target="_blank" rel="noopener">
+          <h3>AI 蛋白设计 Workshop</h3>
+          <p>每年各大会议（NeurIPS、ICML、ISMB）都有 protein design 专场，搜最新 workshop 看录像。</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="concept-group">
+      <h2>动手环境（免安装）</h2>
+      <p>以下全部在浏览器里就能跑，是「零配置动手」的最佳入口。</p>
+      <div class="cards-grid">
+        <a class="card" href="https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb" target="_blank" rel="noopener">
+          <h3>ColabFold（预测）</h3>
+          <p>打开即用，预测单体/复合物，输出 pLDDT/pTM/PAE。</p>
+        </a>
+        <a class="card" href="https://colab.research.google.com/github/dauparas/ProteinMPNN/blob/main/helper_scripts/colab_notebooks/ProteinMPNN.ipynb" target="_blank" rel="noopener">
+          <h3>ProteinMPNN Colab（序列设计）</h3>
+          <p>上传骨架 PDB，一键生成序列候选，还能固定残基。</p>
+        </a>
+        <a class="card" href="https://colab.research.google.com/github/RosettaCommons/RFdiffusion/blob/main/examples/diffuser.ipynb" target="_blank" rel="noopener">
+          <h3>RFdiffusion Colab（骨架生成）</h3>
+          <p>在 Colab 上体验扩散生成骨架（小任务免费额度够用）。</p>
+        </a>
+        <a class="card" href="https://alphafoldserver.com" target="_blank" rel="noopener">
+          <h3>AlphaFold3 网页版</h3>
+          <p>官方免费服务器，预测蛋白—配体—核酸复合物。</p>
+        </a>
+        <a class="card" href="https://pymol.org" target="_blank" rel="noopener">
+          <h3>PyMOL 教学版</h3>
+          <p>免费下载，看结构、做图、量距离，设计验证必备。</p>
+        </a>
+        <a class="card" href="https://www.cgl.ucsf.edu/chimerax/" target="_blank" rel="noopener">
+          <h3>ChimeraX</h3>
+          <p>免费下载（非商业），界面现代，cryo-EM 和设计都很顺手。</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="note warn">
+      <strong>一个提醒</strong>
+      网上很多「AI 设计蛋白」的中文教程良莠不齐。判断标准：是否附官方代码/Colab 链接、是否解释指标（pLDDT 等）、是否给出失败案例。只教「点按钮」不教「怎么看结果」的教程，跳过。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 学习资源</span>
+    <span><a href="glossary.html">查术语 →</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

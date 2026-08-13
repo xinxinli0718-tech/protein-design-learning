@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>核心概念 · 蛋白质设计学习指南</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html" class="active">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">概念按难度分组</span>
+      <span class="badge teal">每个概念都有「一句话」</span>
+    </div>
+    <h1>核心概念</h1>
+    <p class="sub">
+      三组概念：<strong>基础概念</strong>（结构生物学常识）、<strong>设计核心</strong>（这门学科真正在解决什么问题）、
+      <strong>机器学习原理</strong>（2022 年之后的主流方法）。点开每个条目看详细解释。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="concept-group">
+      <h2>一、基础概念</h2>
+      <p>如果已经有结构生物学背景，快速扫一遍即可，重点看每条「为什么重要」。</p>
+
+      <details class="concept">
+        <summary>1. 蛋白质 = 氨基酸的线性聚合物</summary>
+        <p class="one-liner">蛋白质是 20 种标准氨基酸按顺序连成的链，侧链化学性质决定一切。</p>
+        <div class="detail">
+          <p>每个氨基酸由「共同的主链骨架（N-Cα-C）+ 各不相同的侧链 R」组成。侧链可以分四类：<strong>疏水</strong>（如 Leu、Ile、Val）、<strong>极性不带电</strong>（Ser、Thr、Asn、Gln）、<strong>带电</strong>（Lys、Arg 带正电；Asp、Glu 带负电）、<strong>特殊/芳香</strong>（Gly 灵活、Pro 刚性、Tyr/Trp/Phe 芳香、Cys 可形成二硫键）。</p>
+          <p>设计时你真正在操作的「字母表」就是这 20 个侧链——它们怎样堆积、怎样形成氢键和盐桥，决定了蛋白能不能折叠成你想要的结构。</p>
+          <p><strong>为什么重要：</strong>所有设计工具（Rosetta 打分、ProteinMPNN）本质上都在回答「这 20 个字母放在哪里最合适」。</p>
+          <div class="related">
+            <span class="mini-chip">相关软件：ProteinMPNN、Rosetta</span>
+            <span class="mini-chip">相关术语：<a href="glossary.html">侧链 / 主链</a></span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>2. 结构层级：一级 → 二级 → 三级 → 四级</summary>
+        <p class="one-liner">序列（一级）折叠成局部的 α 螺旋、β 折叠（二级），再堆成整体三维结构（三级），多个链聚成复合物（四级）。</p>
+        <div class="detail">
+          <p>这是结构生物学的老生常谈，但设计里有个关键视角：<strong>二级结构是设计的「积木」</strong>。很多从头设计不是凭空画原子，而是先决定「哪里放螺旋、哪里放折叠片、哪里是环」，再优化它们之间的相互作用。</p>
+          <p>α 螺旋：每圈 3.6 个残基，靠 i→i+4 的主链氢键稳定；β 折叠片：相邻链段间靠主链氢键；loop 灵活多变。二级结构倾向可以用统计势（如 Rosetta 里的 backbone 二面角偏好项）来打分。</p>
+          <p><strong>为什么重要：</strong>看懂论文里「设计了一个由 3 个螺旋组成的迷你蛋白」这类描述，需要先有这套语言。</p>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>3. 折叠与安芬森原理（Anfinsen）</summary>
+        <p class="one-liner">在生理条件下，氨基酸序列原则上决定了蛋白质的天然三维结构。</p>
+        <div class="detail">
+          <p>Anfinsen 的核糖核酸酶复性实验证明：把蛋白变性后再去除变性剂，它能自己回到活性构象。这意味着「信息都在序列里」——这也是后来一切「序列→结构」预测（AlphaFold）和「结构→序列」设计成立的根本前提。</p>
+          <p>当然现实有例外：需要分子伴侣辅助、翻译后修饰、细胞内拥挤环境、部分天然无序蛋白（IDP）。设计领域通常针对「能稳定折叠的球状蛋白」，这反而让问题更可控。</p>
+          <p><strong>为什么重要：</strong>设计的第一性原理就是「我要设计的序列，必须能让蛋白自发折叠到目标结构」。</p>
+          <div class="related">
+            <span class="mini-chip">相关文献：Anfinsen 1973（<a href="literature.html">文献页</a>）</span>
+            <span class="mini-chip">相关术语：<a href="glossary.html">能量景观</a></span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>4. 结构域与基序（domain & motif）</summary>
+        <p class="one-liner">结构域是可独立折叠的功能模块，基序是短小的功能片段（如螺旋、环、锌指）。</p>
+        <div class="detail">
+          <p>设计里最常见的策略之一是 <strong>motif scaffolding（基序支架化）</strong>：你有一个功能关键的小片段（比如某抗体的一段 CDR 环、某个天然蛋白的结合界面），想把它「装」进一个全新设计的稳定骨架上，这就是 RFdiffusion 最擅长的任务之一。</p>
+          <p>从头设计的纳米抗体模拟物、迷你结合蛋白，本质上都是「把一小段关键相互作用保存下来，其余部分全新设计」。</p>
+          <p><strong>为什么重要：</strong>理解「功能位点」和「支架」的关系，是读设计文献最重要的框架之一。</p>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>5. 蛋白—蛋白相互作用界面（interface）</summary>
+        <p class="one-liner">两个蛋白结合的表面区域叫界面，界面上贡献结合能的少数残基叫「热区」（hotspot）。</p>
+        <div class="detail">
+          <p>界面通常 600–1200 Å²，形状互补 + 疏水核心 + 边缘极性。设计 binder 时，计算工具会先在目标蛋白表面找到「hotspot」残基（突变会明显降低结合能的那些），然后用这些热点去锚定一段全新的、高亲和力的迷你蛋白。</p>
+          <p>这也是卢培龙老师实验室 heterochiral 结合体工作的关键点：通过镜像对称的蛋白或非天然氨基酸，实现天然蛋白做不到的界面化学。</p>
+          <p><strong>为什么重要：</strong>结合体设计是当前蛋白设计最热、转化最快的方向（治疗、诊断、疫苗），也最适合用你已有的表达和表征技能验证。</p>
+          <div class="related">
+            <span class="mini-chip">相关文献：Cao 2022（<a href="literature.html">文献页</a>）</span>
+            <span class="mini-chip">相关软件：RFdiffusion、ProteinMPNN</span>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="concept-group">
+      <h2>二、设计核心问题</h2>
+      <p>这是蛋白设计区别于结构预测的部分——先建立「正问题/逆问题」的心智模型。</p>
+
+      <details class="concept">
+        <summary>6. 正问题 vs 逆问题：预测与设计</summary>
+        <p class="one-liner">结构预测：序列 → 结构；蛋白设计：结构/功能 → 序列。</p>
+        <div class="detail">
+          <p>2021 年 AlphaFold2 解决的是正问题（给定序列预测结构）。而设计是逆问题，比预测更难：一个结构对应的序列有天文数字种（20 个残基的蛋白就有 20^n 种排列），你要在里面找出「能折叠且功能正确」的那一小撮。</p>
+          <p>逆问题没有唯一答案，所以设计工具的产出通常是「一批候选」，再靠打分排序和实验筛选。</p>
+          <p><strong>为什么重要：</strong>理解这个方向性，是读懂几乎所有设计论文的门槛。</p>
+          <div class="related">
+            <span class="mini-chip">相关软件：AlphaFold（正）、ProteinMPNN（逆）</span>
+            <span class="mini-chip">相关术语：<a href="glossary.html">逆折叠</a></span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>7. 逆折叠（inverse folding）</summary>
+        <p class="one-liner">给定一个三维骨架，找出能稳定折叠成它的氨基酸序列。</p>
+        <div class="detail">
+          <p>这是蛋白设计的「发动机」。经典方法是 Rosetta 的序列设计（在固定骨架上逐个突变残基并打分）；2022 年 ProteinMPNN 用图神经网络把这件事做到了又快又准，它给出的序列实验成功率显著更高，已经成为标准流水线的固定一环。</p>
+          <p>直觉：每个残基位置的侧链要能和周围原子「咬合」——疏水残基埋进去、极性/带电残基留在表面或形成配对，同时避免空间冲突。</p>
+          <p><strong>为什么重要：</strong>「RFdiffusion 生成骨架 → ProteinMPNN 设计序列 → AlphaFold 自洽性验证」是目前最主流的三步流水线，逆折叠是其中承上启下的一步。</p>
+          <div class="related">
+            <span class="mini-chip">相关软件：ProteinMPNN、Rosetta Design</span>
+            <span class="mini-chip">相关文献：ProteinMPNN 2022</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>8. 从头设计（de novo design）</summary>
+        <p class="one-liner">不模仿任何天然蛋白，从「想要的功能」出发设计一个全新蛋白。</p>
+        <div class="detail">
+          <p>2003 年 Top7 是第一个里程碑：一个自然界不存在的全新折叠被计算设计出来，并且晶体结构几乎和设计模型完全一致。此后从头设计扩展到了稳定纳米笼、自组装、结合体、酶、疫苗等。</p>
+          <p>经典流水线（Baker lab 范式）：<strong>① 定义功能位点</strong>（催化残基/结合热点/要支架化的基序）→ <strong>② 生成骨架</strong>（Rosetta 片段组装，或现在的 RFdiffusion）→ <strong>③ 设计序列</strong>（ProteinMPNN / Rosetta）→ <strong>④ 计算验证</strong>（AlphaFold 回测、能量、MD）→ <strong>⑤ 实验验证</strong>（表达、纯化、表征、功能实验）。</p>
+          <p><strong>为什么重要：</strong>这条流水线就是你未来的工作模板。你不需要每个步骤都精通，但要知道每一步的输入输出。</p>
+          <div class="related">
+            <span class="mini-chip">相关文献：Top7 2003、RFdiffusion 2023</span>
+            <span class="mini-chip">难度：入门了解 → 进阶实践</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>9. 能量景观与稳定性</summary>
+        <p class="one-liner">设计的本质是让目标结构处于自由能最低点，即「能量漏斗」的底部。</p>
+        <div class="detail">
+          <p>蛋白质折叠可以想象成小球滚过高低起伏的景观：正确的天然结构是最低谷，错误折叠和部分折叠是别的小谷。设计要做的，是把目标结构对应的谷挖得又深又陡。</p>
+          <p>Rosetta 的 <strong>能量函数</strong>是一堆物理和统计项的加权和：范德华力、氢键、静电、溶剂化、骨架二面角偏好、侧链旋转异构体偏好等。打分开销小、速度快，适合搜索；深度学习模型则从数据里隐式学到了类似知识。</p>
+          <p><strong>为什么重要：</strong>「这个设计能不能折叠」最终由热力学决定；所有打分工具都是在近似这个热力学。实验上测 ΔG、Tm、表达量，就是在直接验证它。</p>
+          <div class="related">
+            <span class="mini-chip">相关软件：Rosetta（能量函数）</span>
+            <span class="mini-chip">相关术语：<a href="glossary.html">Rosetta 能量函数</a>、<a href="glossary.html">relax</a></span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>10. 稳定化设计策略</summary>
+        <p class="one-liner">除了从零设计，很多课题是「把天然蛋白改得更稳」：consensus、Rosetta 打分优化、二硫键、表面残基设计。</p>
+        <div class="detail">
+          <p>常见策略：<strong>consensus design</strong>（取同源序列每个位置最保守的残基，往往显著提高热稳定性）；<strong>表面极性残基优化</strong>（去掉表面疏水补丁）；<strong>引入二硫键或盐桥</strong>；<strong>截短柔性环</strong>；<strong>Rosetta 全序列设计</strong>。</p>
+          <p>这类工作门槛低、成功率高，非常适合作为第一个计算设计项目练手。</p>
+          <p><strong>为什么重要：</strong>设计失败的常见原因不是「结构不对」，而是「表达量低 / 不稳定 / 聚了」。稳定化是让设计可用的一课。</p>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>11. 结合体设计（binder design）</summary>
+        <p class="one-liner">设计一个能高亲和力结合某个目标蛋白表面的全新迷你蛋白，用于阻断、递送、检测或治疗。</p>
+        <div class="detail">
+          <p>流程上大致是：用 Rosetta/RFdiffusion 在目标表面「生长」出与热点互补的骨架 → ProteinMPNN 设计序列 → AlphaFold 回测界面 → 实验验证亲和力。代表性工作包括流感 HA 结合体（Chevalier 2017）、SARS-CoV-2 RBD 结合体（Cao 2022），以及近年的 IL-2 模拟物等。</p>
+          <p>有意思的变体包括：<strong>heterochiral 设计</strong>（用 D-氨基酸/镜像蛋白，抗蛋白酶降解）、设计到跨膜靶点、构象特异性 binder（只结合活性构象）。</p>
+          <p><strong>为什么重要：</strong>这是你研究兴趣（卢培龙实验室方向）的核心场景，也是把计算设计连回实验验证的最佳入口。</p>
+          <div class="related">
+            <span class="mini-chip">相关文献：Cao 2022、Chevalier 2017</span>
+            <span class="mini-chip">相关软件：RFdiffusion（binder 模式）、ProteinMPNN</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>12. 酶设计（enzyme design）</summary>
+        <p class="one-liner">在全新骨架上布置催化残基，创造自然界不存在的催化活性。</p>
+        <div class="detail">
+          <p>2008 年一系列工作证明可行：Kemp 消除酶、retro-aldol 酶；2010 年 Diels-Alderase 催化了自然界没有的反应。经典方法是：先找到能稳定过渡态的催化残基几何（theozyme），再设计骨架把这组几何「钉」住，同时构建底物结合口袋。</p>
+          <p>难点：设计出的酶活性通常远低于天然酶，需要定向进化补足——「计算给起点，进化做打磨」。</p>
+          <p><strong>为什么重要：</strong>酶设计是最早展示「从头设计功能」的方向，也是理解「计算 + 实验迭代」的经典教材。</p>
+          <div class="related">
+            <span class="mini-chip">相关文献：Jiang 2008、Rothlisberger 2008、Siegel 2010</span>
+            <span class="mini-chip">相关术语：<a href="glossary.html">定向进化</a></span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>13. 定向进化（directed evolution）</summary>
+        <p class="one-liner">通过「突变 → 筛选 → 扩增」的迭代循环，让蛋白在实验室里快速演化出更好的性质。</p>
+        <div class="detail">
+          <p>Frances Arnold 凭此获 2018 年诺贝尔化学奖。核心循环：制造多样性（易错 PCR、随机突变、重组）→ 施加选择压力（活性筛选、结合筛选、生长选择）→ 扩增胜者 → 再来一轮。酵母展示、噬菌体展示是最常用的筛选平台。</p>
+          <p>在 AI 设计时代，定向进化没有消失，而是变成设计的「最后一公里」：计算给出几十到几百个候选，实验筛选 + 几轮进化把活性和稳定性磨到可用水平。</p>
+          <p><strong>为什么重要：</strong>不会做筛选的实验科学家，很难把计算设计变成真正有用的蛋白；会筛选的人，计算设计的成功率会被放大很多倍。</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="concept-group">
+      <h2>三、机器学习原理</h2>
+      <p>2022 年后的设计基本绕不开这些词。理解直觉即可，不必先啃数学。</p>
+
+      <details class="concept">
+        <summary>14. 蛋白质语言模型（PLM）</summary>
+        <p class="one-liner">用海量天然序列训练出的「蛋白版 ChatGPT」，从进化数据里学到结构和功能的知识。</p>
+        <div class="detail">
+          <p>ESM 系列把数百万条天然序列当「文本」训练：模型学会预测被遮住的残基。神奇的是，为了预测序列，模型隐式学到了进化保守性、结构倾向甚至功能——ESMFold 可以仅凭单条序列快速预测结构，ESM3 还能生成同时满足序列/结构/功能条件的蛋白。</p>
+          <p>另一个用途是打分：语言模型给出的概率（log-likelihood）可以作为「这个序列像不像天然蛋白」的合理性指标，辅助筛选设计候选。</p>
+          <p><strong>为什么重要：</strong>理解「进化 = 天然的生成数据」，是理解为什么语言模型能用于设计的关键。</p>
+          <div class="related">
+            <span class="mini-chip">相关软件：ESM / ESMFold / ESM3</span>
+            <span class="mini-chip">相关文献：Rives 2021、ESM3 2024/25</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>15. 扩散模型（diffusion model）</summary>
+        <p class="one-liner">先学会「把结构加噪」，再学会「从噪声一步步去噪恢复结构」——生成时从纯噪声出发采样出全新骨架。</p>
+        <div class="detail">
+          <p>训练时：把真实结构逐渐加噪成纯噪声，模型学习反向去噪。生成时：从随机噪声开始，模型一步步「去噪」，最终得到完整结构。关键在「条件生成」：可以给定功能位点/结合靶点/对称约束，让采样过程满足这些条件。</p>
+          <p>RFdiffusion 是结构域的扩散（每步生成骨架坐标），Chroma 还支持程序化约束（对称、尺寸、掩码）。这类模型生成的结构置信度往往非常高。</p>
+          <p><strong>为什么重要：</strong>「用扩散模型生成骨架」已经取代了大部分经典骨架采样，是现在从头设计和 binder 设计的主力。</p>
+          <div class="related">
+            <span class="mini-chip">相关软件：RFdiffusion、Chroma</span>
+            <span class="mini-chip">相关文献：RFdiffusion 2023、Chroma 2023</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>16. 结构预测的评估指标</summary>
+        <p class="one-liner">pLDDT（每个残基的置信度）、pTM/ipTM（整体/界面置信度）、RMSD/TM-score（与实验结构对比的指标）。</p>
+        <div class="detail">
+          <p>设计流水线里 AlphaFold 不是「最终答案」，而是<strong>自洽性检查</strong>：把设计序列预测回结构，如果预测结构和设计骨架一致（pLDDT 高、RMSD 小），说明这个序列很可能真的折叠成目标结构。这就是著名的 "design → predict → check" 闭环。</p>
+          <p>常用判断：pLDDT &gt; 90 高质量，70–90 可信，&lt; 50 无序；界面看 ipTM / PAE；对比设计模型和预测模型看 backbone RMSD（&lt; 1–2 Å 很好）。</p>
+          <p><strong>为什么重要：</strong>不读这几个指标，就没法判断「这次设计成没成」——它们是计算设计的验收标准。</p>
+          <div class="related">
+            <span class="mini-chip">相关术语：<a href="glossary.html">pLDDT</a>、<a href="glossary.html">pTM</a>、<a href="glossary.html">ipTM</a>、<a href="glossary.html">TM-score</a></span>
+          </div>
+        </div>
+      </details>
+
+      <details class="concept">
+        <summary>17. 数据、数据库与可复现性</summary>
+        <p class="one-liner">PDB 是模型的训练语料；AlphaFold DB 覆盖了数亿蛋白；好设计必须有公开代码和可复现的 Colab。</p>
+        <div class="detail">
+          <p>深度学习模型的「知识」来自 PDB 里的实验结构 + 序列数据库里的进化信息。作为使用者，你要知道：模型擅长它见过的分布（球状蛋白、常见界面），对特殊化学环境（非天然氨基酸、共价修饰、heterochiral）需要谨慎。</p>
+          <p>实际做项目时：设计候选先过 AlphaFold 回测 → 在 Colab/本地跑通 → 送基因合成（如 Twist、GenScript）→ 表达验证。每一步都要记录参数，因为设计实验的失败分析最依赖完整的元数据。</p>
+          <p><strong>为什么重要：</strong>可复现性和「理解模型局限」决定了你能不能把别人的 pipeline 变成自己的产出。</p>
+          <div class="related">
+            <span class="mini-chip">资源：<a href="resources.html">数据库</a>、<a href="software.html">Colab 清单</a></span>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="note info">
+      <strong>阅读顺序建议</strong>
+      第一次看：1–9。第二次看：10–13。做课题前：14–17。每看完一组，去软件页挑一个对应工具跑一遍，再回来读概念会有完全不同的理解。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 核心概念</span>
+    <span><a href="glossary.html">遇到生词？去术语表</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

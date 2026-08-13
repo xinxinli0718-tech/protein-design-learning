@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>重要文献 · 蛋白质设计学习指南</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html" class="active">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">按主题筛选</span>
+      <span class="badge teal">每篇附阅读建议</span>
+      <span class="badge amber">从 1973 到 2025</span>
+    </div>
+    <h1>重要文献清单</h1>
+    <p class="sub">
+      从「序列决定结构」的第一性原理，到 AlphaFold 革命、扩散模型与语言模型，
+      再到结合体、酶和纳米材料的应用案例。每篇都有「一句话 + 为什么重要 + 怎么读」。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="note info">
+      <strong>2024 年诺贝尔化学奖背景</strong>
+      一半授予 David Baker（计算蛋白质设计），另一半共同授予 Demis Hassabis 和 John Jumper（AlphaFold 蛋白质结构预测）。
+      这个领域的「学科史」很短，从 2003 年 Top7 到 2023 年 RFdiffusion 只用了 20 年——这也是为什么经典文献值得读：每一步都是里程碑。
+    </div>
+
+    <div class="filters" data-filter-bar="#lit-list" data-search="#lit-search">
+      <button class="chip active" data-filter="all">全部</button>
+      <button class="chip" data-filter="classic">经典必读</button>
+      <button class="chip" data-filter="predict">结构预测革命</button>
+      <button class="chip" data-filter="gen">深度生成设计</button>
+      <button class="chip" data-filter="app">应用案例</button>
+      <button class="chip" data-filter="extra">综述与延伸</button>
+    </div>
+    <input id="lit-search" class="searchbox" type="search" placeholder="搜索文献，如：binder、扩散、酶、Top7…">
+
+    <div id="lit-list">
+
+      <article class="card lit-card" data-category="classic" data-search="Anfinsen 安芬森 折叠 序列决定结构 1973">
+        <h3>《Principles that Govern the Folding of Protein Chains》</h3>
+        <p class="cite">Anfinsen, C. B. · Science, 1973</p>
+        <p class="why">为什么重要：整个蛋白设计学科的第一性原理——序列决定结构。没有它，就没有「设计序列等于设计结构」这件事。</p>
+        <p>怎么读：篇幅不长，读结论部分即可。理解「复性实验为什么能证明序列决定结构」这一个点就值回票价。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="classic" data-search="Top7 从头设计 全新折叠 Kuhlman 2003">
+        <h3>《Design of a Novel Globular Protein Fold with Atomic-Level Accuracy》（Top7）</h3>
+        <p class="cite">Kuhlman, B. et al. · Science, 2003</p>
+        <p class="why">为什么重要：第一个在实验室里被证实「自然界不存在、纯计算设计」的全新蛋白折叠。晶体结构几乎与设计模型逐原子吻合，证明从头设计可行。</p>
+        <p>怎么读：读摘要 + 结果前两节 + 图 1。你会看到经典 Rosetta 流水线的原型。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1126/science.1089427" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="classic" data-search="综述 de novo 从头设计 Huang Boyken Baker 2016">
+        <h3>《The Coming of Age of De Novo Protein Design》</h3>
+        <p class="cite">Huang, P.-S., Boyken, S. E., Baker, D. · Nature, 2016</p>
+        <p class="why">为什么重要：读懂这篇综述 = 建立从头设计的完整框架。它系统讲了「设计什么结构、怎么生成骨架、怎么设计序列、怎么验证功能」。</p>
+        <p>怎么读：这是你第二篇该读的文献。花一个下午精读，边读边对照概念页。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/nature19946" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="classic" data-search="综述 预测 设计 进展 Kuhlman Bradley 2019">
+        <h3>《Advances in Protein Structure Prediction and Design》</h3>
+        <p class="cite">Kuhlman, B., Bradley, P. · Nature Reviews Molecular Cell Biology, 2019</p>
+        <p class="why">为什么重要：AlphaFold 之前最后一篇权威综述，把「预测」和「设计」两条线放在一起讲清楚。</p>
+        <p>怎么读：重点读「设计」相关章节，理解 2019 年之前工具的能力边界，能帮你体会后来深度学习的跨越有多大。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/s41580-019-0168-3" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="classic" data-search="Arnold 定向进化 2018 诺贝尔">
+        <h3>《Directed Evolution: Bringing New Chemistry to Life》</h3>
+        <p class="cite">Arnold, F. H. · Angewandte Chemie, 2018（诺贝尔演讲）</p>
+        <p class="why">为什么重要：设计的另一半——进化。计算设计给起点，定向进化给「能用的蛋白」。读懂进化筛选逻辑，你的设计项目成功率会翻倍。</p>
+        <p>怎么读：当故事读，1 小时。重点理解「突变 → 筛选 → 扩增」循环和筛选压力的设计。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1002/anie.201812408" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="classic" data-search="Foldit 游戏 玩家 晶体结构 Khatib 2011">
+        <h3>《Crystal Structure of a Monomeric Retroviral Protease Solved by Protein Folding Game Players》</h3>
+        <p class="cite">Khatib, F. et al. · Nature Structural & Molecular Biology, 2011</p>
+        <p class="why">为什么重要：Foldit 玩家靠「手感」解出了困扰科学家多年的结构——证明折叠目标函数是可以被直觉理解的，也顺带是 Foldit 的绝佳背书。</p>
+        <p>怎么读：读图 + 玩家社区故事即可。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/nsmb.2119" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="predict" data-search="AlphaFold2 Jumper 2021 结构预测">
+        <h3>《Highly Accurate Protein Structure Prediction with AlphaFold》</h3>
+        <p class="cite">Jumper, J. et al. · Nature, 2021</p>
+        <p class="why">为什么重要：结构预测从「难」变「解决」。AlphaFold2 的架构（Evoformer + structure module）也直接影响了后来所有结构类深度学习模型。</p>
+        <p>怎么读：第一遍读摘要和结果，第二遍精读 Methods 里的架构图，第三遍去看 ColabFold 代码对应关系。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="predict" data-search="RoseTTAFold Baek 2021 三轨">
+        <h3>《Accurate Prediction of Protein Structures and Interactions Using a Three-Track Neural Network》</h3>
+        <p class="cite">Baek, M. et al. · Science, 2021</p>
+        <p class="why">为什么重要：AlphaFold2 的同期对手，用更轻的三轨网络（序列、结构、MSA）达到相近精度。它的开源生态（包括后来的 RFdiffusion）是 Baker lab 深度学习布局的起点。</p>
+        <p>怎么读：重点读架构设计差异，理解「轻量」与「精度」的权衡。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1126/science.abj8754" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="predict" data-search="ESM 语言模型 Rives 2021 250M">
+        <h3>《Biological Structure and Function Emerge from Scaling Unsupervised Learning to 250 Million Protein Sequences》</h3>
+        <p class="cite">Rives, A. et al. · PNAS, 2021</p>
+        <p class="why">为什么重要：蛋白语言模型的奠基论文。证明「只学序列」就能隐式学到结构/功能/进化信息，为 ESMFold、ESM3 和无数下游应用铺路。</p>
+        <p>怎么读：读「模型在无监督下学到了什么」的验证实验部分，非常直观。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1073/pnas.2016239118" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="predict" data-search="AlphaFold3 Abramson 2024 复合物 配体">
+        <h3>《Accurate Structure Prediction of Biomolecular Interactions with AlphaFold3》</h3>
+        <p class="cite">Abramson, J. et al. · Nature, 2024</p>
+        <p class="why">为什么重要：把预测从「蛋白单体」推广到「蛋白—核酸—小分子—修饰」复合物。设计界用它回测「设计好的蛋白会不会和靶点/配体正确结合」。</p>
+        <p>怎么读：重点看它支持哪些分子类型、读 ipTM 评估和与 AF2 的对比图。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/s41586-024-07487-w" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="predict" data-search="OpenFold Ahdritz 2024 开源 可训练">
+        <h3>《OpenFold: Retraining AlphaFold2 Yields New Insights into Its Learning Mechanisms and Challenges for Generalizability》</h3>
+        <p class="cite">Ahdritz, G. et al. · Nature Communications, 2024</p>
+        <p class="why">为什么重要：把 AF2 完全开源复现并训练，让「研究模型、改模型、训练自己的预测器」成为可能。</p>
+        <p>怎么读：想做模型研究再精读，否则读摘要即可。<span class="badge rose">硬核</span></p>
+        <div class="links">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/?term=OpenFold+Retraining+AlphaFold2" target="_blank" rel="noopener">PubMed</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="predict" data-search="Boltz-1 Wohlwend 2024 开源 复合物">
+        <h3>《Boltz-1: Democratizing Access to Large-Scale Protein Structure Prediction》</h3>
+        <p class="cite">Wohlwend, J. et al. · 2024（arXiv 预印本，后发表于 Nature Methods）</p>
+        <p class="why">为什么重要：首个开源复现 AlphaFold3 级复合物预测的模型，让本地跑「蛋白+配体+核酸」预测不再依赖闭源服务器。</p>
+        <p>怎么读：使用向（跑一遍 Colab/GitHub）为主，Methods 可跳过。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2409.15189" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="gen" data-search="ProteinMPNN Dauparas 2022 逆折叠 序列设计">
+        <h3>《Robust Deep Learning-Based Protein Sequence Design Using ProteinMPNN》</h3>
+        <p class="cite">Dauparas, J. et al. · Science, 2022</p>
+        <p class="why">为什么重要：逆折叠的转折点。图神经网络让序列设计又快又好，实验成功率大幅提升，从此成为「设计流水线里不可缺的一步」。</p>
+        <p>怎么读：精读。理解输入输出（骨架坐标 → 序列）、如何固定残基、如何采样多条序列。这是你第一个要完全吃透的模型。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1126/science.add2187" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="gen" data-search="RFdiffusion Watson 2023 扩散 骨架 从头设计">
+        <h3>《De Novo Design of Protein Structure and Function with RFdiffusion》</h3>
+        <p class="cite">Watson, J. L. et al. · Nature, 2023</p>
+        <p class="why">为什么重要：当前从头设计的主角论文。扩散模型生成骨架，实验验证的成功率从「万里挑一」变成「十之七八」，binder、酶、对称组装全面开花。</p>
+        <p>怎么读：先读摘要 + 图 1（流水线总览）+ 各任务的结果图；Methods 里重点看「条件生成」和 binder 模式怎么定义热点。然后跑一遍官方 Colab。<span class="badge rose">硬核</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/s41586-023-06415-8" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="gen" data-search="Chroma Ingraham 2023 生成式 程序化">
+        <h3>《Illuminating Protein Space with a Programmable Generative Model》</h3>
+        <p class="cite">Ingraham, J. B. et al. · Nature, 2023（Chroma）</p>
+        <p class="why">为什么重要：另一个扩散生成模型，亮点是「程序化约束」——对称性、尺寸、功能条件都能直接编码进采样，实验验证了一批全新蛋白。</p>
+        <p>怎么读：与 RFdiffusion 对比读，重点看约束表达方式的差异。<span class="badge rose">硬核</span></p>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2303.09419" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="gen" data-search="ESM3 Hayes 2025 语言模型 500 million years">
+        <h3>《Simulating 500 Million Years of Evolution with a Language Model》</h3>
+        <p class="cite">Hayes, T. et al. · Science, 2025（ESM3）</p>
+        <p class="why">为什么重要：把「序列 + 结构 + 功能」统一进一个生成模型，能按条件生成蛋白（经典例子：从远古祖先蛋白生成有活性的新荧光蛋白）。代表「多模态生成」方向。</p>
+        <p>怎么读：读摘要 + 荧光蛋白案例故事；技术细节可后补。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2407.21774" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="gen" data-search="Trippe 2022 扩散 概率 建模 骨架">
+        <h3>《Diffusion Probabilistic Modeling of Protein Backbones in 3D for the Motif-Scaffolding Problem》</h3>
+        <p class="cite">Trippe, B. L. et al. · ICLR, 2023（arXiv 2022）</p>
+        <p class="why">为什么重要：把扩散模型引入蛋白骨架生成的开创性工作，直接催生了 RFdiffusion。读它能理解「motif scaffolding」的问题定义。</p>
+        <p>怎么读：了解问题设定和直觉即可，不必抠细节。<span class="badge rose">硬核</span></p>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2206.04119" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="gen" data-search="FrameDiff Yim SE3 等变 扩散">
+        <h3>《SE(3) Diffusion Model with Application to Protein Backbone Generation》</h3>
+        <p class="cite">Yim, J. et al. · ICML, 2023（FrameDiff）</p>
+        <p class="why">为什么重要：强调「等变性」的骨架扩散方法，让生成结果天然满足旋转平移对称。技术上有教学价值。</p>
+        <p>怎么读：可选。想深入理解扩散模型在 3D 结构上的数学再读。<span class="badge rose">硬核</span></p>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2210.08302" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Chevalier 2017 流感 结合体 高通量">
+        <h3>《Massively Parallel De Novo Protein Design for Targeted Therapeutics》</h3>
+        <p class="cite">Chevalier, A. et al. · Nature, 2017</p>
+        <p class="why">为什么重要：从头设计流感血凝素结合体的里程碑，展示了「计算设计 + 酵母展示高通量筛选」的经典组合拳。</p>
+        <p>怎么读：读图 1（设计流程）和图 2（筛选与命中）。这是 binder 设计的标准教材。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/nature23912" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Silva 2019 IL-2 IL-15 模拟物 从头设计">
+        <h3>《De Novo Design of Potent and Selective Mimics of IL-2 and IL-15》</h3>
+        <p class="cite">Silva, D.-A. et al. · Nature, 2019</p>
+        <p class="why">为什么重要：把「从头设计结合体」用在细胞因子模拟上——设计出的 IL-2/IL-15 模拟物在动物体内有真实疗效。设计 → 治疗的直接示范。</p>
+        <p>怎么读：读摘要 + 设计策略部分，感受「功能导向设计」的思维方式。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/?term=De+novo+design+of+potent+and+selective+mimics+of+IL-2+and+IL-15" target="_blank" rel="noopener">PubMed</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Cao 2022 结合蛋白 靶点结构 RBD">
+        <h3>《Design of Protein-Binding Proteins from Target Structure Alone》</h3>
+        <p class="cite">Cao, L. et al. · Nature, 2022</p>
+        <p class="why">为什么重要：仅凭靶点结构就能设计高亲和力 mini-protein binder（包括 SARS-CoV-2 RBD）。流程简单、成功率高，是「现代 binder 设计」的标准范本。</p>
+        <p>怎么读：精读。理解 hotspot 定义、骨架生长、序列设计、实验筛选的每一步——这就是你未来课题的工作模板。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/s41586-022-04654-9" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Jiang 2008 retro-aldol 酶设计 过渡态">
+        <h3>《De Novo Computational Design of Retro-Aldol Enzymes》</h3>
+        <p class="cite">Jiang, L. et al. · Science, 2008</p>
+        <p class="why">为什么重要：从头设计催化「自然界没有专门酶」的反应的里程碑，展示了「催化位点几何 → 骨架设计」的思路。</p>
+        <p>怎么读：读图 1（theozyme 思路）和「进化提升活性」的讨论。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1126/science.1152692" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Rothlisberger 2008 Kemp 消除酶">
+        <h3>《Kemp Elimination Catalysts by Computational Enzyme Design》</h3>
+        <p class="cite">Röthlisberger, D. et al. · Nature, 2008</p>
+        <p class="why">为什么重要：与 retro-aldol 同期，证明计算酶设计可以创造全新催化活性，也是「计算设计 + 定向进化」组合的经典案例。</p>
+        <p>怎么读：读摘要和催化机制部分即可。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/nature06879" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Siegel 2010 Diels-Alder 酶">
+        <h3>《Computational Design of an Enzyme Catalyst for a Stereoselective Bimolecular Diels-Alder Reaction》</h3>
+        <p class="cite">Siegel, J. B. et al. · Science, 2010</p>
+        <p class="why">为什么重要：设计出催化自然界不存在反应的酶，且立体选择性可控——酶设计的「造物主时刻」。</p>
+        <p>怎么读：当案例故事读，重点在「过渡态几何设计」和「进化后的活性提升」。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1126/science.1190239" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Hsia 2016 二十面体 自组装 纳米">
+        <h3>《Design of a Hyperstable 60-Subunit Protein Icosahedron》</h3>
+        <p class="cite">Hsia, Y. et al. · Nature, 2016</p>
+        <p class="why">为什么重要：从头设计 60 个亚基自组装成二十面体纳米笼，为疫苗递送、纳米材料铺路。展示「对称设计」的威力。</p>
+        <p>怎么读：读摘要 + 图 1 的对称设计思路。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://doi.org/10.1038/nature18010" target="_blank" rel="noopener">原文</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="app" data-search="Marcandalli 2019 RSV 疫苗 纳米颗粒">
+        <h3>《Induction of Potent Neutralizing Antibody Responses by a Designed Protein Nanoparticle Vaccine for Respiratory Syncytial Virus》</h3>
+        <p class="cite">Marcandalli, J. et al. · Cell, 2019</p>
+        <p class="why">为什么重要：把设计好的抗原展示在自组装纳米颗粒上，引发远超可溶性抗原的免疫应答——「设计疫苗」从概念走向临床前验证。</p>
+        <p>怎么读：读摘要 + 设计示意图，理解「支架展示抗原」的价值。<span class="badge amber">中等</span></p>
+        <div class="links">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Induction+of+Potent+Neutralizing+Antibody+Responses+by+a+Designed+Protein+Nanoparticle+Vaccine" target="_blank" rel="noopener">PubMed</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="extra" data-search="Nobel Baker 诺奖 演讲 2024">
+        <h3>David Baker · 2024 年诺贝尔化学奖演讲</h3>
+        <p class="cite">NobelPrize.org, 2024</p>
+        <p class="why">为什么重要：领域奠基人亲自讲 20 年研究历程，从 Top7 讲到 RFdiffusion，是最好的「领域地图」和英文听力材料。</p>
+        <p>怎么读：1 小时视频或讲稿，值得完整看一遍。<span class="badge gray">入门</span></p>
+        <div class="links">
+          <a href="https://www.nobelprize.org/prizes/chemistry/2024/baker/lecture/" target="_blank" rel="noopener">诺奖官网</a>
+        </div>
+      </article>
+
+      <article class="card lit-card" data-category="extra" data-search="heterochiral 镜像 卢培龙 binder">
+        <h3>拓展方向：Heterochiral / 镜像蛋白设计</h3>
+        <p class="cite">你的关注方向 · 追踪卢培龙实验室等课题组</p>
+        <p class="why">为什么重要：用镜像（D-氨基酸）或非天然化学拓展设计空间，可能做出抗蛋白酶降解的结合体、体内更稳定的药物前体——是结合体设计的前沿变体。</p>
+        <p>怎么读：用 PubMed 关键词检索跟踪最新论文，同时把你桌面「卢培龙」文件夹里的文献读一遍，用本页结构做笔记。<span class="badge rose">进阶</span></p>
+        <div class="links">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/?term=heterochiral+protein+design" target="_blank" rel="noopener">PubMed 检索</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="note tip">
+      <strong>精读优先级</strong>
+      时间有限时按这个顺序：Huang 2016 综述 → ProteinMPNN 2022 → RFdiffusion 2023 → Cao 2022。
+      这四篇读透，你就能看懂 90% 的现代设计论文在做什么。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 重要文献</span>
+    <span><a href="resources.html">配套学习资源 →</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

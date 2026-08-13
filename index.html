@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蛋白质设计学习指南 · 首页</title>
+  <meta name="description" content="从零开始学习蛋白质设计：概念、软件、文献、资源一站式中文指南。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html" class="active">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">零基础友好</span>
+      <span class="badge teal">中文讲解</span>
+      <span class="badge amber">覆盖主流软件</span>
+      <span class="badge rose">必读文献清单</span>
+    </div>
+    <h1>蛋白质设计，一套看得懂的自学路线</h1>
+    <p class="sub">
+      从氨基酸和折叠原理，到 AlphaFold、Rosetta、RFdiffusion、ProteinMPNN——
+      把「结构生物学 + 机器学习」这条路上需要知道的概念、软件和文献，
+      按阶段整理成一份可以跟着做的中文指南。
+    </p>
+    <div class="hero-cta">
+      <a class="btn" href="concepts.html">先学核心概念</a>
+      <a class="btn ghost" href="software.html">看看有哪些软件</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">什么是蛋白质设计？</h2>
+    <p class="section-desc">
+      一句话版本：<strong>结构预测</strong>是「给我一条序列，我告诉你它长什么样」；
+      <strong>蛋白质设计</strong>反过来——「给我一个想要的结构或功能，我来设计一条能折叠成它的序列」。
+      传统方法靠物理能量函数（Rosetta）搜索序列空间；2022 年以来，深度学习（AlphaFold、扩散模型、语言模型）
+      让这条流水线又快又准，2024 年诺贝尔化学奖颁给了计算蛋白设计的开创者 David Baker 和
+      结构预测的 Demis Hassabis / John Jumper，就是这个领域最好的注脚。
+    </p>
+    <div class="note tip">
+      <strong>给有结构生物学背景的你</strong>
+      你已经会 PyMOL / ChimeraX、看得懂 PDB、做过 cryo-EM——恭喜，这已经超过 80% 刚入门的人。
+      这份指南的重点是补上「计算设计」这一侧：能量函数、逆折叠、扩散模型，以及怎么把你的实验技能接进设计闭环。
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="container">
+    <h2 class="section-title">学习路径（5 个阶段）</h2>
+    <p class="section-desc">
+      每一阶段都有明确产出。勾选完成项，进度会自动保存在本机浏览器里（localStorage）。
+    </p>
+    <div class="progress-wrap">
+      <div id="roadmap-progress-label" class="progress-label">已完成 0 / 0 项</div>
+      <div class="progress-bar"><div id="roadmap-progress-fill" class="progress-fill"></div></div>
+    </div>
+
+    <ol class="timeline">
+      <li>
+        <span class="dot">0</span>
+        <div class="stage-head"><h3>打地基：结构生物学快速复习</h3><span class="time">约 1–2 周</span></div>
+        <div class="stage-body">
+          <label class="task"><input type="checkbox" data-key="s0-1"><span>复习氨基酸、二级结构、结构域，能画出「序列→结构→功能」的关系</span></label>
+          <label class="task"><input type="checkbox" data-key="s0-2"><span>能读懂 PDB 文件里的一行原子记录（链、残基、坐标、B-factor）</span></label>
+          <label class="task"><input type="checkbox" data-key="s0-3"><span>用 PyMOL 或 ChimeraX 打开一个结构，做一次射线图/表面图</span></label>
+          <div class="stage-note">产出：能在 10 分钟内用可视化软件讲清一个蛋白的结构特征。</div>
+        </div>
+      </li>
+      <li>
+        <span class="dot teal">1</span>
+        <div class="stage-head"><h3>第一次「设计」：玩转预测与逆折叠</h3><span class="time">约 2–4 周</span></div>
+        <div class="stage-body">
+          <label class="task"><input type="checkbox" data-key="s1-1"><span>用 Foldit 玩 2–3 关，理解折叠的「目标函数」长什么样</span></label>
+          <label class="task"><input type="checkbox" data-key="s1-2"><span>用 ColabFold 预测一个蛋白结构，读懂 pLDDT、pTM、PAE</span></label>
+          <label class="task"><input type="checkbox" data-key="s1-3"><span>用 ProteinMPNN 的 Colab 给一条已知骨架做一次序列设计</span></label>
+          <div class="stage-note">产出：从「只会预测」跨越到「能做设计」——这是本阶段最重要的心智转变。</div>
+        </div>
+      </li>
+      <li>
+        <span class="dot amber">2</span>
+        <div class="stage-head"><h3>经典计算设计：Rosetta / PyRosetta</h3><span class="time">约 1–3 个月</span></div>
+        <div class="stage-body">
+          <label class="task"><input type="checkbox" data-key="s2-1"><span>理解 Rosetta 能量函数：每一项物理上代表什么（范德华、氢键、溶剂化、骨架二面角……）</span></label>
+          <label class="task"><input type="checkbox" data-key="s2-2"><span>跑通一个 FastDesign / Relax 例子，看懂 score 的变化</span></label>
+          <label class="task"><input type="checkbox" data-key="s2-3"><span>读 Top7（2003）和《The coming of age of de novo protein design》（2016 综述）</span></label>
+          <label class="task"><input type="checkbox" data-key="s2-4"><span>理解从头设计的经典流水线：功能位点 → 骨架生成 → 序列设计 → 实验验证</span></label>
+          <div class="stage-note">产出：能解释「为什么要能量函数」「Rosetta 和深度学习的关系」。</div>
+        </div>
+      </li>
+      <li>
+        <span class="dot rose">3</span>
+        <div class="stage-head"><h3>AI 生成式设计：扩散模型与语言模型</h3><span class="time">约 3–6 个月</span></div>
+        <div class="stage-body">
+          <label class="task"><input type="checkbox" data-key="s3-1"><span>用 RFdiffusion + ProteinMPNN 跑通一个 binder 或 motif scaffolding 例子</span></label>
+          <label class="task"><input type="checkbox" data-key="s3-2"><span>理解扩散模型直觉：加噪→学去噪→从噪声采样出骨架</span></label>
+          <label class="task"><input type="checkbox" data-key="s3-3"><span>跑一次 ESM 或 ESM3 示例，理解蛋白语言模型在做什么</span></label>
+          <label class="task"><input type="checkbox" data-key="s3-4"><span>精读 RFdiffusion（2023）和 ProteinMPNN（2022）原文的 Methods</span></label>
+          <div class="stage-note">产出：能独立设计一条骨架并用 ProteinMPNN 得到候选序列，知道每一步的局限。</div>
+        </div>
+      </li>
+      <li>
+        <span class="dot">4</span>
+        <div class="stage-head"><h3>做自己的课题：设计—实验闭环</h3><span class="time">长期</span></div>
+        <div class="stage-body">
+          <label class="task"><input type="checkbox" data-key="s4-1"><span>选一个具体目标：结合体（binder）、酶、纳米材料、疫苗或自组装</span></label>
+          <label class="task"><input type="checkbox" data-key="s4-2"><span>设计并表达一批候选（酵母展示/噬菌体展示或直接表达纯化），做一轮实验验证</span></label>
+          <label class="task"><input type="checkbox" data-key="s4-3"><span>用 SEC / CD / BLI / SPR / cryo-EM / 晶体等手段表征成功与否</span></label>
+          <label class="task"><input type="checkbox" data-key="s4-4"><span>跟进新工具：AlphaFold3 / Boltz / ESM3 / 定向进化与 LLM 代理工作流</span></label>
+          <div class="stage-note">你的 cryo-EM 技能在这里就是杀手锏——很多设计论文的「最后一幅图」就是电镜结构。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">六张地图，随意翻阅</h2>
+    <p class="section-desc">不需要按顺序读。遇到不懂的词去术语表，想知道用什么软件去软件页。</p>
+    <div class="cards-grid nav-cards">
+      <a class="card" href="concepts.html">
+        <h3>核心概念</h3>
+        <p>基础概念、设计的两类问题、机器学习原理——每个概念都配「一句话解释 + 为什么重要 + 相关软件/文献」。</p>
+        <p class="card-meta">适合：任何时候补背景</p>
+      </a>
+      <a class="card" href="software.html">
+        <h3>软件工具</h3>
+        <p>结构预测、序列设计、生成式设计、可视化、实验验证，覆盖从入门到前沿的主流工具和上手链接。</p>
+        <p class="card-meta">适合：想动手但不知道装什么</p>
+      </a>
+      <a class="card" href="literature.html">
+        <h3>重要文献</h3>
+        <p>按「经典 → 结构预测革命 → 深度生成设计 → 应用案例」分组的精读清单，每条附一句话总结和阅读建议。</p>
+        <p class="card-meta">适合：做课题、写 proposal、追前沿</p>
+      </a>
+      <a class="card" href="resources.html">
+        <h3>学习资源</h3>
+        <p>官方文档、免费课程、视频、数据库、社区与论坛——把「网上的好东西」集中在一页。</p>
+        <p class="card-meta">适合：需要更系统的课程或找人问</p>
+      </a>
+      <a class="card" href="glossary.html">
+        <h3>术语表</h3>
+        <p>pLDDT、PAE、TM-score、逆折叠、扩散、等变性……40+ 高频术语的中文解释，支持搜索。</p>
+        <p class="card-meta">适合：看文献时随时查</p>
+      </a>
+      <div class="card">
+        <h3>使用建议</h3>
+        <p>每周 2–3 小时：先读概念页对应条目 → 跑一个 Colab → 再读一篇文献。设计是「动手学」的学科，光看不练等于没学。</p>
+        <p class="card-meta">建议：把软件页的 Colab 收藏到书签</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">第一步做什么？</h2>
+    <ol style="line-height:2; font-size:15.5px; margin:0 0 18px; padding-left:20px;">
+      <li>花 30 分钟读 <a href="concepts.html">核心概念页</a> 的「基础概念」部分，把术语表里不认识的词过一遍。</li>
+      <li>装一个可视化软件（<a href="software.html">PyMOL 或 ChimeraX</a>），打开一个你感兴趣的 PDB 结构随便玩玩。</li>
+      <li>周末跑第一个 <a href="software.html">ColabFold</a>：预测你研究里一个蛋白的结构，看看 pLDDT 图长什么样。</li>
+    </ol>
+    <a class="btn" href="concepts.html">开始第一步 →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 持续更新</span>
+    <span>内容基于公开资料整理，仅供学习交流</span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>
