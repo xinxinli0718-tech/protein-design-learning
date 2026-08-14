@@ -28,4 +28,9 @@
     <text class="block-title">6. 侵权处理</text>
     <text class="block-text">如认为本小程序内容侵犯您的权利，请联系作者，核实后将及时更正或删除。</text>
   </view>
+
+  <view class="card block">
+    <text class="block-title">7. 隐私政策</text>
+    <text class="block-text">本小程序不收集、不上传任何个人信息：无登录、无位置、无相册/摄像头权限。学习进度仅保存在你的设备本地存储中，不使用统计、广告或任何第三方 SDK。「复制链接」仅在用户主动点击时写入系统剪贴板。如隐私政策有更新，将在此页公告。</text>
+  </view>
 </view>

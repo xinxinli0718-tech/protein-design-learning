@@ -11,6 +11,7 @@ const ASSETS = [
   "./practice.html",
   "./practice-task.html",
   "./disclaimer.html",
+  "./courses.html",
   "./manifest.webmanifest",
   "./assets/style.css",
   "./assets/app.js",
