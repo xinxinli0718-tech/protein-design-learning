@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="card block">
+    <text class="block-title">1. 内容性质与免责声明</text>
+    <text class="block-text">本小程序的内容均为原创整理，仅供学习交流，不构成专业建议或商业承诺。实验操作请以所在实验室规范为准，计算工具的运行结果仅供参考。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">2. 原创内容与版权</text>
+    <text class="block-text">原创文字、页面设计与代码版权归作者所有，转载请联系作者。文献介绍仅用于学习指引，未复制论文正文、摘要原文或图表，正式引用请以原文为准。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">3. 商标与产品归属</text>
+    <text class="block-text">站内提及的产品名称与商标（AlphaFold、ColabFold、RFdiffusion、ProteinMPNN、ESM、Rosetta、PyMOL、ChimeraX 等）归各自所有者所有，提及仅为教学指代，不构成官方合作或背书。「QR Code」是 DENSO WAVE INCORPORATED 的注册商标。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">4. 外部链接</text>
+    <text class="block-text">步骤中的链接指向第三方网站（Google Colab、GitHub、数据库、出版方等），其内容归原作者所有；点击即离开本小程序，作者不对第三方内容负责。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">5. 第三方开源许可</text>
+    <text class="block-text">使用 qrcode-generator（Copyright (c) 2009 Kazuhiko Arase，MIT 许可证，http://www.opensource.org/licenses/mit-license.php）。完整清单见网站 THIRD_PARTY_NOTICES.md。</text>
+  </view>
+
+  <view class="card block">
+    <text class="block-title">6. 侵权处理</text>
+    <text class="block-text">如认为本小程序内容侵犯您的权利，请联系作者，核实后将及时更正或删除。</text>
+  </view>
+</view>

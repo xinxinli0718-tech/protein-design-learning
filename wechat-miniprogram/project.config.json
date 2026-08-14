@@ -30,8 +30,8 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.4.0",
-  "appid": "wx89c20954764f7127",
+  "libVersion": "3.17.0",
+  "appid": "wx1f6caca6a42daa72",
   "projectname": "protein-design-companion",
   "condition": {},
   "simulatorPluginLibVersion": {},

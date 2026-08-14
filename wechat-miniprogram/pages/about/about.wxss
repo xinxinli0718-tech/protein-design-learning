@@ -1,0 +1,21 @@
+.page {
+  padding: 24rpx 28rpx 60rpx;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+}
+
+.block-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.block-text {
+  font-size: 25rpx;
+  color: #5c6577;
+  line-height: 1.7;
+}

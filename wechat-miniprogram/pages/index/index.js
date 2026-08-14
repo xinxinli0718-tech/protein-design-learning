@@ -10,5 +10,8 @@ Page({
   openTask(e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({ url: "/pages/practice/practice?task=" + id });
+  },
+  goAbout() {
+    wx.navigateTo({ url: "/pages/about/about" });
   }
 });

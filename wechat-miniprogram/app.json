@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/practice/practice"
+    "pages/practice/practice",
+    "pages/about/about"
   ],
   "window": {
     "navigationBarBackgroundColor": "#4f46e5",

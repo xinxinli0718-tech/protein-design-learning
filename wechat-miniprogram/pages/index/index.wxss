@@ -63,3 +63,11 @@
   font-size: 22rpx;
   margin-top: 24rpx;
 }
+
+.about-link {
+  text-align: center;
+  color: #4f46e5;
+  font-size: 24rpx;
+  margin-top: 12rpx;
+  padding: 8rpx;
+}

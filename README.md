@@ -16,6 +16,7 @@
 | `glossary.html` | 术语表：50+ 中英对照词条，支持搜索 |
 | `practice.html` | 实践中心：任务列表（手机实操伴侣入口） |
 | `practice-task.html` | 实操任务页：分步指导、进度保存、二维码、常见问题 |
+| `disclaimer.html` | 免责声明与致谢（商标归属、外部链接、第三方开源许可） |
 | `wechat-miniprogram/` | 微信小程序版（导入微信开发者工具即可运行） |
 
 ## PWA（可安装到手机/桌面）

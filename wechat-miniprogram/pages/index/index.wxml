@@ -18,4 +18,5 @@
   </view>
 
   <view class="footer-note">更多任务（RFdiffusion、从头设计、酶设计）陆续上线</view>
+  <view class="about-link" bindtap="goAbout">免责声明与致谢</view>
 </view>
