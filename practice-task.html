@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实操任务 · 蛋白质设计学习指南</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="practice.html" class="active">实践中心</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero practice-hero">
+  <div class="container">
+    <div class="hero-badges"><span class="badge" id="task-stage"></span><span class="badge gray" id="task-est"></span></div>
+    <h1 id="task-title">实操任务</h1>
+    <p class="sub" id="task-desc"></p>
+    <div class="progress-wrap practice">
+      <div id="task-progress-label" class="progress-label">已完成 0 / 0 步</div>
+      <div class="progress-bar"><div id="task-progress-fill" class="progress-fill"></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="done-banner" id="done-banner">
+      <h3>🎉 任务完成！</h3>
+      <p id="done-next"></p>
+    </div>
+    <div id="steps" class="steps"></div>
+    <div class="step-nav">
+      <button class="btn ghost" id="prev-step" disabled>← 上一步</button>
+      <button class="btn" id="next-step">下一步 →</button>
+    </div>
+    <p class="task-cta"><a href="practice.html">← 返回实践中心</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 实操任务</span>
+    <span>进度保存在本机浏览器</span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/practice-data.js"></script>
+<script src="assets/vendor/qrcode.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function getParam(name) {
+    var m = new RegExp("[?&]" + name + "=([^&]*)").exec(location.search);
+    return m ? decodeURIComponent(m[1].replace(/\+/g, " ")) : null;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  var id = getParam("task");
+  var task = null;
+  for (var i = 0; i < PRACTICE_TASKS.length; i++) {
+    if (PRACTICE_TASKS[i].id === id) { task = PRACTICE_TASKS[i]; break; }
+  }
+  if (!task) { location.href = "practice.html"; return; }
+
+  document.getElementById("task-title").textContent = task.title;
+  document.getElementById("task-stage").textContent = task.stage;
+  document.getElementById("task-est").textContent = task.est;
+  document.getElementById("task-desc").textContent = task.desc;
+  document.title = task.title + " · 蛋白质设计学习指南";
+
+  var stepsEl = document.getElementById("steps");
+  var doneBanner = document.getElementById("done-banner");
+  var doneNext = document.getElementById("done-next");
+  var KEY = "pdg-progress-" + task.id;
+
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { saved = []; }
+
+  stepsEl.innerHTML = task.steps.map(function (s, idx) {
+    var parts = [
+      '<section class="step-card" id="step-' + idx + '" data-step="' + idx + '">',
+      '<div class="step-head"><span class="step-num">' + (idx + 1) + '</span><h2 class="step-title">' + esc(s.title) + '</h2></div>',
+      '<div class="step-meta"><span class="badge gray">⏱ ' + esc(s.dur) + '</span></div>',
+      '<div class="step-body">' + s.body + '</div>'
+    ];
+    if (s.expect) {
+      parts.push('<div class="expect"><strong>预期结果：</strong>' + s.expect + '</div>');
+    }
+    if (s.link) {
+      parts.push(
+        '<div class="link-box">' +
+          '<canvas data-qr="' + esc(s.link.url) + '" width="240" height="240" aria-label="二维码"></canvas>' +
+          '<div>' +
+            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;">' +
+              '<a class="btn small" href="' + esc(s.link.url) + '" target="_blank" rel="noopener">' + esc(s.link.label) + '</a>' +
+              '<button class="btn small ghost copy-btn" data-copy="' + esc(s.link.url) + '">复制链接</button>' +
+            '</div>' +
+            '<div class="url">' + esc(s.link.url) + '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+    if (s.errors && s.errors.length) {
+      parts.push(
+        '<details class="errors"><summary>常见问题（' + s.errors.length + '）</summary><ul>' +
+        s.errors.map(function (e) {
+          return '<li><strong>' + esc(e.q) + '</strong> — ' + esc(e.a) + '</li>';
+        }).join("") +
+        '</ul></details>'
+      );
+    }
+    if (s.tip) {
+      parts.push('<div class="note tip" style="margin:12px 0 0;"><strong>小提示</strong>' + s.tip + '</div>');
+    }
+    parts.push(
+      '<label class="step-done"><input type="checkbox" data-done="' + idx + '"> 本步完成</label>',
+      '</section>'
+    );
+    return parts.join("");
+  }).join("");
+
+  // QR codes
+  document.querySelectorAll("canvas[data-qr]").forEach(function (canvas) {
+    var qr = qrcode(0, "M");
+    qr.addData(canvas.getAttribute("data-qr"));
+    qr.make();
+    var ctx = canvas.getContext("2d");
+    var size = 240, count = qr.getModuleCount(), cell = size / count;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = "#1d2333";
+    for (var r = 0; r < count; r++) {
+      for (var c = 0; c < count; c++) {
+        if (qr.isDark(r, c)) ctx.fillRect(Math.floor(c * cell), Math.floor(r * cell), Math.ceil(cell), Math.ceil(cell));
+      }
+    }
+  });
+
+  // Copy buttons
+  document.querySelectorAll(".copy-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = btn.getAttribute("data-copy");
+      function ok() { btn.textContent = "已复制 ✓"; setTimeout(function () { btn.textContent = "复制链接"; }, 1500); }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(ok).catch(function () { fallbackCopy(text, ok); });
+      } else {
+        fallbackCopy(text, ok);
+      }
+    });
+  });
+
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); cb(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // Progress
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[data-done]'));
+  var fill = document.getElementById("task-progress-fill");
+  var label = document.getElementById("task-progress-label");
+  var prevBtn = document.getElementById("prev-step");
+  var nextBtn = document.getElementById("next-step");
+  var current = 0;
+
+  function update() {
+    var count = 0;
+    boxes.forEach(function (b, idx) {
+      var done = !!(saved[idx]);
+      b.checked = done;
+      var card = b.closest(".step-card");
+      card.classList.toggle("done", done);
+      if (done) count++;
+    });
+    fill.style.width = (count / boxes.length * 100) + "%";
+    label.textContent = "已完成 " + count + " / " + boxes.length + " 步";
+    doneBanner.classList.toggle("show", count === boxes.length && boxes.length > 0);
+    var last = task.steps[task.steps.length - 1];
+    doneNext.textContent = last && last.tip ? "接下来：" + last.tip : "你已经走完了这个任务。";
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+  }
+
+  boxes.forEach(function (b, idx) {
+    b.addEventListener("change", function () {
+      saved[idx] = b.checked;
+      update();
+    });
+  });
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(boxes.length - 1, idx));
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === boxes.length - 1;
+    var el = document.getElementById("step-" + current);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  prevBtn.addEventListener("click", function () { goTo(current - 1); });
+  nextBtn.addEventListener("click", function () {
+    if (current < boxes.length - 1) goTo(current + 1);
+  });
+
+  update();
+  goTo(0);
+})();
+</script>
+</body>
+</html>

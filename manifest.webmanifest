@@ -1,0 +1,15 @@
+{
+  "name": "蛋白质设计学习指南",
+  "short_name": "蛋白设计指南",
+  "description": "从零开始学习蛋白质设计的实践伴侣：概念、软件、文献与分步实操。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f7fb",
+  "theme_color": "#4f46e5",
+  "icons": [
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

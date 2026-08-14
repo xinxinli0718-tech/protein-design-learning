@@ -229,3 +229,79 @@ footer .container { display: flex; justify-content: space-between; gap: 12px; fl
 .back-top.show { display: block; }
 .kbd { background: #f1f2f8; border-radius: 5px; padding: 1px 6px; font-size: 12.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
+
+/* ========== Practice mode (companion runbook) ========== */
+.practice-hero { padding: 40px 0 28px; }
+.practice-hero h1 { font-size: 30px; margin: 0 0 8px; }
+.practice-hero .sub { color: var(--muted); margin: 0 0 14px; }
+
+.task-card { display: flex; flex-direction: column; gap: 10px; }
+.task-card h3 { margin: 0; font-size: 18px; }
+.task-card .meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.task-card p { color: var(--muted); font-size: 14.5px; margin: 0; }
+.task-card .go { margin-top: auto; }
+
+.progress-wrap.practice { margin: 4px 0 22px; }
+
+.steps { max-width: 720px; margin: 0 auto; }
+.step-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  padding: 22px 20px; margin: 0 0 14px; box-shadow: var(--shadow);
+  scroll-margin-top: 90px;
+}
+.step-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.step-num {
+  flex: 0 0 34px; height: 34px; border-radius: 50%;
+  background: var(--brand); color: #fff; font-weight: 800; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+}
+.step-card.done .step-num { background: var(--teal); }
+.step-title { margin: 0; font-size: 18px; line-height: 1.35; }
+.step-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 2px 0 12px; }
+.step-body { color: var(--ink); font-size: 15px; }
+.step-body p { margin: 8px 0; }
+.step-body ol, .step-body ul { margin: 8px 0; padding-left: 20px; }
+.step-body li { margin: 4px 0; }
+
+.expect {
+  background: var(--teal-soft); border-left: 3px solid var(--teal);
+  border-radius: 0 10px 10px 0; padding: 10px 14px; margin: 12px 0; font-size: 14.5px;
+}
+.expect strong { color: #0f4f48; }
+.errors { margin: 12px 0 0; }
+.errors summary { cursor: pointer; font-weight: 700; font-size: 14.5px; color: var(--amber); }
+.errors ul { margin: 8px 0 0; padding-left: 20px; font-size: 14.3px; color: var(--muted); }
+.errors li { margin: 5px 0; }
+
+.link-box {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  background: #fafbff; border: 1px dashed var(--line); border-radius: 12px; padding: 12px 14px; margin-top: 14px;
+}
+.link-box .url { font-size: 12.5px; color: var(--muted); word-break: break-all; flex: 1 1 160px; }
+.link-box canvas { width: 96px; height: 96px; border-radius: 8px; background: #fff; padding: 4px; }
+.btn.small { padding: 8px 14px; font-size: 13.5px; border-radius: 9px; }
+
+.step-nav { display: flex; gap: 10px; margin: 20px 0 30px; }
+.step-nav .btn { flex: 1; text-align: center; padding: 14px 10px; font-size: 15.5px; }
+.step-nav .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.done-banner {
+  display: none; background: linear-gradient(90deg, var(--teal), var(--brand));
+  color: #fff; border-radius: 14px; padding: 18px 20px; margin: 10px 0 20px; text-align: center;
+}
+.done-banner.show { display: block; }
+.done-banner h3 { margin: 0 0 4px; }
+
+.task-cta { text-align: center; margin: 30px 0 10px; }
+.step-done {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+  font-size: 14px; color: var(--muted); cursor: pointer;
+}
+.step-done input { accent-color: var(--brand); width: 17px; height: 17px; }
+
+@media (max-width: 560px) {
+  .step-card { padding: 18px 16px; }
+  .link-box { flex-direction: column; align-items: flex-start; }
+  .link-box .url { flex: none; }
+  .step-nav { flex-direction: column; }
+}

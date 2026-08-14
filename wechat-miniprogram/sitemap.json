@@ -1,0 +1,6 @@
+{
+  "desc": "蛋白质设计实操助手",
+  "rules": [
+    { "action": "allow", "page": "*" }
+  ]
+}

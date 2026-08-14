@@ -1,6 +1,15 @@
 (function () {
   "use strict";
 
+  // ---------- PWA / service worker ----------
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./sw.js").catch(function (err) {
+        console.warn("Service worker registration failed:", err);
+      });
+    });
+  }
+
   // ---------- Mobile nav ----------
   var toggle = document.querySelector(".nav-toggle");
   var links = document.querySelector(".nav-links");

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实践中心 · 蛋白质设计学习指南</title>
+  <meta name="description" content="跟着分步实操任务，边看手机边在电脑上动手练习蛋白设计。">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="practice.html" class="active">实践中心</a>
+      <a href="glossary.html">术语表</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero practice-hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">手机实操伴侣</span>
+      <span class="badge teal">分步指导</span>
+      <span class="badge amber">进度自动保存</span>
+    </div>
+    <h1>实践中心</h1>
+    <p class="sub">
+      手机打开这个页面，电脑跟着做：每一步都有预期结果、常见问题和直达链接。
+      建议把本站“添加到主屏幕”，用起来就像 App。
+    </p>
+    <div class="note info" style="max-width:760px;">
+      <strong>使用方式</strong>
+      手机打开本页 → 选一个任务 → 按步骤在电脑上操作。进度存在你手机浏览器里，随时接着做。
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div id="task-list" class="cards-grid"></div>
+
+    <div class="note tip" style="margin-top:28px;">
+      <strong>想加新任务？</strong>
+      所有任务都定义在 <code>assets/practice-data.js</code> 里，加一个任务 = 加一段数据，页面自动生成。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 实践中心</span>
+    <span><a href="index.html">回到首页</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/practice-data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var list = document.getElementById("task-list");
+  if (!list) return;
+  list.innerHTML = PRACTICE_TASKS.map(function (t) {
+    var href = "practice-task.html?task=" + encodeURIComponent(t.id);
+    return (
+      '<a class="card task-card" href="' + href + '">' +
+        '<h3>' + t.title + '</h3>' +
+        '<div class="meta"><span class="badge teal">' + t.stage + '</span><span class="badge gray">' + t.est + '</span></div>' +
+        '<p>' + t.desc + '</p>' +
+        '<span class="btn go">开始实操 →</span>' +
+      '</a>'
+    );
+  }).join("");
+})();
+</script>
+</body>
+</html>

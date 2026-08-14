@@ -14,6 +14,15 @@
 | `literature.html` | 重要文献：5 组 27 篇，附阅读建议 |
 | `resources.html` | 学习资源：文档、课程、数据库、社区、免安装动手环境 |
 | `glossary.html` | 术语表：50+ 中英对照词条，支持搜索 |
+| `practice.html` | 实践中心：任务列表（手机实操伴侣入口） |
+| `practice-task.html` | 实操任务页：分步指导、进度保存、二维码、常见问题 |
+| `wechat-miniprogram/` | 微信小程序版（导入微信开发者工具即可运行） |
+
+## PWA（可安装到手机/桌面）
+
+- `manifest.webmanifest` + `sw.js`：支持离线缓存和「添加到主屏幕」
+- 手机上用浏览器打开线上地址 → 分享/添加到主屏幕，即可像 App 一样使用
+- 实操任务进度保存在本机浏览器 localStorage
 
 ## 如何打开
 
@@ -42,6 +51,7 @@ open index.html
 页面里的筛选、搜索、进度保存已经用原生 JS 实现，可直接套壳：
 - 本地 App：用 Electron / Tauri 把目录打包
 - 在线应用：加后端（如 FastAPI + 任务队列）把 Colab 流水线接进来，变成「输入靶点结构 → 返回设计候选」的工具
+- 微信小程序：`wechat-miniprogram/` 已提供脚手架，用微信开发者工具导入即可（详见该目录 README）
 
 ## 维护建议
 
