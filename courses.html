@@ -114,7 +114,6 @@
           <p>支付宝收款码</p>
         </div>
       </div>
-      <a class="btn small ghost" id="paypal-btn" style="pointer-events:none;opacity:.5;">PayPal 付款（海外用户，待配置）</a>
     </div>
   </div>
 </section>
@@ -135,8 +134,7 @@
     binder: "",
     denovo: "",
     enzyme: "",
-    bundle: "",
-    paypal: ""
+    bundle: ""
   };
   (function () {
     document.querySelectorAll("[data-pay]").forEach(function (btn) {
@@ -169,15 +167,6 @@
         btn.style.pointerEvents = "none";
       }
     });
-    var pp = document.getElementById("paypal-btn");
-    if (PAY_LINKS.paypal) {
-      pp.href = PAY_LINKS.paypal;
-      pp.target = "_blank";
-      pp.rel = "noopener";
-      pp.style.pointerEvents = "";
-      pp.style.opacity = "";
-      pp.textContent = "PayPal 付款（海外用户）";
-    }
   })();
 </script>
 </body>
