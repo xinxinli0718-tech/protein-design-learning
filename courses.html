@@ -48,24 +48,40 @@
         <h3>RFdiffusion binder 设计实战</h3>
         <p>从热点分析到 mini-protein binder 设计：定义靶点界面、扩散生成骨架、ProteinMPNN 配序列、AlphaFold 自洽性回测、候选筛选清单。</p>
         <p class="card-meta">定价：¥69（早鸟 ¥49）</p>
+        <div class="links" style="margin-top:auto;padding-top:12px;">
+          <a class="btn small" data-pay="binder">立即购买</a>
+          <canvas data-pay-qr="binder" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
+        </div>
       </div>
       <div class="card">
         <div class="step-meta"><span class="badge teal">实战</span><span class="badge gray">4 周</span></div>
         <h3>从头设计（de novo）实战</h3>
         <p>跑通完整流水线：motif scaffolding → 骨架生成 → 序列设计 → 回测 → 表达验证规划，含 3 个完整案例复盘。</p>
         <p class="card-meta">定价：¥69（早鸟 ¥49）</p>
+        <div class="links" style="margin-top:auto;padding-top:12px;">
+          <a class="btn small" data-pay="denovo">立即购买</a>
+          <canvas data-pay-qr="denovo" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
+        </div>
       </div>
       <div class="card">
         <div class="step-meta"><span class="badge teal">实战</span><span class="badge gray">3 周</span></div>
         <h3>酶设计入门</h3>
         <p>催化位点几何（theozyme）、LigandMPNN 口袋设计、Rosetta 能量验证、定向进化衔接——从零做一个催化设计。</p>
         <p class="card-meta">定价：¥49（早鸟 ¥39）</p>
+        <div class="links" style="margin-top:auto;padding-top:12px;">
+          <a class="btn small" data-pay="enzyme">立即购买</a>
+          <canvas data-pay-qr="enzyme" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
+        </div>
       </div>
       <div class="card">
         <div class="step-meta"><span class="badge amber">打包</span></div>
         <h3>三包合购</h3>
         <p>以上三个课程包一次拿下，适合打算系统做计算蛋白设计课题的同学。</p>
         <p class="card-meta">定价：¥169（早鸟 ¥129）</p>
+        <div class="links" style="margin-top:auto;padding-top:12px;">
+          <a class="btn small" data-pay="bundle">立即购买</a>
+          <canvas data-pay-qr="bundle" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
+        </div>
       </div>
     </div>
 
@@ -76,8 +92,8 @@
     </div>
 
     <div class="note warn">
-      <strong>预约通道</strong>
-      支付与预约功能尚未开通（预计与小程序正式发布同步上线）。上线后第一批购买享早鸟价；价格和内容可能随打磨微调。
+      <strong>购买与交付说明</strong>
+      收款通道正在接入小报童：点击「立即购买」跳转到付款页（或扫二维码），付款后在小报童专栏内阅读全部内容。购买前可先看试读；价格和内容可能随打磨微调，早鸟价保留给第一批用户。
     </div>
   </div>
 </section>
@@ -90,6 +106,48 @@
 </footer>
 
 <button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/vendor/qrcode.js"></script>
 <script src="assets/app.js"></script>
+<script>
+  // 接入小报童后，把每个商品的购买链接填进这里，按钮和二维码会自动生效
+  var PAY_LINKS = {
+    binder: "",
+    denovo: "",
+    enzyme: "",
+    bundle: ""
+  };
+  (function () {
+    document.querySelectorAll("[data-pay]").forEach(function (btn) {
+      var key = btn.getAttribute("data-pay");
+      var url = PAY_LINKS[key] || "";
+      var canvas = document.querySelector("canvas[data-pay-qr=\"" + key + "\"]");
+      if (url) {
+        btn.href = url;
+        btn.target = "_blank";
+        btn.rel = "noopener";
+        if (canvas) {
+          var qr = qrcode(0, "M");
+          qr.addData(url);
+          qr.make();
+          var ctx = canvas.getContext("2d");
+          var size = 160, count = qr.getModuleCount(), cell = size / count;
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, size, size);
+          ctx.fillStyle = "#1d2333";
+          for (var r = 0; r < count; r++) {
+            for (var c = 0; c < count; c++) {
+              if (qr.isDark(r, c)) ctx.fillRect(Math.floor(c * cell), Math.floor(r * cell), Math.ceil(cell), Math.ceil(cell));
+            }
+          }
+          canvas.style.display = "block";
+        }
+      } else {
+        btn.textContent = "购买即将开放";
+        btn.classList.add("ghost");
+        btn.style.pointerEvents = "none";
+      }
+    });
+  })();
+</script>
 </body>
 </html>
