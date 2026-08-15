@@ -23,12 +23,8 @@
 
 ## 留言板配置（一次性）
 
-`message.html` 里的 `MSG_KEY` 目前为空，提交时会用邮件客户端兜底。启用自动转发：
-
-1. 打开 https://web3forms.com → 输入你的邮箱（948954000@qq.com）→ 提交
-2. 到邮箱收取 access key
-3. 把 key 填进 `message.html` 的 `var MSG_KEY = "";`
-4. 提交代码后，留言会自动转发到你的邮箱（免费额度内）
+`message.html` 已配置 Web3Forms access key，留言会自动转发到作者邮箱（948954000@qq.com）。
+若 key 失效或更换邮箱，到 https://web3forms.com 后台重新生成并替换 `MSG_KEY` 即可。
 
 ## 多语言
 
