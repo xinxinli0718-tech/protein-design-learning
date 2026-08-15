@@ -10,6 +10,19 @@
     });
   }
 
+  // ---------- Microsoft Translator widget (full-page translation) ----------
+  var tw = document.createElement("div");
+  tw.id = "MicrosoftTranslatorWidget";
+  tw.className = "dark";
+  tw.style.cssText = "position:fixed;bottom:14px;right:14px;z-index:999;";
+  document.body.appendChild(tw);
+  var ts = document.createElement("script");
+  ts.type = "text/javascript";
+  ts.charset = "UTF-8";
+  ts.src = (location.protocol === "https:" ? "https://ssl.microsofttranslator.com" : "http://www.microsofttranslator.com") +
+    "/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGQM5nkJp0mWU2W2TfV1sN6sZYSWU9bUQ6jPNA0wVhLf0t2U8oM";
+  (document.head || document.documentElement).appendChild(ts);
+
   // ---------- Mobile nav ----------
   var toggle = document.querySelector(".nav-toggle");
   var links = document.querySelector(".nav-links");

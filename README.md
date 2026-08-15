@@ -18,7 +18,21 @@
 | `practice-task.html` | 实操任务页：分步指导、进度保存、二维码、常见问题 |
 | `disclaimer.html` | 免责声明与致谢（商标归属、外部链接、第三方开源许可） |
 | `courses.html` | 付费课程包占位页（即将上线，早鸟价预留） |
+| `message.html` | 留言板：留言转发到作者邮箱（Web3Forms，需配置 access key） |
 | `wechat-miniprogram/` | 微信小程序版（导入微信开发者工具即可运行） |
+
+## 留言板配置（一次性）
+
+`message.html` 里的 `MSG_KEY` 目前为空，提交时会用邮件客户端兜底。启用自动转发：
+
+1. 打开 https://web3forms.com → 输入你的邮箱（948954000@qq.com）→ 提交
+2. 到邮箱收取 access key
+3. 把 key 填进 `message.html` 的 `var MSG_KEY = "";`
+4. 提交代码后，留言会自动转发到你的邮箱（免费额度内）
+
+## 多语言
+
+全站已接入微软翻译控件（右下角语言下拉，整页一键翻译）。如需自建中/英/西界面切换，后续可基于 `app.js` 扩展。
 
 ## PWA（可安装到手机/桌面）
 

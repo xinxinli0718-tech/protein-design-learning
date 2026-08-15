@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>留言板 · 蛋白质设计学习指南</title>
+  <meta name="description" content="给蛋白质设计学习指南留言：建议、纠错、合作都可以。">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="practice.html">实践中心</a>
+      <a href="glossary.html">术语表</a>
+      <a href="message.html" class="active">留言板</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero practice-hero">
+  <div class="container">
+    <div class="hero-badges"><span class="badge">欢迎留言</span><span class="badge teal">建议 / 纠错 / 合作</span></div>
+    <h1>留言板</h1>
+    <p class="sub">内容建议、错误反馈、合作咨询都可以写在这里，留言会直接发送到作者邮箱。</p>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width:680px;">
+    <div class="card">
+      <h3>写留言</h3>
+      <form id="msg-form" style="display:flex;flex-direction:column;gap:14px;margin-top:14px;">
+        <input class="searchbox" type="text" name="name" placeholder="你的昵称（选填）" style="max-width:100%;margin:0;">
+        <input class="searchbox" type="email" name="email" placeholder="你的邮箱（选填，方便回复）" style="max-width:100%;margin:0;">
+        <textarea class="searchbox" name="message" rows="6" placeholder="留言内容（必填）" required style="max-width:100%;margin:0;resize:vertical;font-family:inherit;"></textarea>
+        <input type="text" name="company" style="display:none;" tabindex="-1" autocomplete="off">
+        <button class="btn" type="submit" id="msg-submit">发送留言</button>
+      </form>
+      <div id="msg-status" class="note info" style="display:none;margin:16px 0 0;"></div>
+      <div class="note tip" style="margin-top:16px;">
+        <strong>关于留言</strong>
+        留言会直接发到作者邮箱；如需回复，请留下邮箱或微信号。如果表单暂时不可用，也可以直接发邮件：
+        <a href="mailto:948954000@qq.com">948954000@qq.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 留言板</span>
+    <span><a href="disclaimer.html">免责声明与致谢</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  "use strict";
+  // 接入邮件转发服务后，把 access key 填进来即可自动启用（见 README）
+  var MSG_KEY = "";
+  var MSG_ENDPOINT = "https://api.web3forms.com/submit";
+  var MAIL_TO = "948954000@qq.com";
+
+  var form = document.getElementById("msg-form");
+  var status = document.getElementById("msg-status");
+  var submitBtn = document.getElementById("msg-submit");
+
+  function show(msg, type) {
+    status.className = "note " + (type || "info");
+    status.innerHTML = msg;
+    status.style.display = "block";
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var fd = new FormData(form);
+    var message = (fd.get("message") || "").trim();
+    if (!message) { show("请填写留言内容。", "warn"); return; }
+    if (fd.get("company")) { return; } // honeypot
+
+    if (MSG_KEY) {
+      submitBtn.disabled = true;
+      fd.append("access_key", MSG_KEY);
+      fd.append("subject", "网站留言：" + (fd.get("name") || "匿名"));
+      fd.append("from_name", fd.get("name") || "网站访客");
+      fd.append("replyto", fd.get("email") || "");
+      fetch(MSG_ENDPOINT, { method: "POST", body: fd, headers: { "Accept": "application/json" } })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          submitBtn.disabled = false;
+          if (res.success) {
+            show("✅ 留言已发送！感谢你的反馈。", "tip");
+            form.reset();
+          } else {
+            show("发送失败：" + (res.message || "未知错误") + "，可以直接发邮件到 " + MAIL_TO, "warn");
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          show("网络异常，留言未发送。可以直接发邮件到 " + MAIL_TO, "warn");
+        });
+    } else {
+      // 未配置邮件服务时，用 mailto 兜底
+      var subject = encodeURIComponent("网站留言：" + (fd.get("name") || "匿名"));
+      var body = encodeURIComponent(
+        "昵称：" + (fd.get("name") || "匿名") + "\n" +
+        "邮箱：" + (fd.get("email") || "未留") + "\n\n" +
+        message
+      );
+      window.location.href = "mailto:" + MAIL_TO + "?subject=" + subject + "&body=" + body;
+      show("已为你打开邮件窗口；如果没反应，请复制留言内容直接发送到 " + MAIL_TO, "info");
+    }
+  });
+})();
+</script>
+</body>
+</html>
