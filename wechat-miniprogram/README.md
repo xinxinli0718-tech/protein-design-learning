@@ -6,7 +6,7 @@
 
 1. 下载安装「微信开发者工具」（稳定版）：https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
 2. 打开开发者工具 → 导入项目 → 选择本目录 `wechat-miniprogram/`
-3. `project.config.json` 已填好你的 AppID（wx1f6caca6a42daa72），直接导入即可
+3. `project.config.json` 已填好你的正式 AppID（wx89c20954764f7127，以后台「设置 → 基本设置」显示为准），直接导入即可
 4. 导入后点「编译」，在模拟器里查看；点「预览」可扫码在真机上体验
 
 > 备注：如果要在其他机器上开发，把 AppID 填成你自己的；只想体验可用「测试号」。
