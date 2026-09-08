@@ -12,20 +12,183 @@
   <p><a href="courses.html">← 返回课程计划</a></p>
   <h1 style="margin:10px 0 4px;">从头设计（de novo）实战（4 周）</h1>
   <p class="section-desc">目标：跑通「功能位点 → 骨架生成 → 序列设计 → 回测」完整流水线，完成一个全新蛋白折叠的设计项目。</p>
+  <div class="note info" style="margin:16px 0 0;">
+    <strong>前置要求</strong>
+    会打开并运行 Colab（或本地 GPU），能跑通 RFdiffusion 与 ProteinMPNN 的最基本流程（可用「binder 实战」第 1–3 周作为热身，或先完成实践中心的 ColabFold / ProteinMPNN 两个免费任务）。酶设计课程可接着本课程继续。
+  </div>
   <div class="card syllabus" style="margin:20px 0;">
     <h3 style="margin-top:0;">课程大纲</h3>
     <table>
       <thead><tr><th>周</th><th>主题</th><th>核心产出</th><th>状态</th></tr></thead>
       <tbody>
-        <tr><td>W1</td><td>从头设计基础与经典案例拆解</td><td>流水线思维导图</td><td class="wip">制作中</td></tr>
-        <tr><td>W2</td><td>Motif scaffolding 与 RFdiffusion</td><td>第一批 scaffold 骨架</td><td class="wip">制作中</td></tr>
-        <tr><td>W3</td><td>序列设计 + AlphaFold 回测闭环</td><td>候选序列 + 回测报告</td><td class="wip">制作中</td></tr>
-        <tr><td>W4</td><td>案例复盘与实验衔接</td><td>完整设计包</td><td class="wip">制作中</td></tr>
+        <tr><td>W1</td><td>从头设计基础与经典案例拆解</td><td>流水线思维导图</td><td>✅ 已上线</td></tr>
+        <tr><td>W2</td><td>Motif scaffolding 与 RFdiffusion</td><td>第一批 scaffold 骨架</td><td>✅ 已上线</td></tr>
+        <tr><td>W3</td><td>序列设计 + AlphaFold 回测闭环</td><td>候选序列 + 回测报告</td><td>✅ 已上线</td></tr>
+        <tr><td>W4</td><td>案例复盘与实验衔接</td><td>完整设计包</td><td>✅ 已上线</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="lesson" style="text-align:center;color:var(--muted);">
-    内容制作中，将按周陆续更新（binder 实战课程完成后开始本课）。
+  <div class="lesson">
+    <h3>第 1 周：从头设计基础与经典案例拆解</h3>
+    <div class="lesson-meta">预计 3–4 小时 · 产出：一张能给别人讲清楚的「流水线思维导图」</div>
+
+    <h4>1.1 什么叫「从头设计」</h4>
+    <p>结构预测回答的是「这条序列会折叠成什么样」；设计回答相反的问题：<strong>「我要这个结构/功能，序列应该是什么？」</strong>。真正的 de novo 设计不依赖天然同源序列，而是从物理/统计原理出发构造新的蛋白质——可能拥有自然界从未出现过的折叠或功能组合。</p>
+    <p>核心难点是「能量景观」：设计的序列不仅要让目标折叠态能量很低（<strong>正设计</strong>），还要让所有错误折叠态的竞争能量更高（<strong>负设计</strong>），蛋白才能稳定折叠成一个构象而不是一堆糊状物。</p>
+
+    <h4>1.2 方法演进的四个时代（理解文献就靠这条线）</h4>
+    <ul>
+      <li><strong>物理能量 + 手工拓扑</strong>：Top7（Kuhlman 2003，Science）用 Rosetta 设计了第一个自然界没有的折叠，靠 fragment 组装 + 序列设计；</li>
+      <li><strong>参数化与模块化</strong>：α-螺旋束、螺旋卷曲螺旋（CC）、重复蛋白等规则拓扑被「参数化」精确设计，成功率极高，代表：Huang/Boyken 2016 综述、自组装 cage 疫苗；</li>
+      <li><strong>功能位点向新骨架的「scaffolding」</strong>：先把要的功能（金属配位、酶催化残基、抗原表位）定义成 motif，再用 Rosetta/RFjoint 把它装进全新支架——这是酶设计、表位疫苗设计的主流思路；</li>
+      <li><strong>扩散模型</strong>：RFdiffusion 直接生成主链，把「骨架生成」从搜索变成采样，速度和成功率都大幅提升；蛋白语言模型（ESM3 等）则从另一条路按功能生成序列。</li>
+    </ul>
+
+    <h4>1.3 四个必看的经典案例（本周用来建立直觉）</h4>
+    <ul>
+      <li><strong>Top7</strong>：证明「新折叠可以设计出来」的里程碑——读它的设计逻辑，而不是背结果；</li>
+      <li><strong>de novo 酶（Kemp 消除酶 / Diels-Alderase）</strong>：第一次把「人工设计酶」做成，也第一次暴露痛点——初代活性远低于天然酶，需要定向进化；</li>
+      <li><strong>金属蛋白与电子传递</strong>：把 4Fe-4S 簇、血红素装进设计蛋白，功能位点（motif）设计的典型教材；</li>
+      <li><strong>纳米颗粒疫苗 / mini-binder</strong>：设计蛋白真正进入应用（流感、RSV、新冠），体现「从结构到产品」的路径。</li>
+    </ul>
+    <p>对照 <a href="literature.html">文献页</a> 阅读：先读 Huang 2016 综述建立框架，再读 ProteinMPNN 2022 与 RFdiffusion 2023 两篇方法学论文的摘要与图 1。</p>
+
+    <h4>1.4 本课程的项目设计（决定你后三周做什么）</h4>
+    <p>课程会带你做一个<b>motif scaffolding</b> 迷你项目：选一个 10–30 残基的「功能 motif」（例如一个金属配位位点、一段目标表位、或一条已知功能的短肽），用 RFdiffusion 把它装进一个全新的骨架，再用 ProteinMPNN 配序列、AlphaFold 回测。选 motif 的三条标准：</p>
+    <ul>
+      <li>在 PDB 里有明确坐标（能导出成单独文件）；</li>
+      <li>长度 10–30 残基，本身有二级结构倾向（避免纯柔性肽，除非你愿意接受高难度）；</li>
+      <li>结构上有可以「埋」的部分——完全亲水暴露的 loop 最难过好。</li>
+    </ul>
+
+    <div class="todo-box">
+      本周作业：①画出你的「设计流水线思维导图」（motif → 骨架 → 序列 → 回测 → 实验 → 迭代，每步标出工具与关键参数）；②写 10 行以内的 motif 选择说明（PDB ID、残基范围、为什么选它、预期功能）。W2 就开工。
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3>第 2 周：Motif scaffolding 与 RFdiffusion</h3>
+    <div class="lesson-meta">预计 5–7 小时 · 产出：第一批 scaffold 骨架（建议 20 条起）</div>
+
+    <h4>2.1 Motif scaffolding 到底在解决什么问题</h4>
+    <p>你手里有一个「必须保持原样」的功能片段（motif），但它在天然蛋白里的周围环境可能不稳定、太大、不可表达或不属于你想要的拓扑。Scaffolding 的意思是：<strong>保留 motif 的三维坐标，给它重新设计一段全新的周围骨架</strong>，让整条蛋白折叠成一个新的、稳定的小蛋白。</p>
+    <p>RFdiffusion 的做法是：把 motif 残基当作固定「锚点」，在它两侧和连接段「生长」新的残基。你不需要指定新骨架的二级结构——模型自己决定用 α 螺旋、β 折叠还是 loop 连接。</p>
+
+    <h4>2.2 准备 motif 文件</h4>
+    <ol>
+      <li>打开含 motif 的 PDB，只导出 motif 残基（例如 A 链 10–25），存成 <code>motif.pdb</code>；</li>
+      <li>确认文件里只有这些残基、链 ID 唯一、编号连续；水/配体是否保留取决于 motif 是否包含它们（金属配位位点建议连同金属/配体一起保留并自查格式）；</li>
+      <li>在 ChimeraX 里打开检查：motif 必须构象完整，不能是缺失 loop。</li>
+    </ol>
+
+    <h4>2.3 contig 语法（直接来自官方 README 的准确写法）</h4>
+    <ul>
+      <li><strong>带链字母</strong>：输入 PDB 的固定片段，如 <code>A10-25</code> = A 链 10–25 残基作为 motif 保留；</li>
+      <li><strong>不带链字母</strong>：要生成的残基长度或范围，如 <code>5-15</code>、<code>30-40</code>；</li>
+      <li><strong><code>/0 </code></strong>：断链，表示多链体系（斜杠后有一个空格，勿省略）；</li>
+      <li><strong>contigmap.length</strong>：如果想固定总长，可以另行指定，例如 <code>contigmap.length=120-120</code>。</li>
+    </ul>
+    <p>把 motif 前后各加一段新序列（例如 N 端 5–15、C 端 30–40）：</p>
+    <pre><code>./scripts/run_inference.py 'contigmap.contigs=[5-15/A10-25/30-40]' \
+  inference.input_pdb=motif.pdb \
+  inference.output_prefix=scaffold_run1/design \
+  inference.num_designs=20</code></pre>
+    <div class="note tip">
+      <strong>小 motif 用 ActiveSite 专用模型</strong>
+      官方文档明确提示：非常小的功能位点容易被 RFdiffusion 挪动。若 motif ≤ 10 残基，加参数 <code>inference.ckpt_override_path=models/ActiveSite_ckpt.pt</code> 使用针对活性位点微调的权重；motif 较大时用默认权重即可。
+    </div>
+
+    <h4>2.4 连接多段 motif / 引入独立链</h4>
+    <p>如果 motif 由两段不连续片段组成（如两个 loop 各贡献配位残基），把它们都用带字母片段列出、中间夹生成段即可，例如 <code>[10-20/A30-40/20-30/A70-75/20-40]</code>。若想让新蛋白分成两条链（例如设计二聚体界面），用断链语法：<code>'contigmap.contigs=[5-15/A10-25/30-40/0 B1-100]'</code>。</p>
+
+    <h4>2.5 结果检查：motif 有没有被保住</h4>
+    <ol>
+      <li>下载输出 PDB，ChimeraX 里把「设计骨架」与「原始 motif」分别打开；</li>
+      <li>只用 motif 残基做序列无关叠合（matchmaker），读取骨架 RMSD；</li>
+      <li>合格标准：motif 重原子 RMSD ≤ 1 Å 且无侧链方向翻转；</li>
+      <li>观察整体：新骨架是否形成紧凑球状蛋白，有没有大片裸露疏水核心或半折叠长 loop；</li>
+      <li>淘汰 motif 漂移、明显不折叠、或骨架间互相 clash 的设计，保留 10–20 条进入 W3。</li>
+    </ol>
+
+    <div class="note warn">
+      <strong>两个高频失败原因</strong>
+      ①motif 本身是柔性构象：先确认你导出的 motif 在多个结构中构象稳定；②contig 把 motif 放在中间但两端生成段太短，张力太大——加长连接段并多采样长度范围。
+    </div>
+
+    <div class="todo-box">
+      本周作业：跑 20–40 条 scaffold；记录每条的设计号、总长、motif RMSD、是否紧凑折叠；筛出 Top10–20 骨架并附 motif 叠合截图。第 3 周用这些骨架设计序列。
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3>第 3 周：序列设计 + AlphaFold 回测闭环</h3>
+    <div class="lesson-meta">预计 5–7 小时 · 产出：候选序列 + 回测报告（建议 Top 30）</div>
+
+    <h4>3.1 设计序列时，motif 必须锁死</h4>
+    <p>上一轮只生成了新骨架的坐标；本轮要决定每个位置的氨基酸。原则：<strong>motif 残基固定为原始氨基酸（它们是功能所在），新骨架部分交给 ProteinMPNN 自由设计</strong>。固定残基用 <code>--fixed_positions_jsonl</code>（ProteinMPNN）或 <code>--fixed_residues</code>/<code>--redesigned_residues</code>（LigandMPNN 版）指定，例如把 A10–A25 固定：</p>
+    <pre><code>python run.py \
+  --pdb_path scaffold_01.pdb \
+  --fixed_residues "A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 A21 A22 A23 A24 A25" \
+  --number_of_batches 8 \
+  --temperature 0.15 \
+  --out_folder mpnn_round1</code></pre>
+    <p>每条骨架生成 8 条序列（低温 0.1–0.2 保证可折叠性）。若想看看「如果连 motif 也重新设计」的极限多样性，可另开一轮不固定 motif 的对照——但那是为了学习，不是正式产物。</p>
+
+    <h4>3.2 AlphaFold 回测：这次要比 binder 课更严格</h4>
+    <p>因为 scaffold 设计的核心卖点就是「motif 的构象被完整保留」，所以除了单体折叠指标，还要单独量 motif：</p>
+    <ul>
+      <li><strong>pLDDT</strong>：motif 区应 ≥ 85，不能掉成低置信 loop；</li>
+      <li><strong>pTM</strong>：≥ 0.80（整体折叠自洽）；</li>
+      <li><strong>motif RMSD</strong>：AlphaFold 预测结构与设计模型叠合后，motif 区 &lt; 1 Å；</li>
+      <li><strong>功能几何</strong>：若 motif 是金属配位/催化位点，检查配位原子间的距离和角度是否仍在合理范围（这一步也解释了为什么 W1 要选有明确坐标的 motif）。</li>
+    </ul>
+    <p>实操：把每条候选序列（不含 motif 之外的天然序列）粘进 ColabFold 跑单体预测，下载 PDB 后在 ChimeraX 中与设计骨架叠合，逐条读取 RMSD 并填表。</p>
+
+    <h4>3.3 迭代而不是一步到位</h4>
+    <ol>
+      <li>第一批 8×10 条里筛掉回测不过的骨架（motif RMSD 或 pTM 不达标）；</li>
+      <li>对「骨架好但序列差」的条目：回 W3.1 提高采样温度、换种子多采几轮；</li>
+      <li>对「序列好但骨架 motif 漂移」的条目：回 W2 重跑 scaffold，把 motif 换 ActiveSite 模型或加长连接段；</li>
+      <li>第三轮后保留约 Top30：兼顾分数、motif 构象、序列多样性。</li>
+    </ol>
+
+    <div class="todo-box">
+      本周作业：完成设计 + 回测 + 至少一轮迭代；输出回测报告表（序列、pTM、motif RMSD、备注）；筛出 Top30 并解释每一条为什么值得留下。W4 做案例复盘与送实验规划。
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3>第 4 周：案例复盘与实验衔接</h3>
+    <div class="lesson-meta">预计 3–5 小时 · 产出：一份可复现、可送实验的「完整设计包」</div>
+
+    <h4>4.1 三个真实案例复盘（对照你自己的流程）</h4>
+    <ul>
+      <li><strong>案例 A：稳定迷你蛋白（如 4-螺旋束 / 拓扑全新蛋白）</strong>。复盘点：他们如何控制核心堆积（疏水补丁大小）、如何用实验（CD、SEC-MALS、热稳定性）确认设计；对照你自己的骨架检查是否同样「有核可埋」。</li>
+      <li><strong>案例 B：表位 scaffolding（疫苗设计）</strong>。复盘点：把一段不连续的构象表位 scaffold 成纳米颗粒/免疫原，难点是「表位构象在融合后不漂移」——和你 W2/W3 查 motif RMSD 是同一个思路；实验上还要验证血清交叉中和。</li>
+      <li><strong>案例 C：功能位点 scaffolding（de novo 酶/金属酶）</strong>。复盘点：第一代设计的催化活性通常弱，几乎都要靠定向进化；他们的回测不只查折叠，还查过渡态几何。</li>
+    </ul>
+    <p>读文献页对应条目时带着三个问题：他们用什么标准筛 in silico 候选？哪些设计在实验里失败了、为什么？从设计到实验闭环花了多久？</p>
+
+    <h4>4.2 把你的 Top30 缩成送测清单</h4>
+    <ol>
+      <li>与 binder 课相同的五件套：FASTA、骨架 PDB、AlphaFold 预测 PDB、QC 表、界面/功能截图；</li>
+      <li>加两张表：motif 几何检查表（RMSD + 功能原子距离）与序列合成检查表；</li>
+      <li>实验建议分两级：<strong>一级</strong>（纯化 + CD/SEC/热稳定）验证折叠；<strong>二级</strong>（按你的 motif 功能设计活性/结合实验）验证功能。别把功能实验当成第一步，先确认折叠对了再谈功能。</li>
+    </ol>
+
+    <h4>4.3 可复现性：这是给未来导师/合作者看的</h4>
+    <ul>
+      <li>记录每个工具版本与随机种子；RFdiffusion/ProteinMPNN/ColabFold 的输出文件命名里通常带 seed；</li>
+      <li>把每次参数变化写进 README（长度带、温度、固定残基、阈值）；</li>
+      <li>保存原始中间文件（不要只留最终 PDB），方便之后换实验条件重筛。</li>
+    </ul>
+
+    <h4>4.4 一周后如果实验失败，迭代地图（和 binder 课通用）</h4>
+    <p>折叠失败 → 检查核心堆积/回测分数，换更长连接段或加疏水核心；折叠成功但功能弱 → 是 motif 漂移还是功能实验条件问题？先回测确认 motif 几何，再考虑定向进化；表达不出来 → 检查疏水表面与标签设计。设计实验不可能一次成功，「第一轮能跑通、第二轮能出蛋白、第三轮谈功能」是正常节奏。</p>
+
+    <div class="todo-box">
+      毕业作业：输出完整设计包目录（README + 序列/结构/QC/实验方案），并写一页「如果我重做一次，会在哪里投入更多」的复盘。这份材料可以直接作为申请/组会/论文补充材料的雏形。
+    </div>
   </div>
 </div>
 </body>
