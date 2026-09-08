@@ -318,6 +318,26 @@ hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
 .lesson code { background: #f1f2f8; border-radius: 5px; padding: 1px 6px; font-size: 13px; }
 .syllabus table td { font-size: 13.5px; }
 .syllabus .wip { color: var(--amber); font-weight: 600; }
+
+/* ---------- Paid unlock ---------- */
+.lesson.paid { display: none; }
+.paid-gate { max-width: 820px; margin: 0 0 20px; }
+.paid-gate .paid-code:focus { outline: 2px solid var(--brand-soft); border-color: var(--brand); }
+
+/* ---------- Quiz ---------- */
+.quiz-question { border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 14px 0; background: #fbfbff; }
+.quiz-q-head { display: flex; align-items: center; margin-bottom: 6px; }
+.quiz-q-num { background: var(--brand); color: #fff; font-weight: 700; font-size: 13px; border-radius: 20px; padding: 2px 10px; }
+.quiz-q-text { font-size: 15.5px; font-weight: 600; margin: 6px 0 10px; }
+.quiz-opts label { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 9px 12px; margin: 7px 0; cursor: pointer; font-size: 14.3px; line-height: 1.55; }
+.quiz-opts label:hover { border-color: var(--brand); }
+.quiz-opts input { margin-top: 4px; accent-color: var(--brand); }
+.quiz-opt.right { background: var(--teal-soft); border-color: #2b9a86; }
+.quiz-opt.wrong { background: var(--amber-soft); border-color: #e0a03c; }
+.quiz-feedback { border-radius: 10px; padding: 10px 14px; margin-top: 8px; font-size: 13.8px; line-height: 1.65; }
+.quiz-feedback.note.tip { background: var(--teal-soft); color: #0f4f48; }
+.quiz-feedback.note.warn { background: var(--amber-soft); color: #7c4a03; }
+.quiz-feedback strong { display: inline; margin-right: 6px; }
 .step-done {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
   font-size: 14px; color: var(--muted); cursor: pointer;

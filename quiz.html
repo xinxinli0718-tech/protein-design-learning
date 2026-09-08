@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每周自测 · 蛋白质设计学习指南</title>
+  <meta name="description" content="跟着课程周次做选择题自测，交卷自动判分、自动显示解析，检验学习成果。">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="practice.html">实践中心</a>
+      <a href="glossary.html">术语表</a>
+      <a href="message.html">留言板</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero practice-hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">自动判分</span>
+      <span class="badge teal">标准答案+解析</span>
+      <span class="badge amber">80 分通过</span>
+    </div>
+    <h1>每周自测</h1>
+    <p class="sub">
+      学完一周就测一周：选择题检验你是否真的掌握了关键概念和操作判断，
+      交卷立即出分、逐题显示解析，答错的知识点回到对应课程章节复习。
+    </p>
+    <div class="note tip" style="max-width:760px;">
+      <strong>使用说明</strong>
+      选择你要测验的周次 → 逐题作答 → 交卷看结果。通过状态保存在你自己浏览器里（本机有效），可反复重测刷新最高分。
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div id="quiz-view"></div>
+
+    <div class="note info" style="margin-top:28px;">
+      <strong>想加更多测验？</strong>
+      题库定义在 <code>assets/quiz-data.js</code> 里，加一周 = 加一段数据，页面会自动生成入口。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 每周自测</span>
+    <span><a href="courses.html">课程计划</a></span>
+    <span><a href="disclaimer.html">免责声明与致谢</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/quiz-data.js"></script>
+<script src="assets/paid-gate.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var view = document.getElementById("quiz-view");
+  if (!view || typeof QUIZZES === "undefined") return;
+
+  var KEY_PREFIX = "pdg-quiz-";
+
+  function getRecord(id) {
+    try { return JSON.parse(localStorage.getItem(KEY_PREFIX + id) || "null"); }
+    catch (e) { return null; }
+  }
+
+  function saveRecord(id, score, correct, total) {
+    try {
+      localStorage.setItem(KEY_PREFIX + id, JSON.stringify({
+        score: score, correct: correct, total: total,
+        date: new Date().toISOString()
+      }));
+    } catch (e) {}
+  }
+
+  function quizMeta(qz) {
+    var rec = getRecord(qz.id);
+    var badge = "";
+    if (rec) {
+      badge = rec.score >= qz.passMark
+        ? '<span class="badge teal">已通过 ' + rec.score + ' 分</span>'
+        : '<span class="badge amber">上次 ' + rec.score + ' 分</span>';
+    } else if (!window.isCourseUnlocked(qz.course)) {
+      badge = '<span class="badge amber">🔒 付费解锁</span>';
+    } else {
+      badge = '<span class="badge gray">未测验</span>';
+    }
+    return badge;
+  }
+
+  function requestUnlock(course, callback) {
+    var overlay = document.createElement("div");
+    overlay.style.cssText = "position:fixed;inset:0;background:rgba(20,24,38,.45);z-index:60;display:flex;align-items:center;justify-content:center;padding:18px;";
+    var card = document.createElement("div");
+    card.className = "card";
+    card.style.cssText = "max-width:420px;width:100%;";
+    card.innerHTML =
+      '<h3 style="margin:0 0 6px;">🔒 付费课程内容</h3>' +
+      '<p style="margin:0 0 10px;">本课程自测需要兑换码解锁。购买后请在面包多商品页查看兑换码。<a href="courses.html" target="_blank" rel="noopener">去购买 →</a></p>' +
+      '<input class="paid-code" type="text" inputmode="latin" autocomplete="off" placeholder="输入兑换码" style="width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;box-sizing:border-box;">' +
+      '<p class="paid-msg" style="min-height:20px;margin:6px 0 0;font-size:13px;color:var(--muted);"></p>' +
+      '<div style="display:flex;gap:8px;margin-top:10px;">' +
+      '<button class="btn ok" style="flex:1;">解锁</button>' +
+      '<button class="btn cancel" style="flex:1;background:transparent;color:var(--muted);border:1px solid var(--line);">取消</button>' +
+      '</div>';
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    var input = card.querySelector(".paid-code");
+    var msg = card.querySelector(".paid-msg");
+    var okBtn = card.querySelector(".ok");
+    var cancelBtn = card.querySelector(".cancel");
+    function close() { document.body.removeChild(overlay); }
+    okBtn.addEventListener("click", function () {
+      var ok = window.unlockCourse(course, input.value);
+      if (ok) {
+        close();
+        if (callback) callback();
+      } else {
+        msg.textContent = "兑换码不正确，请核对后重试。";
+        msg.style.color = "#b42318";
+      }
+    });
+    cancelBtn.addEventListener("click", close);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") okBtn.click();
+      if (e.key === "Escape") close();
+    });
+    input.focus();
+  }
+
+  function renderList() {
+    var groups = {};
+    QUIZZES.forEach(function (qz) {
+      (groups[qz.courseName] = groups[qz.courseName] || []).push(qz);
+    });
+    var html = "";
+    Object.keys(groups).forEach(function (name) {
+      html += '<div class="card quiz-course" style="margin-bottom:18px;">';
+      html += '<h3 style="margin:0 0 10px;">' + name + '</h3>';
+      html += '<div class="cards-grid">';
+      groups[name].forEach(function (qz) {
+        var locked = !window.isCourseUnlocked(qz.course);
+        var btnLabel = locked ? "解锁后开始测验" : "开始测验";
+        html += '<div class="card">';
+        html += '<div class="step-meta">' + quizMeta(qz) + '</div>';
+        html += '<h3>' + qz.title + '</h3>';
+        html += '<p>' + qz.desc + '</p>';
+        html += '<button class="btn small quiz-start" data-id="' + qz.id + '" data-course="' + qz.course + '">' + btnLabel + '</button>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+    view.innerHTML = html;
+    view.querySelectorAll(".quiz-start").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var course = btn.getAttribute("data-course");
+        if (window.isCourseUnlocked(course)) {
+          renderQuiz(btn.getAttribute("data-id"));
+        } else {
+          requestUnlock(course, function () {
+            renderQuiz(btn.getAttribute("data-id"));
+          });
+        }
+      });
+    });
+  }
+
+  function renderQuiz(id) {
+    var qz = QUIZZES.filter(function (q) { return q.id === id; })[0];
+    if (!qz) return;
+    if (!window.isCourseUnlocked(qz.course)) {
+      requestUnlock(qz.course, function () { renderQuiz(id); });
+      return;
+    }
+    var html = '<div class="card" style="max-width:820px;margin:0 auto;">';
+    html += '<p><a href="#" class="quiz-back">← 返回测验列表</a></p>';
+    html += '<div class="step-meta"><span class="badge teal">' + qz.courseName + '</span><span class="badge gray">通过线 ' + qz.passMark + ' 分</span></div>';
+    html += '<h2 style="margin:8px 0 4px;">' + qz.title + '</h2>';
+    html += '<p class="section-desc">' + qz.desc + '</p>';
+    html += '<div id="quiz-body">';
+    qz.questions.forEach(function (question, qi) {
+      html += '<div class="quiz-question" data-q="' + qi + '">';
+      html += '<div class="quiz-q-head"><span class="quiz-q-num">Q' + (qi + 1) + '</span>';
+      html += '<span class="badge gray" style="margin-left:8px;">对应 ' + qz.title.replace("第 " + qz.week + " 周 · ", "") + ' ' + question.lesson + '</span></div>';
+      html += '<p class="quiz-q-text">' + question.q + '</p>';
+      html += '<div class="quiz-opts">';
+      question.options.forEach(function (opt, oi) {
+        html += '<label class="quiz-opt" data-o="' + oi + '">';
+        html += '<input type="radio" name="quiz-' + qz.id + '-' + qi + '" value="' + oi + '">';
+        html += '<span>' + opt + '</span>';
+        html += '</label>';
+      });
+      html += '</div>';
+      html += '<div class="quiz-feedback" style="display:none;"></div>';
+      html += '</div>';
+    });
+    html += '<div class="quiz-actions" style="margin-top:18px;">';
+    html += '<button id="quiz-submit" class="btn">交卷判分</button>';
+    html += '<button id="quiz-reset" class="btn" style="display:none;margin-left:8px;">重新作答</button>';
+    html += '</div>';
+    html += '</div>';
+    view.innerHTML = html;
+    view.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    view.querySelector(".quiz-back").addEventListener("click", function (e) {
+      e.preventDefault();
+      renderList();
+    });
+    document.getElementById("quiz-submit").addEventListener("click", function () {
+      gradeQuiz(qz);
+    });
+    document.getElementById("quiz-reset").addEventListener("click", function () {
+      renderQuiz(qz.id);
+    });
+  }
+
+  function gradeQuiz(qz) {
+    var unanswered = [];
+    qz.questions.forEach(function (question, qi) {
+      var name = "quiz-" + qz.id + "-" + qi;
+      var picked = document.querySelector('input[name="' + name + '"]:checked');
+      if (!picked) unanswered.push(qi);
+    });
+    if (unanswered.length) {
+      var first = document.querySelector('.quiz-question[data-q="' + unanswered[0] + '"]');
+      if (first) {
+        first.scrollIntoView({ behavior: "smooth", block: "center" });
+        first.style.boxShadow = "0 0 0 2px #f59e0b";
+        setTimeout(function () { first.style.boxShadow = ""; }, 1600);
+      }
+      return;
+    }
+
+    var correct = 0;
+    qz.questions.forEach(function (question, qi) {
+      var name = "quiz-" + qz.id + "-" + qi;
+      var picked = document.querySelector('input[name="' + name + '"]:checked');
+      var chosen = parseInt(picked.value, 10);
+      var box = document.querySelector('.quiz-question[data-q="' + qi + '"]');
+      var opts = box.querySelectorAll(".quiz-opt");
+      var isRight = chosen === question.answer;
+      if (isRight) correct++;
+      opts.forEach(function (label, oi) {
+        var input = label.querySelector("input");
+        input.disabled = true;
+        if (oi === question.answer) label.classList.add("right");
+        else if (oi === chosen) label.classList.add("wrong");
+      });
+      var fb = box.querySelector(".quiz-feedback");
+      fb.style.display = "block";
+      fb.className = "quiz-feedback note " + (isRight ? "tip" : "warn");
+      fb.innerHTML = "<strong>" + (isRight ? "✓ 正确" : "✗ 错误（应选 " + (question.answer + 1) + "）") + "</strong>" + question.explain;
+    });
+
+    var total = qz.questions.length;
+    var score = Math.round((correct / total) * 100);
+    var passed = score >= qz.passMark;
+    saveRecord(qz.id, score, correct, total);
+
+    var result = document.createElement("div");
+    result.className = "note " + (passed ? "tip" : "warn");
+    result.id = "quiz-result";
+    result.innerHTML = "<strong>" + (passed ? "🎉 通过！" : "未通过，再试一次") + "　得分 " + score + " / 100（答对 " + correct + " / " + total + " 题）</strong>" +
+      (passed ? " 你已经掌握本周核心知识点，可以进入下一周。" : " 回到对应章节复习后重新作答，直到通过为止。");
+    document.getElementById("quiz-body").appendChild(result);
+    result.scrollIntoView({ behavior: "smooth", block: "center" });
+    document.getElementById("quiz-submit").style.display = "none";
+    document.getElementById("quiz-reset").style.display = "inline-block";
+  }
+
+  var hashQuiz = location.hash ? location.hash.slice(1) : "";
+  if (hashQuiz && QUIZZES.some(function (q) { return q.id === hashQuiz; })) {
+    var target = QUIZZES.filter(function (q) { return q.id === hashQuiz; })[0];
+    if (target && window.isCourseUnlocked(target.course)) {
+      renderQuiz(hashQuiz);
+    } else if (target) {
+      renderList();
+      requestUnlock(target.course, function () { renderQuiz(hashQuiz); });
+    } else {
+      renderList();
+    }
+  } else {
+    renderList();
+  }
+})();
+</script>
+</body>
+</html>
