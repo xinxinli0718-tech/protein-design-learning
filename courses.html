@@ -32,11 +32,11 @@
 
 <section class="hero practice-hero">
   <div class="container">
-    <div class="hero-badges"><span class="badge">即将上线</span><span class="badge teal">先占位</span><span class="badge amber">早鸟价预留</span></div>
+    <div class="hero-badges"><span class="badge">微信 / 支付宝支付</span><span class="badge teal">购买后自动解锁</span><span class="badge amber">早鸟价预留</span></div>
     <h1>进阶实操课程包</h1>
     <p class="sub">
-      免费内容教你「看懂」，付费课程包带你「做出」。支持微信 / 支付宝扫码付款，
-      第一批用户享早鸟价。
+      免费内容教你「看懂」，付费课程包带你「做出」。支付完成直接解锁正文与每周自测，
+      无需备注、无需发邮件或留言。
     </p>
   </div>
 </section>
@@ -53,7 +53,6 @@
         <p><a href="quiz.html">每周自测（自动判分）→</a></p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
           <a class="btn small" data-pay="binder" data-name="RFdiffusion binder 设计实战" data-price="¥69（早鸟 ¥49）" href="#pay-panel">立即购买</a>
-          <canvas data-pay-qr="binder" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
       <div class="card">
@@ -65,7 +64,6 @@
         <p><a href="quiz.html">每周自测（自动判分）→</a></p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
           <a class="btn small" data-pay="denovo" data-name="从头设计（de novo）实战" data-price="¥69（早鸟 ¥49）" href="#pay-panel">立即购买</a>
-          <canvas data-pay-qr="denovo" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
       <div class="card">
@@ -77,7 +75,6 @@
         <p><a href="quiz.html">每周自测（自动判分）→</a></p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
           <a class="btn small" data-pay="enzyme" data-name="酶设计入门" data-price="¥49（早鸟 ¥39）" href="#pay-panel">立即购买</a>
-          <canvas data-pay-qr="enzyme" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
       <div class="card">
@@ -87,7 +84,6 @@
         <p class="card-meta">定价：¥169（早鸟 ¥129）</p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
           <a class="btn small" data-pay="bundle" data-name="三包合购" data-price="¥169（早鸟 ¥129）" href="#pay-panel">立即购买</a>
-          <canvas data-pay-qr="bundle" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
     </div>
@@ -100,30 +96,25 @@
 
     <div class="note warn">
       <strong>购买与交付说明</strong>
-      扫描下方微信或支付宝收款码付款，付款时<b>备注课程包名称</b>（如「binder 实战」），付款后截图并通过微信或邮箱联系我们领取内容。购买前可先看试读；价格和内容可能随打磨微调，早鸟价保留给第一批用户。
+      点击「立即购买」将直接打开对应课程的商品页，用微信或支付宝完成支付；
+      <b>不需要备注、不需要发邮件或留言</b>。支付后按商品页提示获取兑换码，
+      回到课程页输入兑换码即可解锁全部正文与每周自测。购买前可先看试读（binder 第 1 周）；
+      价格和内容可能随打磨微调，早鸟价保留给第一批用户。
     </div>
 
     <div class="card" id="pay-panel" style="margin-top:24px;scroll-margin-top:90px;">
-      <h3>微信 / 支付宝扫码付款</h3>
+      <h3>购买流程（全自助）</h3>
       <div id="pay-order" class="note info" style="margin:6px 0 12px;">
-        <strong>当前订单：</strong>请先在上方选择要购买的课程；或直接扫码并备注课程名称。
+        <strong>当前订单：</strong>请先在上方选择要购买的课程。
       </div>
-      <p>
-        如果你更习惯直接扫码付款：付款时请<b>备注课程包名称</b>（如「binder 实战」），付款后截图，通过
-        <b>微信或邮箱</b>联系我们领取内容。商户收款码办理完成后将自动升级收款方式。
+      <ol style="margin:8px 0 0;padding-left:22px;font-size:14.8px;line-height:1.9;">
+        <li>点击上方课程的「立即购买」，进入面包多商品页；</li>
+        <li>微信或支付宝完成支付——<b>无需备注、无需截图、无需联系</b>；</li>
+        <li>在商品页获取兑换码，回到课程页输入兑换码，正文与每周自测即刻解锁。</li>
+      </ol>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--muted);">
+        面包多审核通过后按钮即自动生效；当前阶段为流程预展示。
       </p>
-      <div class="pay-grid">
-        <div class="pay-item">
-          <img data-qr-src="assets/pay/wechat-qr.png" alt="微信收款码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="ph" style="display:none;">微信收款码待上传</div>
-          <p>微信收款码</p>
-        </div>
-        <div class="pay-item">
-          <img data-qr-src="assets/pay/alipay-qr.png" alt="支付宝收款码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="ph" style="display:none;">支付宝收款码待上传</div>
-          <p>支付宝收款码</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -136,7 +127,6 @@
 </footer>
 
 <button class="back-top" aria-label="回到顶部">↑</button>
-<script src="assets/vendor/qrcode.js"></script>
 <script src="assets/app.js"></script>
 <script>
   // 拿到正式商品/收款链接后，把每个商品的购买链接填进这里，按钮和二维码会自动生效
@@ -150,34 +140,17 @@
     document.querySelectorAll("[data-pay]").forEach(function (btn) {
       var key = btn.getAttribute("data-pay");
       var url = PAY_LINKS[key] || "";
-      var canvas = document.querySelector("canvas[data-pay-qr=\"" + key + "\"]");
       if (url) {
         btn.href = url;
         btn.target = "_blank";
         btn.rel = "noopener";
-        if (canvas) {
-          var qr = qrcode(0, "M");
-          qr.addData(url);
-          qr.make();
-          var ctx = canvas.getContext("2d");
-          var size = 160, count = qr.getModuleCount(), cell = size / count;
-          ctx.fillStyle = "#ffffff";
-          ctx.fillRect(0, 0, size, size);
-          ctx.fillStyle = "#1d2333";
-          for (var r = 0; r < count; r++) {
-            for (var c = 0; c < count; c++) {
-              if (qr.isDark(r, c)) ctx.fillRect(Math.floor(c * cell), Math.floor(r * cell), Math.ceil(cell), Math.ceil(cell));
-            }
-          }
-          canvas.style.display = "block";
-        }
       } else {
         btn.addEventListener("click", function () {
           var name = btn.getAttribute("data-name") || "所选课程";
           var price = btn.getAttribute("data-price") || "";
           var order = document.getElementById("pay-order");
           if (order) {
-            order.innerHTML = "<strong>当前订单：</strong>" + name + "（" + price + "）—— 扫码付款时请备注「" + name + "」，付款后截图并通过留言板/微信联系领取内容。";
+            order.innerHTML = "<strong>当前订单：</strong>" + name + "（" + price + "）。支付通道接入后，此按钮将直接进入商品页，支付完成即可解锁，无需备注或联系。";
           }
         });
       }
