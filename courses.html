@@ -51,7 +51,7 @@
         <p class="card-meta">定价：¥69（早鸟 ¥49）</p>
         <p><a href="course-binder.html">查看课程大纲与第 1 周内容 →</a></p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
-          <a class="btn small" data-pay="binder">立即购买</a>
+          <a class="btn small" data-pay="binder" data-name="RFdiffusion binder 设计实战" data-price="¥69（早鸟 ¥49）" href="#pay-panel">立即购买</a>
           <canvas data-pay-qr="binder" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
@@ -62,7 +62,7 @@
         <p class="card-meta">定价：¥69（早鸟 ¥49）</p>
         <p><a href="course-denovo.html">查看课程大纲 →</a></p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
-          <a class="btn small" data-pay="denovo">立即购买</a>
+          <a class="btn small" data-pay="denovo" data-name="从头设计（de novo）实战" data-price="¥69（早鸟 ¥49）" href="#pay-panel">立即购买</a>
           <canvas data-pay-qr="denovo" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
@@ -73,7 +73,7 @@
         <p class="card-meta">定价：¥49（早鸟 ¥39）</p>
         <p><a href="course-enzyme.html">查看课程大纲 →</a></p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
-          <a class="btn small" data-pay="enzyme">立即购买</a>
+          <a class="btn small" data-pay="enzyme" data-name="酶设计入门" data-price="¥49（早鸟 ¥39）" href="#pay-panel">立即购买</a>
           <canvas data-pay-qr="enzyme" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
@@ -83,7 +83,7 @@
         <p>以上三个课程包一次拿下，适合打算系统做计算蛋白设计课题的同学。</p>
         <p class="card-meta">定价：¥169（早鸟 ¥129）</p>
         <div class="links" style="margin-top:auto;padding-top:12px;">
-          <a class="btn small" data-pay="bundle">立即购买</a>
+          <a class="btn small" data-pay="bundle" data-name="三包合购" data-price="¥169（早鸟 ¥129）" href="#pay-panel">立即购买</a>
           <canvas data-pay-qr="bundle" width="160" height="160" style="display:none;margin-top:10px;border:1px solid var(--line);border-radius:8px;"></canvas>
         </div>
       </div>
@@ -100,8 +100,11 @@
       扫描下方微信或支付宝收款码付款，付款时<b>备注课程包名称</b>（如「binder 实战」），付款后截图并通过微信或邮箱联系我们领取内容。购买前可先看试读；价格和内容可能随打磨微调，早鸟价保留给第一批用户。
     </div>
 
-    <div class="card" style="margin-top:24px;">
+    <div class="card" id="pay-panel" style="margin-top:24px;scroll-margin-top:90px;">
       <h3>微信 / 支付宝扫码付款</h3>
+      <div id="pay-order" class="note info" style="margin:6px 0 12px;">
+        <strong>当前订单：</strong>请先在上方选择要购买的课程；或直接扫码并备注课程名称。
+      </div>
       <p>
         如果你更习惯直接扫码付款：付款时请<b>备注课程包名称</b>（如「binder 实战」），付款后截图，通过
         <b>微信或邮箱</b>联系我们领取内容。商户收款码办理完成后将自动升级收款方式。
@@ -166,9 +169,14 @@
           canvas.style.display = "block";
         }
       } else {
-        btn.textContent = "购买即将开放";
-        btn.classList.add("ghost");
-        btn.style.pointerEvents = "none";
+        btn.addEventListener("click", function () {
+          var name = btn.getAttribute("data-name") || "所选课程";
+          var price = btn.getAttribute("data-price") || "";
+          var order = document.getElementById("pay-order");
+          if (order) {
+            order.innerHTML = "<strong>当前订单：</strong>" + name + "（" + price + "）—— 扫码付款时请备注「" + name + "」，付款后截图并通过留言板/微信联系领取内容。";
+          }
+        });
       }
     });
   })();
