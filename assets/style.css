@@ -295,7 +295,7 @@ hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
 .pay-grid { display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
 .pay-item { text-align: center; }
 .pay-item img {
-  width: 190px; height: 190px; object-fit: contain;
+  width: 200px; max-width: 100%; height: auto; max-height: 360px;
   border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 6px;
 }
 .pay-item .ph {
