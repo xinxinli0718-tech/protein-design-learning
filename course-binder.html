@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程：RFdiffusion binder 设计实战 · 蛋白质设计学习指南</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container" style="max-width:820px;padding-top:34px;">
+  <p><a href="courses.html">← 返回课程计划</a></p>
+  <h1 style="margin:10px 0 4px;">RFdiffusion binder 设计实战（6 周）</h1>
+  <p class="section-desc">目标：6 周内从「知道 binder 设计」到「独立完成一个 mini-protein binder 设计项目」，产出可送实验验证的候选序列。</p>
+
+  <div class="card syllabus" style="margin:20px 0;">
+    <h3 style="margin-top:0;">课程大纲</h3>
+    <table>
+      <thead><tr><th>周</th><th>主题</th><th>核心产出</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td>W1</td><td>建立全流程心智 + 选定靶点</td><td>靶点分析报告</td><td>✅ 已上线</td></tr>
+        <tr><td>W2</td><td>界面与热点分析</td><td>热点清单 + 约束定义</td><td class="wip">制作中</td></tr>
+        <tr><td>W3</td><td>RFdiffusion binder 模式跑通</td><td>第一批骨架（~100 条）</td><td class="wip">制作中</td></tr>
+        <tr><td>W4</td><td>ProteinMPNN 序列设计 + 筛选</td><td>候选序列集（~8×N）</td><td class="wip">制作中</td></tr>
+        <tr><td>W5</td><td>AlphaFold 自洽性回测 + 打分排序</td><td>Top 20 设计</td><td class="wip">制作中</td></tr>
+        <tr><td>W6</td><td>候选筛选清单 + 实验规划 + 复盘</td><td>可投稿/可送实验的完整包</td><td class="wip">制作中</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lesson">
+    <h3>第 1 周：建立全流程心智 + 选定靶点</h3>
+    <div class="lesson-meta">预计 3–4 小时 · 产出：一份「靶点分析报告」</div>
+
+    <h4>1.1 先建立整体心智地图</h4>
+    <p>现代 binder 设计是一条标准流水线，先把五个环节刻进脑子里，之后每周只是把某一环做深：</p>
+    <ol>
+      <li><strong>选靶点 + 定义界面</strong>：决定要结合目标蛋白的哪个表面、哪个「热区」；</li>
+      <li><strong>生成骨架</strong>：RFdiffusion 对着靶点生长一条全新 mini-protein（binder）骨架；</li>
+      <li><strong>设计序列</strong>：ProteinMPNN 把骨架「翻译」成氨基酸序列；</li>
+      <li><strong>回测验证</strong>：AlphaFold/ColabFold 预测「设计序列会折叠成什么样」，和设计骨架对比；</li>
+      <li><strong>实验验证</strong>：表达、纯化、结合实验（酵母展示/BLI/SPR/cryo-EM）。</li>
+    </ol>
+    <p>你现在要理解的核心论文与工具对应关系：热区/界面 → <a href="literature.html">Cao 2022</a>；骨架生成 → <a href="literature.html">RFdiffusion 2023</a>；序列设计 → <a href="literature.html">ProteinMPNN 2022</a>；回测闭环 → AlphaFold/ColabFold。</p>
+
+    <h4>1.2 选定你的靶点（本周最重要的决定）</h4>
+    <p>课程成功的一半取决于靶点选得好不好。选靶点四条原则：</p>
+    <ul>
+      <li><strong>有高质量结构</strong>：PDB 里有分辨率较好的单体结构（≤3 Å，覆盖你要结合的界面）；</li>
+      <li><strong>有明确生物学动机</strong>：阻断某个相互作用、靶向某个疾病相关蛋白——动机清楚，故事才成立；</li>
+      <li><strong>结构域不要太大太柔性</strong>：优先选 100–400 aa 的球状结构域作为结合面，避免大片无序区；</li>
+      <li><strong>你自己能验证</strong>：你有表达/结合实验条件（或能合作）——没有验证闭环，设计只是 PPT。</li>
+    </ul>
+    <p>示例（可当练习靶点）：SARS-CoV-2 RBD（PDB 6M0J）、流感 HA、你实验室关心的 RNR 亚基界面——拿熟蛋白练手最省心。</p>
+
+    <h4>1.3 实操：把靶点结构拉到本地并「看一眼」</h4>
+    <ol>
+      <li>去 <a href="https://www.rcsb.org" target="_blank" rel="noopener">RCSB</a> 搜你的蛋白，下载 PDB 文件（优先下载 biological assembly 或你关心的单链）；</li>
+      <li>用 ChimeraX 打开：<code>open 6m0j.pdb</code>；</li>
+      <li>确认你想要的结合表面 <strong>没有</strong> 被糖基化/无序区/其他链遮挡；</li>
+      <li>把「想阻断的天然相互作用伙伴」结构也打开（如果有），看它到底结合在哪个表面——你的 binder 要抢占的正是这块。</li>
+    </ol>
+
+    <h4>1.4 环境自检（一次配好，六周复用）</h4>
+    <ul>
+      <li>Google 账号（用 Colab）；</li>
+      <li>ChimeraX（本地可视化，本周已用）；</li>
+      <li>能打开并运行 <a href="https://colab.research.google.com/github/RosettaCommons/RFdiffusion/blob/main/examples/diffuser.ipynb" target="_blank" rel="noopener">RFdiffusion Colab</a>（本周只需跑到安装完成即可，不用出结果）；</li>
+      <li>会读 pLDDT/pTM（复习 <a href="glossary.html">术语表</a> 与免费实操任务「ColabFold 第一次预测」）。</li>
+    </ul>
+
+    <h4>1.5 本周作业（产出模板）</h4>
+    <div class="todo-box">
+      写一份 1 页靶点分析报告，包含：①靶点名称与 PDB ID；②想阻断的相互作用/生物学动机（2–3 句）；③拟结合表面截图 + 一句话说明为什么选这块；④你判断的难点（柔性/糖基化/无已知相互作用伙伴）；⑤验证手段（用什么实验判断 binder 成功）。
+    </div>
+    <p>写完把报告发我（或贴在留言板），我们一起确认靶点可行再进第 2 周。不要跳过这步直接跑扩散——90% 的失败设计都源于界面定义不清。</p>
+  </div>
+
+  <div class="lesson" style="text-align:center;color:var(--muted);">
+    第 2–6 周内容制作中，将按周陆续更新……
+  </div>
+</div>
+</body>
+</html>
