@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会员中心 · 蛋白质设计学习指南</title>
+  <meta name="description" content="注册登录会员，兑换课程码并管理你的课程权益。">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">蛋白质设计<span class="dot">·</span>学习指南</a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="concepts.html">核心概念</a>
+      <a href="software.html">软件工具</a>
+      <a href="literature.html">重要文献</a>
+      <a href="resources.html">学习资源</a>
+      <a href="practice.html">实践中心</a>
+      <a href="glossary.html">术语表</a>
+      <a href="message.html">留言板</a>
+      <a href="member.html" class="active">会员中心</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero practice-hero">
+  <div class="container">
+    <div class="hero-badges">
+      <span class="badge">邮箱注册</span>
+      <span class="badge teal">课程绑定账号</span>
+      <span class="badge amber">换设备不丢权益</span>
+    </div>
+    <h1>会员中心</h1>
+    <p class="sub">
+      注册一个账号，把购买的课程绑定到自己名下；以后换电脑、换手机，
+      登录同一个账号就能继续学习。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width:760px;">
+    <div id="member-msg" class="note" style="display:none;"></div>
+
+    <div id="auth-view">
+      <div class="card" id="login-box">
+        <h3 style="margin-top:0;">登录</h3>
+        <form id="login-form" style="margin-top:12px;">
+          <label style="display:block;font-size:14px;margin-bottom:4px;">邮箱</label>
+          <input class="searchbox" id="login-email" type="email" required placeholder="you@example.com" autocomplete="email" style="max-width:100%;margin:0 0 12px;">
+          <label style="display:block;font-size:14px;margin-bottom:4px;">密码</label>
+          <input class="searchbox" id="login-password" type="password" required autocomplete="current-password" style="max-width:100%;margin:0 0 14px;">
+          <button class="btn" type="submit">登录</button>
+        </form>
+        <p style="margin:12px 0 0;font-size:13.5px;color:var(--muted);">
+          还没有账号？<a href="#" id="show-register">注册一个 →</a>
+        </p>
+      </div>
+
+      <div class="card" id="register-box" style="display:none;">
+        <h3 style="margin-top:0;">注册</h3>
+        <form id="register-form" style="margin-top:12px;">
+          <label style="display:block;font-size:14px;margin-bottom:4px;">邮箱</label>
+          <input class="searchbox" id="reg-email" type="email" required placeholder="you@example.com" autocomplete="email" style="max-width:100%;margin:0 0 12px;">
+          <label style="display:block;font-size:14px;margin-bottom:4px;">密码（至少 6 位）</label>
+          <input class="searchbox" id="reg-password" type="password" required autocomplete="new-password" style="max-width:100%;margin:0 0 12px;">
+          <label style="display:block;font-size:14px;margin-bottom:4px;">重复密码</label>
+          <input class="searchbox" id="reg-password2" type="password" required autocomplete="new-password" style="max-width:100%;margin:0 0 14px;">
+          <button class="btn" type="submit">注册</button>
+        </form>
+        <p style="margin:12px 0 0;font-size:13.5px;color:var(--muted);">
+          已有账号？<a href="#" id="show-login">直接登录 →</a>
+        </p>
+      </div>
+    </div>
+
+    <div id="member-view" style="display:none;">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+          <div>
+            <h3 style="margin:0 0 2px;">欢迎回来</h3>
+            <p style="margin:0;font-size:14px;color:var(--muted);">会员邮箱：<strong id="member-email"></strong></p>
+          </div>
+          <button class="btn small" id="logout-btn" type="button">退出登录</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">兑换课程码</h3>
+        <p style="margin:0 0 10px;font-size:14px;color:var(--muted);">
+          购买了课程？输入课程商品页提供的兑换码，权益立即绑定到当前账号。
+        </p>
+        <form id="redeem-form" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <select id="redeem-course" class="searchbox" style="flex:1 1 180px;margin:0;max-width:100%;">
+            <option value="binder">binder 设计实战</option>
+            <option value="denovo">从头设计（de novo）实战</option>
+            <option value="enzyme">酶设计入门</option>
+            <option value="bundle">三包合购</option>
+          </select>
+          <input id="redeem-code" class="searchbox" type="text" placeholder="PDG-XXXX-XXXX" autocomplete="off" style="flex:2 1 240px;margin:0;max-width:100%;">
+          <button class="btn" type="submit">兑换并绑定</button>
+        </form>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">我的课程</h3>
+        <div id="entitlement-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>蛋白质设计学习指南 · 会员中心</span>
+    <span><a href="courses.html">课程计划</a></span>
+    <span><a href="disclaimer.html">免责声明与致谢</a></span>
+  </div>
+</footer>
+
+<button class="back-top" aria-label="回到顶部">↑</button>
+<script src="assets/member-config.js"></script>
+<script src="assets/member.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
