@@ -40,7 +40,7 @@ set search_path = public
 as $$
 declare
   v_user  uuid := auth.uid();
-  v_found boolean;
+  v_found boolean := false;
 begin
   if v_user is null then
     raise exception '请先登录';
@@ -53,9 +53,9 @@ begin
    where lower(trim(p_code)) = code
      and course = p_course
      and status = 'unused'
-  returning true into v_found;
+   returning true into v_found;
 
-  if not v_found then
+  if v_found is not true then
     raise exception '兑换码不存在或已被使用';
   end if;
 
@@ -75,5 +75,10 @@ $$;
 revoke all on function public.redeem_code(text, text) from public;
 grant execute on function public.redeem_code(text, text) to authenticated;
 
--- 5) 可选：给现有未使用兑换码生成随机码的 SQL 由脚本提供，不要手工编短码
+-- 5) 清理开发期自动测试产生的账号（只匹配我们自测用的邮箱前缀，可安全重复运行）
+delete from public.entitlements
+ where user_id in (select id from auth.users where email like 'pdg-selftest-%@example.com');
+delete from auth.users where email like 'pdg-selftest-%@example.com';
+
+-- 6) 可选：给现有未使用兑换码生成随机码的 SQL 由脚本提供，不要手工编短码
 --    示例：insert into redemption_codes (code, course) values ('xxxxx', 'binder');
