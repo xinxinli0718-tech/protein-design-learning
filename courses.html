@@ -115,7 +115,7 @@
         <li>在商品页获取兑换码，回到课程页输入兑换码，正文与每周自测即刻解锁。</li>
       </ol>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--muted);">
-        面包多审核通过后按钮即自动生效；当前阶段为流程预展示。
+        课程已在面包多正式上架：「立即购买」会直接打开对应商品页，微信/支付宝支付后立刻可读。
       </p>
     </div>
   </div>
@@ -133,9 +133,9 @@
 <script>
   // 拿到正式商品/收款链接后，把每个商品的购买链接填进这里，按钮和二维码会自动生效
   var PAY_LINKS = {
-    binder: "",
-    denovo: "",
-    enzyme: "",
+    binder: "https://mbd.pub/o/bread/YZaVlJtwZQ==",
+    denovo: "https://mbd.pub/o/bread/YZaVlJtwZg==",
+    enzyme: "https://mbd.pub/o/bread/YZaVlJtwZw==",
     bundle: ""
   };
   (function () {
@@ -152,7 +152,7 @@
           var price = btn.getAttribute("data-price") || "";
           var order = document.getElementById("pay-order");
           if (order) {
-            order.innerHTML = "<strong>当前订单：</strong>" + name + "（" + price + "）。支付通道接入后，此按钮将直接进入商品页，支付完成即可解锁，无需备注或联系。";
+            order.innerHTML = "<strong>当前订单：</strong>" + name + "（" + price + "）。该商品暂未开放，可先购买单门课程。";
           }
         });
       }
