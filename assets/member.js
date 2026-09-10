@@ -1,4 +1,4 @@
-/* 会员系统（邮箱注册/登录 + 兑换码绑定课程） */
+/* 会员系统（邮箱注册/登录；网站自测对会员免费开放） */
 (function () {
   var CFG = window.MEMBER_CONFIG || {};
   var SESSION_KEY = "pdg-session";
