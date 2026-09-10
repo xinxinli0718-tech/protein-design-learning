@@ -27,6 +27,7 @@ create table if not exists public.entitlements (
 alter table public.entitlements enable row level security;
 
 -- 会员只能看到自己的权益记录
+drop policy if exists entitlements_select_own on public.entitlements;
 create policy entitlements_select_own on public.entitlements
   for select using (auth.uid() = user_id);
 
