@@ -10,18 +10,80 @@
     });
   }
 
-  // ---------- Microsoft Translator widget (full-page translation) ----------
-  var tw = document.createElement("div");
-  tw.id = "MicrosoftTranslatorWidget";
-  tw.className = "dark";
-  tw.style.cssText = "position:fixed;bottom:14px;right:14px;z-index:999;";
-  document.body.appendChild(tw);
-  var ts = document.createElement("script");
-  ts.type = "text/javascript";
-  ts.charset = "UTF-8";
-  ts.src = (location.protocol === "https:" ? "https://ssl.microsofttranslator.com" : "http://www.microsofttranslator.com") +
-    "/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGQM5nkJp0mWU2W2TfV1sN6sZYSWU9bUQ6jPNA0wVhLf0t2U8oM";
-  (document.head || document.documentElement).appendChild(ts);
+  // ---------- 多语言切换（Google 翻译整页翻译，主要服务海外访客） ----------
+  var LANGS = [
+    { code: "zh-CN", label: "简体中文" },
+    { code: "en", label: "English" },
+    { code: "es", label: "Español" },
+    { code: "ja", label: "日本語" },
+    { code: "ko", label: "한국어" },
+    { code: "de", label: "Deutsch" },
+    { code: "fr", label: "Français" },
+    { code: "ru", label: "Русский" },
+    { code: "pt", label: "Português" },
+    { code: "ar", label: "العربية" }
+  ];
+
+  function currentLang() {
+    var m = document.cookie.match(/googtrans=\/zh-CN\/([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : "zh-CN";
+  }
+
+  function setLang(code) {
+    var host = location.hostname;
+    if (code === "zh-CN") {
+      var kill = "expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      document.cookie = "googtrans=; " + kill;
+      if (host) document.cookie = "googtrans=; " + kill + ";domain=" + host;
+    } else {
+      var v = "googtrans=/zh-CN/" + code + ";path=/";
+      document.cookie = v;
+      if (host) document.cookie = v + ";domain=" + host;
+    }
+    location.reload();
+  }
+
+  (function mountLangSwitcher() {
+    var wrap = document.createElement("div");
+    wrap.className = "lang-switch";
+    var sel = document.createElement("select");
+    sel.className = "lang-select";
+    sel.setAttribute("aria-label", "语言 / Language");
+    sel.title = "语言 / Language";
+    LANGS.forEach(function (l) {
+      var opt = document.createElement("option");
+      opt.value = l.code;
+      opt.textContent = l.label;
+      if (l.code === currentLang()) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener("change", function () { setLang(sel.value); });
+    wrap.appendChild(sel);
+    var nav = document.querySelector(".nav-links");
+    if (nav) {
+      nav.appendChild(wrap);
+    } else {
+      wrap.classList.add("floating");
+      document.body.appendChild(wrap);
+    }
+  })();
+
+  var gt = document.createElement("div");
+  gt.id = "google_translate_element";
+  gt.style.cssText = "position:fixed;left:-9999px;top:-9999px;";
+  document.body.appendChild(gt);
+  window.googleTranslateElementInit = function () {
+    /* global google */
+    new google.translate.TranslateElement({
+      pageLanguage: "zh-CN",
+      includedLanguages: "en,zh-CN,es,ja,ko,de,fr,ru,pt,ar",
+      autoDisplay: false
+    }, "google_translate_element");
+  };
+  var gts = document.createElement("script");
+  gts.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  gts.async = true;
+  (document.head || document.documentElement).appendChild(gts);
 
   // ---------- Mobile nav ----------
   var toggle = document.querySelector(".nav-toggle");

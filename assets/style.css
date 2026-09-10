@@ -338,6 +338,21 @@ hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
 .quiz-feedback.note.tip { background: var(--teal-soft); color: #0f4f48; }
 .quiz-feedback.note.warn { background: var(--amber-soft); color: #7c4a03; }
 .quiz-feedback strong { display: inline; margin-right: 6px; }
+
+/* ---------- Language switcher ---------- */
+.lang-switch { margin-left: 10px; }
+.lang-select {
+  font: inherit; font-size: 13px; padding: 5px 8px; border-radius: 8px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer;
+}
+.lang-switch.floating {
+  position: fixed; top: 12px; right: 12px; z-index: 999;
+  background: #fff; padding: 6px; border-radius: 10px; box-shadow: var(--shadow);
+}
+@media (max-width: 760px) {
+  .lang-switch { width: 100%; margin: 8px 0 0; }
+  .lang-switch.floating { width: auto; margin: 0; }
+}
 .step-done {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
   font-size: 14px; color: var(--muted); cursor: pointer;
