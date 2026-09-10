@@ -55,6 +55,20 @@
     box.textContent = msg;
     box.className = "note " + (type === "ok" ? "tip" : "warn");
     box.style.display = "block";
+    try { box.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
+  }
+
+  function setBusy(form, busy, label) {
+    var btn = form.querySelector('button[type="submit"]');
+    if (!btn) return;
+    if (busy) {
+      btn.dataset.idleLabel = btn.textContent;
+      btn.textContent = label;
+      btn.disabled = true;
+    } else {
+      if (btn.dataset.idleLabel) btn.textContent = btn.dataset.idleLabel;
+      btn.disabled = false;
+    }
   }
 
   function signUp(email, password) {
@@ -156,12 +170,14 @@
       e.preventDefault();
       var email = document.getElementById("login-email").value.trim();
       var pass = document.getElementById("login-password").value;
+      setBusy(loginForm, true, "登录中…");
       showMsg("登录中…", "info");
       signIn(email, pass).then(function (data) {
         setSession(data);
         enterMember();
         showMsg("登录成功", "ok");
-      }).catch(function (err) { showMsg(err.message, "err"); });
+      }).catch(function (err) { showMsg(err.message, "err"); })
+        .finally(function () { setBusy(loginForm, false); });
     });
 
     if (regForm) regForm.addEventListener("submit", function (e) {
@@ -171,16 +187,21 @@
       var pass2 = document.getElementById("reg-password2").value;
       if (pass.length < 6) { showMsg("密码至少 6 位", "err"); return; }
       if (pass !== pass2) { showMsg("两次密码不一致", "err"); return; }
+      setBusy(regForm, true, "注册中…");
       showMsg("注册中…", "info");
       signUp(email, pass).then(function (data) {
         if (data && data.access_token) {
           setSession(data);
           enterMember();
-          showMsg("注册成功", "ok");
+          showMsg("✅ 注册成功，已自动登录", "ok");
         } else {
           showMsg("注册成功，请到邮箱点击确认链接后再登录", "ok");
         }
-      }).catch(function (err) { showMsg(err.message, "err"); });
+      }).catch(function (err) {
+        var m = err.message || "";
+        if (/already registered/i.test(m)) m = "这个邮箱已经注册过了，直接登录即可。";
+        showMsg(m, "err");
+      }).finally(function () { setBusy(regForm, false); });
     });
 
     if (redeemForm) redeemForm.addEventListener("submit", function (e) {
@@ -188,6 +209,7 @@
       var course = document.getElementById("redeem-course").value;
       var code = document.getElementById("redeem-code").value.trim();
       if (!code) { showMsg("请输入兑换码", "err"); return; }
+      setBusy(redeemForm, true, "兑换中…");
       showMsg("兑换中…", "info");
       redeem(course, code).then(function () {
         return fetchEntitlements();
@@ -195,7 +217,8 @@
         renderDashboard(getSession() && getSession().user ? getSession().user : null, ents || []);
         applyUnlocks(ents || []);
         showMsg("✅ 兑换成功，课程已绑定到你的会员账号", "ok");
-      }).catch(function (err) { showMsg(err.message, "err"); });
+      }).catch(function (err) { showMsg(err.message, "err"); })
+        .finally(function () { setBusy(redeemForm, false); });
     });
 
     if (logoutBtn) logoutBtn.addEventListener("click", function () {
