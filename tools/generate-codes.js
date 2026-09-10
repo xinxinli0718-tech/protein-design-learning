@@ -38,7 +38,11 @@ while (rows.length < count) {
 
 if (wantSql) {
   const values = rows.map((c) => "('" + c + "','" + course + "')").join(",\n  ");
-  console.log("insert into public.redemption_codes (code, course) values\n  " + values + ";");
+  console.log(
+    "insert into public.redemption_codes (code, course) values\n  " +
+    values +
+    "\non conflict (code) do nothing;"
+  );
 } else {
   rows.forEach((c) => console.log(c));
 }
