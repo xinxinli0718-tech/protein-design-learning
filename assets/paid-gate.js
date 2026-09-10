@@ -1,12 +1,8 @@
 /* 付费解锁：课程正文/自测默认隐藏，输入兑换码后本机解锁。
    注意：这是静态站点的轻量方案（防君子不防高手）；真正的内容保护由面包多商品页承担。 */
 (function () {
-  window.PAID_CODES = {
-    binder: "binder2026",
-    denovo: "denovo2026",
-    enzyme: "enzyme2026",
-    bundle: "pdgall2026"
-  };
+  /* 课程正文已在面包多上架，网站不再发放网站兑换码；此表留空即可。 */
+  window.PAID_CODES = {};
   var STORE_PREFIX = "pdg-unlocked-";
 
   window.isCourseUnlocked = function (course) {
@@ -36,6 +32,20 @@
     if (!holder || !course) return;
     var gate = document.createElement("div");
     gate.className = "paid-gate note warn";
+    var expect = (window.PAID_CODES || {})[course];
+    if (!expect) {
+      gate.innerHTML =
+        '<strong>📚 完整课程正文在面包多阅读</strong>' +
+        '<p style="margin:6px 0;">网站保留课程大纲与试读；购买后请在面包多商品页直接阅读全文（支付后自动交付）。' +
+        '每周自测保留在网站，注册会员即可免费做。</p>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' +
+        '<a class="btn small" href="courses.html">去课程计划购买 →</a>' +
+        '<a class="btn small" href="member.html" style="background:transparent;color:var(--brand);border:1px solid var(--brand);">会员中心 →</a>' +
+        '</div>';
+      holder.appendChild(gate);
+      document.querySelectorAll(".lesson.paid").forEach(function (el) { el.style.display = "none"; });
+      return;
+    }
     gate.innerHTML =
       '<strong>🔒 本部分为付费课程内容</strong>' +
       '<p style="margin:6px 0;">课程大纲免费公开；正文与自测在购买后解锁。<a href="courses.html">回到课程计划购买 →</a></p>' +

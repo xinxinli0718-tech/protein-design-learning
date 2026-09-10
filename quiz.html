@@ -38,12 +38,13 @@
     <div class="hero-badges">
       <span class="badge">自动判分</span>
       <span class="badge teal">标准答案+解析</span>
-      <span class="badge amber">80 分通过</span>
+      <span class="badge amber">注册会员免费做</span>
     </div>
     <h1>每周自测</h1>
     <p class="sub">
       学完一周就测一周：选择题检验你是否真的掌握了关键概念和操作判断，
       交卷立即出分、逐题显示解析，答错的知识点回到对应课程章节复习。
+      课程正文在面包多阅读；网站自测对注册会员免费开放。
     </p>
     <div class="note tip" style="max-width:760px;">
       <strong>使用说明</strong>
@@ -58,8 +59,8 @@
 
     <div class="note info" style="margin-top:28px;">
       <strong>还没解锁全部自测？</strong>
-      课程自测对已购买学员开放。购买后到 <a href="member.html">会员中心</a> 用兑换码绑定账号，13 套自测自动解锁；
-      还没购买？先看 <a href="courses.html">课程计划</a>（binder 第 1 周免费试读）。
+      不需要兑换码：到 <a href="member.html">会员中心</a> 用邮箱免费注册，即可做全部 13 套自测并保存成绩。
+      课程正文在 <a href="courses.html">课程计划</a> 对应的面包多商品页阅读。
     </div>
   </div>
 </section>
@@ -104,53 +105,38 @@
       badge = rec.score >= qz.passMark
         ? '<span class="badge teal">已通过 ' + rec.score + ' 分</span>'
         : '<span class="badge amber">上次 ' + rec.score + ' 分</span>';
-    } else if (!window.isCourseUnlocked(qz.course)) {
-      badge = '<span class="badge amber">🔒 付费解锁</span>';
+    } else if (!isLoggedIn()) {
+      badge = '<span class="badge amber">注册会员免费做</span>';
     } else {
       badge = '<span class="badge gray">未测验</span>';
     }
     return badge;
   }
 
-  function requestUnlock(course, callback) {
+  function isLoggedIn() {
+    try { return !!JSON.parse(localStorage.getItem("pdg-session") || "null"); }
+    catch (e) { return false; }
+  }
+
+  function requestLogin() {
     var overlay = document.createElement("div");
     overlay.style.cssText = "position:fixed;inset:0;background:rgba(20,24,38,.45);z-index:60;display:flex;align-items:center;justify-content:center;padding:18px;";
     var card = document.createElement("div");
     card.className = "card";
     card.style.cssText = "max-width:420px;width:100%;";
     card.innerHTML =
-      '<h3 style="margin:0 0 6px;">🔒 付费课程内容</h3>' +
-      '<p style="margin:0 0 10px;">本课程自测需要兑换码解锁。购买后请在面包多商品页查看兑换码。<a href="courses.html" target="_blank" rel="noopener">去购买 →</a></p>' +
-      '<input class="paid-code" type="text" inputmode="latin" autocomplete="off" placeholder="输入兑换码" style="width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;box-sizing:border-box;">' +
-      '<p class="paid-msg" style="min-height:20px;margin:6px 0 0;font-size:13px;color:var(--muted);"></p>' +
+      '<h3 style="margin:0 0 6px;">🔓 注册会员免费做自测</h3>' +
+      '<p style="margin:0 0 10px;">自测不需要购买课程：注册一个邮箱账号，即可免费使用全部 13 套测验并保存成绩。</p>' +
+      '<p style="margin:0;font-size:13px;color:var(--muted);">注册或登录后回到本页刷新，即可开始答题。</p>' +
       '<div style="display:flex;gap:8px;margin-top:10px;">' +
-      '<button class="btn ok" style="flex:1;">解锁</button>' +
+      '<a class="btn" href="member.html" target="_blank" rel="noopener" style="flex:1;text-align:center;">去注册 / 登录 →</a>' +
       '<button class="btn cancel" style="flex:1;background:transparent;color:var(--muted);border:1px solid var(--line);">取消</button>' +
       '</div>';
     overlay.appendChild(card);
     document.body.appendChild(overlay);
-
-    var input = card.querySelector(".paid-code");
-    var msg = card.querySelector(".paid-msg");
-    var okBtn = card.querySelector(".ok");
     var cancelBtn = card.querySelector(".cancel");
     function close() { document.body.removeChild(overlay); }
-    okBtn.addEventListener("click", function () {
-      var ok = window.unlockCourse(course, input.value);
-      if (ok) {
-        close();
-        if (callback) callback();
-      } else {
-        msg.textContent = "兑换码不正确，请核对后重试。";
-        msg.style.color = "#b42318";
-      }
-    });
     cancelBtn.addEventListener("click", close);
-    input.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") okBtn.click();
-      if (e.key === "Escape") close();
-    });
-    input.focus();
   }
 
   function renderList() {
@@ -164,8 +150,8 @@
       html += '<h3 style="margin:0 0 10px;">' + name + '</h3>';
       html += '<div class="cards-grid">';
       groups[name].forEach(function (qz) {
-        var locked = !window.isCourseUnlocked(qz.course);
-        var btnLabel = locked ? "解锁后开始测验" : "开始测验";
+        var locked = !isLoggedIn();
+        var btnLabel = locked ? "注册会员免费做" : "开始测验";
         html += '<div class="card">';
         html += '<div class="step-meta">' + quizMeta(qz) + '</div>';
         html += '<h3>' + qz.title + '</h3>';
@@ -178,13 +164,10 @@
     view.innerHTML = html;
     view.querySelectorAll(".quiz-start").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        var course = btn.getAttribute("data-course");
-        if (window.isCourseUnlocked(course)) {
+        if (isLoggedIn()) {
           renderQuiz(btn.getAttribute("data-id"));
         } else {
-          requestUnlock(course, function () {
-            renderQuiz(btn.getAttribute("data-id"));
-          });
+          requestLogin();
         }
       });
     });
@@ -193,8 +176,8 @@
   function renderQuiz(id) {
     var qz = QUIZZES.filter(function (q) { return q.id === id; })[0];
     if (!qz) return;
-    if (!window.isCourseUnlocked(qz.course)) {
-      requestUnlock(qz.course, function () { renderQuiz(id); });
+    if (!isLoggedIn()) {
+      requestLogin();
       return;
     }
     var html = '<div class="card" style="max-width:820px;margin:0 auto;">';
@@ -296,11 +279,11 @@
   var hashQuiz = location.hash ? location.hash.slice(1) : "";
   if (hashQuiz && QUIZZES.some(function (q) { return q.id === hashQuiz; })) {
     var target = QUIZZES.filter(function (q) { return q.id === hashQuiz; })[0];
-    if (target && window.isCourseUnlocked(target.course)) {
+    if (target && isLoggedIn()) {
       renderQuiz(hashQuiz);
     } else if (target) {
       renderList();
-      requestUnlock(target.course, function () { renderQuiz(hashQuiz); });
+      requestLogin();
     } else {
       renderList();
     }

@@ -96,24 +96,19 @@
       </div>
 
       <div class="card" style="margin-top:16px;">
-        <h3 style="margin-top:0;">兑换课程码</h3>
+        <h3 style="margin-top:0;">会员权益说明</h3>
         <p style="margin:0 0 10px;font-size:14px;color:var(--muted);">
-          购买了课程？输入课程商品页提供的兑换码，权益立即绑定到当前账号。
+          注册会员后，网站上全部 13 套自动判分自测免费开放，成绩保存在你的账号里。
+          课程完整正文在面包多商品页购买与阅读（支付后自动交付），网站保留大纲与试读，不需要兑换码。
         </p>
-        <form id="redeem-form" style="display:flex;gap:10px;flex-wrap:wrap;">
-          <select id="redeem-course" class="searchbox" style="flex:1 1 180px;margin:0;max-width:100%;">
-            <option value="binder">binder 设计实战</option>
-            <option value="denovo">从头设计（de novo）实战</option>
-            <option value="enzyme">酶设计入门</option>
-            <option value="bundle">三包合购</option>
-          </select>
-          <input id="redeem-code" class="searchbox" type="text" placeholder="PDG-XXXX-XXXX" autocomplete="off" style="flex:2 1 240px;margin:0;max-width:100%;">
-          <button class="btn" type="submit">兑换并绑定</button>
-        </form>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a class="btn small" href="quiz.html">去做自测 →</a>
+          <a class="btn small" href="courses.html" style="background:transparent;color:var(--brand);border:1px solid var(--brand);">查看课程计划 →</a>
+        </div>
       </div>
 
       <div class="card" style="margin-top:16px;">
-        <h3 style="margin-top:0;">我的课程</h3>
+        <h3 style="margin-top:0;">课程入口</h3>
         <div id="entitlement-list"></div>
       </div>
     </div>

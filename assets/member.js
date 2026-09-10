@@ -128,16 +128,14 @@
     var emailText = (user && user.email) || "";
     if (email) email.textContent = emailText;
     if (list) {
-      var owned = {};
-      (entitlements || []).forEach(function (e) { if (e) owned[e.course] = true; });
       list.innerHTML = COURSES.map(function (c) {
-        var ok = !!owned[c.id];
         return '<div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0;">' +
           '<div><h4 style="margin:0 0 2px;">' + c.name + '</h4>' +
-          '<span class="badge ' + (ok ? "teal" : "gray") + '">' + (ok ? "✅ 已解锁" : "未购买") + '</span></div>' +
-          (ok
-            ? '<a class="btn small" href="course-' + c.id + '.html">去学习 →</a>'
-            : '<a class="btn small" href="courses.html">去购买 →</a>') +
+          '<span class="badge teal">自测免费</span></div>' +
+          '<div style="display:flex;gap:6px;">' +
+          '<a class="btn small" href="course-' + c.id + '.html">大纲</a>' +
+          '<a class="btn small" href="quiz.html#' + c.id + '-w1">自测</a>' +
+          '</div>' +
           '</div>';
       }).join("");
     }
