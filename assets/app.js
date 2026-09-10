@@ -25,20 +25,23 @@
   ];
 
   function currentLang() {
+    try {
+      var saved = localStorage.getItem("pdg-lang");
+      if (saved) return saved;
+    } catch (e) {}
     var m = document.cookie.match(/googtrans=\/zh-CN\/([^;]+)/);
     return m ? decodeURIComponent(m[1]) : "zh-CN";
   }
 
   function setLang(code) {
     var host = location.hostname;
+    try { localStorage.setItem("pdg-lang", code); } catch (e) {}
     if (code === "zh-CN") {
       var kill = "expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
       document.cookie = "googtrans=; " + kill;
-      if (host) document.cookie = "googtrans=; " + kill + ";domain=" + host;
     } else {
       var v = "googtrans=/zh-CN/" + code + ";path=/";
       document.cookie = v;
-      if (host) document.cookie = v + ";domain=" + host;
     }
     location.reload();
   }

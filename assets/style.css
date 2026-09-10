@@ -353,6 +353,10 @@ hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
   .lang-switch { width: 100%; margin: 8px 0 0; }
   .lang-switch.floating { width: auto; margin: 0; }
 }
+
+/* Hide Google Translate's default banner/UI; we use our own selector */
+.goog-te-banner-frame, .goog-te-gadget, #goog-gt-tt, .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+body { top: 0 !important; }
 .step-done {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
   font-size: 14px; color: var(--muted); cursor: pointer;
