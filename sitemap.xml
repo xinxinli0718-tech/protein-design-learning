@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://learnproteindesign.com.cn/</loc><priority>1.0</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/index.html</loc><priority>1.0</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/concepts.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/software.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/literature.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/resources.html</loc><priority>0.7</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/practice.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/practice-task.html</loc><priority>0.6</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/glossary.html</loc><priority>0.6</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/courses.html</loc><priority>0.9</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/course-binder.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/course-denovo.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/course-enzyme.html</loc><priority>0.8</priority></url>
+  <url><loc>https://learnproteindesign.com.cn/disclaimer.html</loc><priority>0.3</priority></url>
+</urlset>

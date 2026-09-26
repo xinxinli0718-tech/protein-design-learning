@@ -6,7 +6,7 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const OUT_DIR = path.resolve(ROOT, "..", "paid-content");
-const SITE = "https://xinxinli0718-tech.github.io/protein-design-learning/";
+const SITE = "https://learnproteindesign.com.cn/";
 
 const COURSES = [
   { file: "course-binder.html", out: "binder-mbd.md", title: "RFdiffusion binder 设计实战", weeks: "6 周" },

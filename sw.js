@@ -1,5 +1,5 @@
 /* Service Worker: offline cache for the protein design guide */
-const CACHE_NAME = "pdg-v4";
+const CACHE_NAME = "pdg-v5";
 const ASSETS = [
   "./",
   "./index.html",
@@ -15,6 +15,8 @@ const ASSETS = [
   "./message.html",
   "./quiz.html",
   "./member.html",
+  "./sitemap.xml",
+  "./robots.txt",
   "./manifest.webmanifest",
   "./assets/style.css",
   "./assets/app.js",
