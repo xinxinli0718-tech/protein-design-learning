@@ -17,6 +17,7 @@ const ASSETS = [
   "./member.html",
   "./sitemap.xml",
   "./robots.txt",
+  "./favicon.ico",
   "./manifest.webmanifest",
   "./assets/style.css",
   "./assets/app.js",
