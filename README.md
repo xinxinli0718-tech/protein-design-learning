@@ -17,7 +17,7 @@
 | `practice.html` | 实践中心：任务列表（手机实操伴侣入口） |
 | `practice-task.html` | 实操任务页：分步指导、进度保存、二维码、常见问题 |
 | `disclaimer.html` | 免责声明与致谢（商标归属、外部链接、第三方开源许可） |
-| `courses.html` | 付费课程包占位页（即将上线，早鸟价预留） |
+| `courses.html` | 付费课程包页（已上线，单门 ¥69 / 三课合购 ¥169） |
 | `message.html` | 留言板：留言转发到作者邮箱（Web3Forms，需配置 access key） |
 | `wechat-miniprogram/` | 微信小程序版（导入微信开发者工具即可运行） |
 
