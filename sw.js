@@ -1,5 +1,5 @@
 /* Service Worker: offline cache for the protein design guide */
-const CACHE_NAME = "pdg-v6";
+const CACHE_NAME = "pdg-v7";
 const ASSETS = [
   "./",
   "./index.html",
@@ -11,7 +11,10 @@ const ASSETS = [
   "./practice.html",
   "./practice-task.html",
   "./disclaimer.html",
+  "./courses.html",
   "./message.html",
+  "./quiz.html",
+  "./member.html",
   "./sitemap.xml",
   "./robots.txt",
   "./favicon.ico",
@@ -19,6 +22,10 @@ const ASSETS = [
   "./assets/style.css",
   "./assets/app.js",
   "./assets/practice-data.js",
+  "./assets/quiz-data.js",
+  "./assets/course-gate.js",
+  "./assets/member-config.js",
+  "./assets/member.js",
   "./assets/vendor/qrcode.js",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png"

@@ -1,0 +1,106 @@
+/* 付费解锁：课程正文/自测默认隐藏，输入兑换码后本机解锁。
+   注意：这是静态站点的轻量方案（防君子不防高手）；真正的内容保护由面包多商品页承担。 */
+(function () {
+  /* 课程正文已在面包多上架，网站不再发放网站兑换码；此表留空即可。 */
+  window.COURSE_CODES = {};
+  var STORE_PREFIX = "pdg-unlocked-";
+
+  window.isCourseUnlocked = function (course) {
+    try { return localStorage.getItem(STORE_PREFIX + course) === "1"; }
+    catch (e) { return false; }
+  };
+
+  window.unlockCourse = function (course, code) {
+    var expect = (window.COURSE_CODES || {})[course];
+    if (!expect) return false;
+    if (String(code || "").trim().toLowerCase() !== expect.toLowerCase()) return false;
+    try { localStorage.setItem(STORE_PREFIX + course, "1"); } catch (e) {}
+    return true;
+  };
+
+  window.lockCourse = function (course) {
+    try { localStorage.removeItem(STORE_PREFIX + course); } catch (e) {}
+  };
+
+  function guessCourseFromPath() {
+    var m = location.pathname.match(/course-([a-z]+)\.html/);
+    return m ? m[1] : null;
+  }
+
+  function buildGateUI(course) {
+    var holder = document.querySelector(".course-gate-holder");
+    if (!holder || !course) return;
+    var gate = document.createElement("div");
+    gate.className = "course-gate note warn";
+    var expect = (window.COURSE_CODES || {})[course];
+    if (!expect) {
+      gate.innerHTML =
+        '<strong>📚 完整课程正文在面包多阅读</strong>' +
+        '<p style="margin:6px 0;">网站保留课程大纲与试读；购买后请在面包多商品页直接阅读全文（支付后自动交付）。' +
+        '每周自测保留在网站，注册会员即可免费做。</p>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' +
+        '<a class="btn small" href="courses.html">去课程计划购买 →</a>' +
+        '<a class="btn small" href="member.html" style="background:transparent;color:var(--brand);border:1px solid var(--brand);">会员中心 →</a>' +
+        '</div>';
+      holder.appendChild(gate);
+      document.querySelectorAll(".lesson.locked").forEach(function (el) { el.style.display = "none"; });
+      return;
+    }
+    gate.innerHTML =
+      '<strong>🔒 本部分为付费课程内容</strong>' +
+      '<p style="margin:6px 0;">课程大纲免费公开；正文与自测在购买后解锁。<a href="courses.html">回到课程计划购买 →</a></p>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' +
+      '<input class="unlock-code" type="text" inputmode="latin" autocomplete="off" placeholder="输入购买后收到的兑换码" style="flex:1 1 220px;min-width:180px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;">' +
+      '<button class="btn small unlock-btn">解锁</button>' +
+      '<button class="btn small lock-btn" style="background:transparent;color:var(--muted);border:1px solid var(--line);display:none;">退出</button>' +
+      '</div>' +
+      '<p class="unlock-msg" style="margin:6px 0 0;font-size:13px;color:var(--muted);"></p>';
+    holder.appendChild(gate);
+
+    var input = gate.querySelector(".unlock-code");
+    var unlockBtn = gate.querySelector(".unlock-btn");
+    var lockBtn = gate.querySelector(".lock-btn");
+    var msg = gate.querySelector(".unlock-msg");
+
+    function applyUnlocked(state) {
+      document.querySelectorAll(".lesson.locked").forEach(function (el) {
+        el.style.display = state ? "block" : "none";
+      });
+      gate.style.display = state ? "none" : "";
+      if (state) lockBtn.style.display = "";
+    }
+
+    unlockBtn.addEventListener("click", function () {
+      var ok = window.unlockCourse(course, input.value);
+      if (ok) {
+        msg.textContent = "✓ 解锁成功，内容已显示。";
+        msg.style.color = "#0f4f48";
+        applyUnlocked(true);
+      } else {
+        msg.textContent = "兑换码不正确，请核对后重试。";
+        msg.style.color = "#b42318";
+      }
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") unlockBtn.click();
+    });
+    lockBtn.addEventListener("click", function () {
+      window.lockCourse(course);
+      applyUnlocked(false);
+    });
+
+    applyUnlocked(window.isCourseUnlocked(course));
+  }
+
+  function run() {
+    if (document.querySelector(".course-gate-holder")) {
+      buildGateUI(guessCourseFromPath());
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
